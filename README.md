@@ -1,2 +1,1 @@
-# panda
-# test
+# panda_pilot

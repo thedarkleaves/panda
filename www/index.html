@@ -1,0 +1,527 @@
+<html>
+<head>
+<title>
+PANDA (pilot)
+</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="js/painchart.js"></script>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="css/painchart.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Francois+One&display=swap" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+</head>
+<body>
+<script language="Javascript">
+// global variables
+var screenspeed=1000;
+var painscore;
+var painhours;
+var otherinfo = [];
+var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
+var meds = {
+    "medication": [
+        {
+            "name":"paracetamol",
+            "type":"simple",
+            "dose": ["500mg"]
+        },
+        {
+            "name":"ibuprofen",
+            "type":"anti-inflammatory",
+            "dose":["200mg"]
+        },
+        {
+            "name":"codeine",
+            "type":"opioid",
+            "dose":["30mg","60mg"]
+        },
+        {
+            "name":"tramadol",
+            "type":"opioid",
+            "dose":["50mg"]
+        }
+    ]
+};
+function formatdate(datestring) {
+    splitdate=datestring.split('.');
+    return(splitdate[2]+'/'+splitdate[1]+'/'+splitdate[0]);
+}
+function todayString() {
+    var today = new Date();
+    var monthstring, datestring;
+    // pad with zeros
+    if (today.getMonth()<9) {
+        monthstring = "0" + (today.getMonth()+1);
+    } else {
+        monthstring = (today.getMonth()+1);
+    }
+    if (today.getDate()<10) {
+        datestring = "0" + today.getDate();
+    } else {
+        datestring = today.getDate();
+    }
+    return (today.getFullYear() + "." + monthstring + "." + datestring);
+}
+
+</script>
+
+<div id="hamburger"><hr><hr><hr></div>
+<div id="topbar">PANDA pain diary (pilot)</div>
+
+<div class="screen" id="home">
+    <span class="question" id="welcome">Welcome </span>
+    <div id="painchart" class="halfwidth">graph</div>
+    <button class="command" id="logtoday">today's pain</button>
+</div>
+
+<div class="screen" id="controls">
+    <button id="home_button">timeline</button>
+    <button id="paindiary_button">pain diary</button>
+    <button id="settings_button">settings</button>
+    <button id="signout">sign out</button>
+</div>
+
+<div class="screen" id="authenticator">
+    <span class="question">login</span><br>
+    This application is only for testing. Signing up may allow your 
+    name and any information you enter into the application
+    to be available for research purposes. <hr>
+    <div id="firebaseui-auth-container"></div>
+</div>
+
+<div class="screen" id="loader">Loading...</div>
+
+<div class="screen" id="paindiary1">
+    <span class="question">did you have pain today?</span>
+    <button class="answer" id="todaypainyes">yes</button><button class="answer" id="todaypainno">no</button>
+</div>
+
+<div class="screen" id="paindiary2">
+    <span class="question">how would you rate your pain for the overall day?</span>
+    <script language="javascript">
+        for (i=0;i<=10;i++) {
+            $("#paindiary2").append('<button class="1to10" id="painscore'+i+'">'+i+'</button>');
+            $("#painscore"+i).click(function(){
+                painscore=$(this).attr("id").split("painscore")[1];
+            });
+        }
+    </script>
+</div>
+
+<div class="screen" id="paindiary3">
+    <span class="question" id="painhoursquestion"></span>
+    <script language="javascript">
+        for (i=1;i<=24;i++) {
+            $("#paindiary3").append('<button class="1to24" id="painhours'+i+'">'+i+'</button>');
+            $("#painhours"+i).click(function(){
+                painhours=$(this).attr("id").split("painhours")[1];
+            });
+        }
+    </script>
+</div>
+
+<div class="screen" id="paindiary4">
+    <span class="question">other info</span>
+    <script language="Javascript">
+        for (i=0;i<otherinfooptions.length;i++) {
+            $("#paindiary4").append('<button class="toggle">'+otherinfooptions[i]+'</button> ');
+        }
+    </script>
+    <input id="newotherinfo" value="other" />
+    <button id="oknewotherinfo">ok</button>
+    <hr>
+    <button class="command" id="finish4">next</button>
+</div>
+
+<div class="screen" id="meddiary1">
+    <span class="question">have you had any pain killers today?</span>
+    <script language="Javascript">
+    for (i=0;i<meds.medication.length;i++) {
+        $("#meddiary1").append('<button class="toggle med">'+meds.medication[i].name,+'</button>');
+        for (j=0;j<meds.medication[i].dose.length;j++) {
+            $("#meddiary1").append('<button class="toggle dose">'+meds.medication[i].dose[j],+'</button> ');
+        }
+        $("#meddiary1").append('<input class="mednum" placeholder="how many?" type="number"><br class="endmed">');
+    }
+    </script>
+    <button class="command" id="finishmed1">next</button>
+</div>
+
+<div class="screen" id="paindiarysummary">
+</div>
+
+<div class="screen" id="settings">
+    <span class="question">NHI</span>
+    <input id="nhi">
+    <hr>
+    <span class="question">research study id</span>
+    <input id="researchid">
+    <hr>
+    By submitting this information, your pain information and NHI number 
+    will become available for research and/or clinical use.<br>
+    <button class="command" id="submitsettings">save</button>
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/6.3.3/firebase-app.js"></script>
+<script src="/__/firebase/6.3.4/firebase-auth.js"></script>
+<script src="/__/firebase/6.3.4/firebase-firestore.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+<script language="javascript">
+
+var db;
+var userid;
+var paindiary = [];
+var todaylogged = false;
+
+function updatepaindiary() {
+    // read the pain diary for this user
+    db.collection("users").doc(userid).collection("diary").get().then(function(webpaindairy) {
+            webpaindairy.forEach(function(painday) {
+            var thispainday = new Object();
+            thispainday.date=painday.id;
+            if (painday.id==todayString()) {
+                todaylogged = true;
+                console.log("today already logged");
+                $("#logtoday").hide();
+            }
+            thispainday.painscore=painday.data().painscore;
+            thispainday.painhours=painday.data().painhours;
+            thispainday.otherfactors=painday.data().otherfactors;
+            thispainday.medications=painday.data().medications;
+            paindiary.push(thispainday);
+            console.log('recieved paindata ' + thispainday.date)
+        });
+        initPainChart(7,0);
+    });
+}
+
+// check if we're logged in
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // logged in successfully
+        $("#welcome").append(" " + user.displayName);
+        $("#home").show(screenspeed);
+        db = firebase.firestore();
+        $("#hamburger").show();
+        $("#topbar").click(function(){
+            changescreen("home");
+        });
+        // check if user is new or existing
+        var currentuserref = db.collection("users").doc(user.uid);
+        currentuserref.get().then(function(currentuser) {
+            if (currentuser.exists) {
+                console.log("logged in as :", currentuser.data().name);
+                userid=user.uid;
+                $("#nhi").val(currentuser.data().NHI); console.log(currentuser.data().NHI);
+                $("#researchid").val(currentuser.data().studyid);
+                updatepaindiary();
+            } else {
+                // add the user to the database
+                console.log("new user");
+                db.collection("users").doc(user.uid).set({
+                    name: user.displayName,
+                    uid: user.uid,
+                    NHI:null,
+                    studyid:null
+                })
+                .then(function(docRef) {
+                    console.log("New user added: ", user.displayName);
+                })
+                .catch(function(error) {
+                    console.error("Error adding new user: ", error);
+                });
+                userid=user.uid;
+            }
+        }).catch(function(error) {
+            console.log("Error loading users:", error);
+        });
+    } else {
+        console.log("Not signed in");
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        var uiConfig = {
+        callbacks: {
+            signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+            // User successfully signed in.
+            // Return type determines whether we continue the redirect automatically
+            // or whether we leave that to developer to handle.
+            return true;
+            },
+            uiShown: function() {
+            // The widget is rendered.
+            // Hide the loader.
+            document.getElementById('loader').style.display = 'none';
+            }
+        },
+        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+        signInFlow: 'redirect',
+        signInSuccessUrl: 'index.html',
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.FacebookAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: 'tos.html',
+        // Privacy policy url.
+        privacyPolicyUrl: 'privacy.html'
+        };
+        ui.start('#firebaseui-auth-container', uiConfig);
+        changescreen("authenticator");
+        $("#firebaseui-auth-container").show();
+        
+    }
+});
+
+
+function changescreen(screenname) {
+    $(".screen").fadeOut(screenspeed/2);
+    $("#" + screenname).show(screenspeed);
+    if (screenname=="home") {
+        if (todaylogged) {
+            $("#logtoday").hide();
+        }
+    }
+    if (screenname=="paindiary3") {
+        $("#painhoursquestion").append("for how many hours was your pain more than " + painscore + " out of 10?");
+    }
+    
+}
+
+$(document).ready(function(){
+    // initialise
+    $(".screen").hide();
+     
+    // set up buttons
+    // #home
+    $("#logtoday").click(function(){
+        changescreen("paindiary1");
+    });
+    
+    // #controls
+    $("#hamburger").click(function() {
+        changescreen("controls");
+    });
+    $("#signout").click(function() {
+        firebase.auth().signOut().then(function() {
+            console.log('Signed Out');
+            window.location.reload();
+        }, function(error) {
+            console.error('Sign Out Error', error);
+        });
+    });
+    
+    $("#paindiary_button").click(function(){
+        printpaindiary();
+        changescreen("paindiarysummary");
+    });
+    $("#home_button").click(function(){
+        changescreen("home");
+    });
+    $("#settings_button").click(function(){
+        changescreen("settings");
+    });
+    
+    
+    // print the pain diary
+    function printpaindiary() {
+        $("#paindiarysummary").empty()
+        for (i=paindiary.length-1;i>=0;i--) {
+            $("#paindiarysummary").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
+            $("#paindiarysummary").last().append("pain score: " + paindiary[i].painscore+"<br>");
+            $("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
+            if (paindiary[i].otherfactors != undefined) {
+                $("#paindiarysummary").last().append("factors:");
+                for (j=0;j<paindiary[i].otherfactors.length;j++) {
+                    $("#paindiarysummary").last().append(paindiary[i].otherfactors[j] + ", ");
+                }
+            }
+            if (paindiary[i].medications != undefined) {
+                $("#paindiarysummary").last().append("<br>medications:");
+                for (j=0;j<paindiary[i].medications.length;j++) {
+                    $("#paindiarysummary").last().append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + ", ");
+                }
+            }
+            $("#paindiarysummary").last().append("<hr>");
+        }
+    }
+
+    // #paindiary1
+    $("#todaypainyes").click(function(){
+        changescreen("paindiary2");
+    });
+
+    $("#todaypainno").click(function(){
+        // Log no pain today
+        db.collection("users").doc(userid).collection("diary").doc(todayString()).set({
+            "painscore": 0,
+            "painhours": 0,
+        })
+        .then(function(docRef) {
+            console.log("New pain diary added");
+        })
+        .catch(function(error) {
+            console.error("Error adding pain diary: ", error);
+        });
+        todaylogged=true;
+        updatepaindiary();
+        changescreen("home");
+    });
+
+    // #paindiary2
+    $(".1to10").click(function(){
+        changescreen("paindiary3");
+    });
+
+    // #paindiary3
+    $(".1to24").click(function(){
+        changescreen("paindiary4");
+    });
+
+    // #paindiary 4
+    function applyotherinfotoggleclick () {
+        $("#paindiary4 .toggle").off("click");
+        $("#paindiary4 .toggle").click(function(){
+            $(this).toggleClass('toggletrue');
+            if ($(this).hasClass('toggletrue')) {
+                otherinfo.push($(this).text());
+            } else {
+                otherinfo.splice(otherinfo.indexOf($(this).text()),1);
+            }
+        });
+    }
+    applyotherinfotoggleclick();
+
+    $('#oknewotherinfo').hide();
+    $("#newotherinfo").click(function(){
+        $(this).val('');
+        $("#oknewotherinfo").show();
+    });
+    $("#oknewotherinfo").click(function(){
+        $("#oknewotherinfo").hide();
+        $('#newotherinfo').before('<button class="toggle">' + $('#newotherinfo').val() + '</button>');
+        applyotherinfotoggleclick();
+        $('#paindiary4 .toggle').last().click();
+        $('#newotherinfo').val('other');
+    });
+    
+    $("#finish4").click(function(){
+        changescreen("meddiary1");
+    });
+
+
+    // med diary 1
+    $(".toggle.dose").hide();
+    $(".mednum").hide();
+    function applymedtoggleclick () {
+        $("#meddiary1 .toggle").off("click");
+        $("#meddiary1 .toggle").click(function(){
+            $(this).toggleClass('toggletrue');
+            if ($(this).hasClass('toggletrue')) {
+                dosebutton=$(this).next();
+                while (dosebutton.hasClass("dose")) {
+                    dosebutton.show();
+                    dosebutton=dosebutton.next();
+                }
+                $(".toggle.dose").off("click");
+                $(".toggle.dose").click(function(){
+                    $(this).toggleClass('toggletrue');
+                    somebutton=$(this).prev();
+                    // turn off other doses and find the mednum button
+                    while (!somebutton.hasClass("med")) {
+                        somebutton=somebutton.prev();
+                    } // somebutton is the previous medication button
+                    somebutton=somebutton.next();
+                    while (!somebutton.hasClass("mednum")) {
+                        somebutton.removeClass('toggletrue');
+                        somebutton=somebutton.next();
+                    };
+                    $(this).toggleClass('toggletrue');
+                    somebutton.show();
+                    somebutton.click(function(){
+                        $(this).val('');
+                    });
+                });
+            } else {
+                // hide all the dose buttons and num input
+                nextbit = $(this).next();
+                while (!nextbit.hasClass('endmed')) {
+                    nextbit.hide();
+                    nextbit=nextbit.next();
+                }
+            }
+        });
+    }
+    applymedtoggleclick();
+
+    $("#finishmed1").click(function(){
+        // collect all logged meds
+        var medsused = [];
+        $('.med.toggletrue').each(function() {
+            
+            thismed = {};
+            thismed.name = $(this).text();
+            // check if a dose was selected
+            var dosebutton = $(this).next();
+            while (dosebutton.hasClass("dose")) {
+                if (dosebutton.hasClass("toggletrue")) {
+                    thismed.dose=dosebutton.text();
+                    break;
+                } else {
+                    dosebutton = dosebutton.next();
+                }
+            }
+            while (!dosebutton.hasClass("mednum")) {
+                dosebutton=dosebutton.next();
+            } 
+            if (dosebutton.val()!="how many?") {
+                thismed.mednum=dosebutton.val();
+            } // caution this needs updating if the question changes
+            medsused.push(thismed);
+        });
+
+        var medslist = "";
+        for (i=0;i<medsused.length;i++) {
+            medslist += medsused[i].name + ", ";
+        }
+        medslist = medslist.substr(0,medslist.length-2); // get rid of the last comma
+
+        db.collection("users").doc(userid).collection("diary").doc(todayString()).set({
+            "painscore": painscore,
+            "painhours": painhours,
+            "otherfactors": otherinfo,
+            "medications": medsused
+        })
+        .then(function(docRef) {
+            console.log("New pain diary added");
+        })
+        .catch(function(error) {
+            console.error("Error adding pain diary: ", error);
+        });
+        updatepaindiary();
+        printpaindiary();
+        changescreen("paindiarysummary");
+        todaylogged=true;
+    });
+
+    $("#submitsettings").click(function(){
+        db.collection("users").doc(userid).update({
+            NHI: $("#nhi").val(),
+            studyid: $("#researchid").val()
+        });
+        changescreen("home");
+    });
+});
+
+
+</script>
+
+
+
+</body>
+</html>

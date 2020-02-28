@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "380054382603",
+    "firebase_url": "https://ouch-beta-mobile.firebaseio.com",
+    "project_id": "ouch-beta-mobile",
+    "storage_bucket": "ouch-beta-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380054382603:android:52c5c456dd7d6416",
+        "android_client_info": {
+          "package_name": "com.ouchbeta.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380054382603-qdaqemqhfq0dn6hl6vcq621i60mke06m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzdNYBez5WYBdiJRvVqn-pgHG3YLvuI2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380054382603-qdaqemqhfq0dn6hl6vcq621i60mke06m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "380054382603-4sad2rofe4krlhjcv2gquhi6h1r2j33n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ouch-beta"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

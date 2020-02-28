@@ -1,0 +1,115 @@
+body {
+    font-family: 'Montseratt', sans-serif;
+    background-color:#1aa0c0;
+    text-align: center;
+    color: #e9d6a8;
+    font-size: 16pt;
+}
+
+hr {
+    border: 0.5em solid #ec7a77;
+    border-radius: 1em;
+    margin: 1cm;
+}
+
+button, input{
+    background-color: #e9d6a8;
+    color: #70c7b8;
+    font-family: arial;
+    font-size: 200%;
+    border: none;
+    border-radius: 1em;
+    padding: 0.75em;
+    margin-right: 0.2em;
+}
+input::placeholder {
+    color: #70c7b8;
+}
+
+.screen {
+    background-color: #f6a282;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    border-radius: 2em;
+    text-align: center;
+    padding-bottom: 2em;
+    display: none;
+    margin-top: 4em;
+}
+
+#hamburger {
+    position: absolute;
+    z-index: 5000;
+    top: 0;
+    left: 0;
+    border-radius: 1em;
+    background-color: #70c7b8;
+    height: 4em;
+    width: 4em;
+    display: none;
+}
+
+#hamburger hr {
+    border: 0.25em solid #e9d6a8;
+    border-radius: 0.2em;
+    margin: 0.6em;
+}
+
+#topbar {
+    position: absolute;
+    z-index: 4999;
+    top: 0;
+    left: 0;
+    border-radius: 0.5em;
+    background-color: #e9d6a8;
+    height: 85px;
+    width: 100%;
+    color: #1aa0c0;
+    text-shadow: 3px 1px 5px #ec7a77; 
+    font-family:'Francois One' sans-serif;
+    font-size: 60px;
+}
+
+#controls button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#painchart button {
+    font-size: 150%;
+}
+
+.command {
+    width:50%;
+}
+.answer {
+    width: 80%;
+    font-weight: bold;
+    display: block;
+    margin: auto; /*centers it*/
+    margin-top: 0.2em;
+    padding: 0.5em;
+}
+
+.question {
+    display: block;
+    padding: 0.5em;
+    color: #1aa0c0;
+    font-size: 150%;
+}
+
+.fullwidth {
+    width: 100%;
+}
+
+.toggletrue {
+    background-color: #ec7a77;
+    font-weight: bold;
+}
+
+.mednum {
+    width: 7em;
+}
+

@@ -1,0 +1,39 @@
+.barchartbar {
+    background-color: #ec7a77;
+    display: inline-block;
+}
+.barchartbar.nodata {
+    background-color: #ec7b7718;
+}
+.barchartelement {
+    min-width:2px;
+}
+.barchartbartitle {
+    writing-mode: vertical-lr;
+    vertical-align: top;
+}
+#painchart {
+    display:block;
+    min-height:200px;
+    width: 95%;
+    margin: auto;
+    background-color: #70c7b8;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #1aa0c0;
+    border-radius: 12px;
+    position: relative;
+    color: #1aa0c0;
+}
+#painchartbars {
+    white-space: nowrap;
+    height: 200px;
+}
+#painchartbartitles {
+    white-space: nowrap;
+}
+#painbarchart {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
