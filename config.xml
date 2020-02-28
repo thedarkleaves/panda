@@ -8,8 +8,9 @@
         Thedar Kleaves
     </author>
     <preference name="phonegap-version" value="cli-9.0.0" />
+    <preference name="pgb-builder-version" value="2" />
     <content src="index.html" />
-    <resource-file src="www/google-services.json" target="/app/google-services.json" />
+    <resource-file src="google-services.json" target="app/google-services.json" />
     <platform name="ios">
         <resource-file src="GoogleService-Info.plist" />
     </platform>
