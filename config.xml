@@ -9,9 +9,7 @@
     </author>
     <preference name="phonegap-version" value="cli-9.0.0" />
     <content src="index.html" />
-    <platform name="android">
-        <resource-file src="google-services.json" target="/google-services.json" />
-    </platform>
+    <resource-file src="google-services.json" target="/google-services.json" />
     <platform name="ios">
         <resource-file src="GoogleService-Info.plist" />
     </platform>
