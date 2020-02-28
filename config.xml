@@ -10,7 +10,9 @@
     <preference name="phonegap-version" value="cli-7.0.1" />
     <preference name="pgb-builder-version" value="2" />
     <content src="index.html" />
-    <resource-file src="google-services.json" target="../app/google-services.json" />
+    <platform name="android">
+        <resource-file src="google-services.json" target="/google-services.json" />
+    </platform>
     <platform name="ios">
         <resource-file src="GoogleService-Info.plist" />
     </platform>
