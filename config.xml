@@ -10,14 +10,20 @@
     <preference name="phonegap-version" value="cli-7.0.1" />
     <content src="index.html" />
     <platform name="android">
-        <resource-file src="google-services.json" target="/google-services.json" />
+        <resource-file src="res/firebase/google-services.json" target="google-services.json" />
     </platform>
     <platform name="ios">
-        <resource-file src="GoogleService-Info.plist" />
+        <resource-file src="res/firebase/GoogleService-Info.plist" />
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="cordova-plugin-firebase" spec="2.0.0" />
-    <plugin name="phonegap-plugin-push" spec="2.0.0" />
+    <plugin name="cordova-plugin-firebase" spec="https://github.com/KingWebsites/pgb-plugin-firebase.git">
+        <!-- This is the Android app's "API ID" in your Firebase Console. It should have 'android' in the middle -->
+        <variable name="APP_GOOGLE_API_ID" value="1:380054382603:android:52c5c456dd7d6416" />
+        <!-- This is the long "Web API Key" in your Firebase Console -->
+        <variable name="APP_GOOGLE_API_KEY" value="AIzaSyAnj7PINJSyw5HuwTV-_9RBaNpnAJzGlLQ" />
+    </plugin>
+
+    <!--<plugin name="phonegap-plugin-push" spec="2.0.0" />-->
     
     <access origin="*" />
     <allow-intent href="http://*/*" />
