@@ -16,6 +16,7 @@
         <resource-file src="res/firebase/GoogleService-Info.plist" />
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="cordova-support-google-services" spec="1.3.2" />
     <plugin name="engage-firebase-cordova" spec="9.0.0" />
     <!--
     <plugin name="cordova-plugin-firebase" spec="https://github.com/KingWebsites/pgb-plugin-firebase.git">
