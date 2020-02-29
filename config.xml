@@ -7,7 +7,7 @@
     <author email="thedar.kleaves@zohomail.com.au" href="http://appreciatethesauce.blogspot.com">
         Thedar Kleaves
     </author>
-    <preference name="phonegap-version" value="cli-8.0.0" />
+    <preference name="phonegap-version" value="cli-9.0.0" />
     <content src="index.html" />
     <platform name="android">
         <resource-file src="res/firebase/google-services.json" target="app/google-services.json" />
