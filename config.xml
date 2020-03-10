@@ -12,6 +12,23 @@
     <preference name="AndroidLaunchMode" value="singleTask" />
     
     <content src="index.html" />
+
+    <universal-links>
+        <host name="ouchbeta.page.link" scheme="https" />
+        <host name="ouch-beta-mobile.firebaseapp.com" scheme="https">
+            <path url="/__/auth/callback"/>
+        </host>
+    </universal-links>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:host="ouch-beta-mobile.firebaseapp.com" android:pathPrefix="/__/auth/callback" android:scheme="https" />
+        </intent-filter>
+    </config-file>
+
     <!-- TODO: add versions to all of these -->
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-universal-links-plugin-fix" />
@@ -37,12 +54,6 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
 
-    <universal-links>
-        <host name="ouchbeta.page.link" scheme="https" />
-        <host name="ouch-beta-mobile.firebaseapp.com" scheme="https">
-            <path url="/__/auth/callback"/>
-        </host>
-    </universal-links>
     
     <platform name="android">
         <allow-intent href="market:*" />
