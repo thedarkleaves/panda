@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ouchbeta.android" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- general app data-->
     <name>PANDA Pain Diary</name>
     <description>
         A pain diary.
@@ -8,11 +10,13 @@
         Thedar Kleaves
     </author>
     
+    <!-- specific preferences -->
     <preference name="phonegap-version" value="cli-8.1.1" />
     <preference name="AndroidLaunchMode" value="singleTask" />
     
     <content src="index.html" />
 
+    <!-- universal links -->
     <universal-links>
         <host name="ouchbeta.page.link" scheme="https" />
         <host name="ouch-beta-mobile.firebaseapp.com" scheme="https">
@@ -20,6 +24,7 @@
         </host>
     </universal-links>
 
+    <!-- required to make universal links work in android -->
     <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
         <intent-filter android:autoVerify="true">
             <action android:name="android.intent.action.VIEW" />
@@ -36,7 +41,7 @@
     <plugin name="cordova-plugin-browsertab" spec="0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" />
 
-    <!-- not sure if these are needed
+    <!-- not needed - probably delete
     <plugin name="cordova-support-google-services" spec="1.3.2" />
     <plugin name="engage-firebase-cordova" spec="9.0.0" />
     <plugin name="cordova-plugin-firebase" spec="https://github.com/KingWebsites/pgb-plugin-firebase.git">
@@ -46,6 +51,7 @@
     <plugin name="phonegap-plugin-push" spec="2.0.0" />
     -->
     
+    <!-- white list -->
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -55,6 +61,7 @@
     <allow-intent href="geo:*" />
 
     
+    <!-- platform definitions -->
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
