@@ -80,7 +80,7 @@ function initPainChart(numDays,showHours) {
         } else if (painscores[i]>0) {
             $(".barchartbar:last").height(((100*painscores[i]/maxpain)-(marginwidth*2))+"%").hide().fadeIn();
         } else { // no data
-            $(".barchartbar:last").height("50%").addClass('nodata').hide().fadeIn();
+            $(".barchartbar:last").height("100%").addClass('nodata').hide().fadeIn();
         }
     }
     $("#painbarchart").append('<div id="painchartbartitles"></div>');
