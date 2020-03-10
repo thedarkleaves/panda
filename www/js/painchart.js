@@ -27,7 +27,7 @@ function initPainChart(numDays,showHours) {
         for (j=0;j<paindiary.length;j++) {
             if (paindiary[j].date == thisday) {
                 painscores.push(paindiary[j].painscore);
-                console.log(thisday + ' - found data ' + painscores);
+                printdebug(thisday + ' - found data ' + painscores);
                 foundpaindata = true;
                 break;
             }
@@ -74,7 +74,7 @@ function initPainChart(numDays,showHours) {
     console.log(painscores.slice(0,numDays));
     for (i=0;i<numDays;i++) {
         $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');
-        console.log('plotting ' + dates[i] + ' - ' + painscores[i]); 
+        printdebug('plotting ' + dates[i] + ' - ' + painscores[i]); 
         if (painscores[i]==0) {
             $(".barchartbar:last").height("1px").hide().fadeIn();
         } else if (painscores[i]>0) {
