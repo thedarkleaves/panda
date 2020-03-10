@@ -77,7 +77,7 @@ function changescreen(screenname) {
 
 // application constructor
 var app = {
-    initialize: function() {
+    initialise: function() {
     printdebug("initialising app object");
         this.bindEvents(); 
     },

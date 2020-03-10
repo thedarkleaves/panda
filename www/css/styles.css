@@ -113,3 +113,6 @@ input::placeholder {
     width: 7em;
 }
 
+#debug {
+    margin-top:100px;
+}
