@@ -1,25 +1,25 @@
 body {
     font-family: 'Montseratt', sans-serif;
-    background-color:#1aa0c0;
+    background-color:#000000;
     text-align: center;
     color: #e9d6a8;
-    font-size: 12pt;
+    font-size: 20px;
 }
 
 hr {
-    border: 0.5em solid #ec7a77;
+    border: 5px solid #ec7a77;
     border-radius: 1em;
-    margin: 1cm;
+    margin: 1em;
 }
 
 button, input{
     background-color: #e9d6a8;
     color: #70c7b8;
     font-family: arial;
-    font-size: 200%;
+    font-size: 1em;
     border: none;
-    border-radius: 1em;
-    padding: 0.75em;
+    border-radius: 0.5em;
+    padding: 1em;
     margin-right: 0.2em;
 }
 input::placeholder {
@@ -32,11 +32,11 @@ input::placeholder {
     top: 0px;
     left: 0px;
     width: 100%;
-    border-radius: 2em;
+    border-radius: 0.5em;
     text-align: center;
     padding-bottom: 2em;
     display: none;
-    margin-top: 4em;
+    margin-top: 85px;
 }
 
 #hamburger {
@@ -44,10 +44,10 @@ input::placeholder {
     z-index: 5000;
     top: 0;
     left: 0;
-    border-radius: 1em;
+    border-radius: 0.5em;
     background-color: #70c7b8;
-    height: 4em;
-    width: 4em;
+    height: 85px;
+    width: 85px;
     display: none;
 }
 
@@ -62,7 +62,7 @@ input::placeholder {
     z-index: 4999;
     top: 0;
     left: 0;
-    border-radius: 0.5em;
+    border-radius: 0.25em;
     background-color: #e9d6a8;
     height: 85px;
     width: 100%;
@@ -78,7 +78,7 @@ input::placeholder {
 }
 
 #painchart button {
-    font-size: 150%;
+    font-size: 1.5em;
 }
 
 .command {
@@ -97,7 +97,7 @@ input::placeholder {
     display: block;
     padding: 0.5em;
     color: #1aa0c0;
-    font-size: 150%;
+    font-size: 1.5em;
 }
 
 .fullwidth {
@@ -114,5 +114,5 @@ input::placeholder {
 }
 
 #debug {
-    margin-top:100px;
+    margin-top:200px;
 }
