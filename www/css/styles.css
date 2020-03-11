@@ -13,7 +13,7 @@ hr {
 }
 
 button, input{
-    background-color: #AAAAAA;
+    background-color: #CCCCCC;
     color: #222222;
     font-family: arial;
     font-size: 1em;
@@ -45,7 +45,7 @@ input::placeholder {
     top: 0;
     left: 0;
     border-radius: 0.5em;
-    background-color: #AAAAAA;
+    background-color: #CCCCCC;
     height: 50px;
     width: 50px;
     display: none;
@@ -64,7 +64,7 @@ input::placeholder {
     left: 0;
     border-radius: 0.25em;
     background-color: #555555;
-    height: 85px;
+    height: 50px;
     width: 100%;
     color: #FFFFFF;
     text-shadow: 3px 1px 5px #000000; 
