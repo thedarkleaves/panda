@@ -13,13 +13,13 @@ hr {
 }
 
 button, input{
-    background-color: #e9d6a8;
-    color: #70c7b8;
+    background-color: #AAAAAA;
+    color: #222222;
     font-family: arial;
     font-size: 1em;
     border: none;
     border-radius: 0.5em;
-    padding: 0.5em;
+    padding: 0.25em;
     margin-right: 0.2em;
 }
 input::placeholder {
@@ -45,16 +45,16 @@ input::placeholder {
     top: 0;
     left: 0;
     border-radius: 0.5em;
-    background-color: #70c7b8;
+    background-color: #AAAAAA;
     height: 50px;
     width: 50px;
     display: none;
 }
 
 #hamburger hr {
-    border: 0.25em solid #e9d6a8;
-    border-radius: 0.2em;
-    margin: 0.6em;
+    border: 5px solid #222222;
+    border-radius: 5px;
+    margin: 5px;
 }
 
 #topbar {
@@ -63,11 +63,11 @@ input::placeholder {
     top: 0;
     left: 0;
     border-radius: 0.25em;
-    background-color: #e9d6a8;
+    background-color: #555555;
     height: 85px;
     width: 100%;
-    color: #1aa0c0;
-    text-shadow: 3px 1px 5px #ec7a77; 
+    color: #FFFFFF;
+    text-shadow: 3px 1px 5px #000000; 
     font-family:'Francois One' sans-serif;
     font-size: 30px;
 }
