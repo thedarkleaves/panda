@@ -65,7 +65,7 @@ function initPainChart(numDays,showHours) {
     if (numDays<1) {
         numDays = 1;
     }
-    marginwidth=20/numDays;
+    marginwidth=10/numDays; // was 20
     $("#painchart").empty();
     $("#painchart").append('<div id="painbarchart"></div>');
     var barwidth=Math.floor((100/numDays))-(2*marginwidth);
