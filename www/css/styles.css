@@ -20,7 +20,7 @@ button, input{
     border: none;
     border-radius: 0.5em;
     padding: 0.5em;
-    margin-right: 0.2em;
+    margin: 0.1em;
 }
 input::placeholder {
     color: #70c7b8;

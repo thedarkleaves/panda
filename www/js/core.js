@@ -89,7 +89,7 @@ function updatepaindiary() {
     });
 }
 
-// not yet functional
+// not yet functional, needs debugging
 function addOtherFactors(newOtherFactors) {
     if (newOtherFactors!=undefined) {
         for (i=0;i<newOtherFactors.length;i++) {
