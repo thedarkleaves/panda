@@ -1,4 +1,56 @@
-debug = true;
+// global variables
+var screenspeed=1000;
+var painscore;
+var painhours;
+var otherinfo = [];
+var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
+var debug = true;
+var meds = {
+    "medication": [
+        {
+            "name":"paracetamol",
+            "type":"simple",
+            "dose": ["500mg"]
+        },
+        {
+            "name":"ibuprofen",
+            "type":"anti-inflammatory",
+            "dose":["200mg"]
+        },
+        {
+            "name":"codeine",
+            "type":"opioid",
+            "dose":["30mg","60mg"]
+        },
+        {
+            "name":"tramadol",
+            "type":"opioid",
+            "dose":["50mg"]
+        }
+    ]
+};
+
+function formatdate(datestring) {
+    splitdate=datestring.split('.');
+    return(splitdate[2]+'/'+splitdate[1]+'/'+splitdate[0]);
+}
+
+function todayString() {
+    var today = new Date();
+    var monthstring, datestring;
+    // pad with zeros
+    if (today.getMonth()<9) {
+        monthstring = "0" + (today.getMonth()+1);
+    } else {
+        monthstring = (today.getMonth()+1);
+    }
+    if (today.getDate()<10) {
+        datestring = "0" + today.getDate();
+    } else {
+        datestring = today.getDate();
+    }
+    return (today.getFullYear() + "." + monthstring + "." + datestring);
+}
 
 function printdebug(content) {
     if (debug) {
@@ -9,28 +61,6 @@ function printdebug(content) {
 // TODO: make this better 
 function popupmessage(content) {
     printdebug(content);
-}
-
-function startLogin() {
-    printdebug("the login function has been called.");      
-    // start login
-    // check passwords
-    password1 = $("#newuser_password").val();
-    password2 = $("#newuser_passwordconfirm").val();
-    if (password1==password2) {
-        // passwords match
-        email = $("#newuser_email").val();
-        // create user
-        firebase.auth().createUserWithEmailAndPassword(email, password1).catch(function(error) {
-        // catch errors
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        printdebug("Auth Error: " + errorCode + " " + errorMessage);
-        });
-        printdebug("created user");
-    } else {
-        popupmessage("passwords don't match");
-    }
 }
 
 var db;
@@ -54,7 +84,7 @@ function updatepaindiary() {
             thispainday.otherfactors=painday.data().otherfactors;
             thispainday.medications=painday.data().medications;
             paindiary.push(thispainday);
-            console.log('recieved paindata ' + thispainday.date)
+            printdebug('recieved paindata ' + thispainday.date)
         });
         initPainChart(7,0);
     });
@@ -258,16 +288,35 @@ var app = {
         });
 
         // #paindiary2
+        for (i=0;i<=10;i++) {
+            $("#paindiary2").append('<button class="1to10" id="painscore'+i+'">'+i+'</button>');
+            $("#painscore"+i).click(function(){
+                painscore=$(this).attr("id").split("painscore")[1];
+            });
+        }
         $(".1to10").click(function(){
             changescreen("paindiary3");
         });
 
         // #paindiary3
+        for (i=1;i<=24;i++) {
+            $("#paindiary3").append('<button class="1to24" id="painhours'+i+'">'+i+'</button>');
+            $("#painhours"+i).click(function(){
+                painhours=$(this).attr("id").split("painhours")[1];
+            });
+        }
         $(".1to24").click(function(){
             changescreen("paindiary4");
         });
 
         // #paindiary 4
+        for (i=0;i<otherinfooptions.length;i++) {
+            $("#paindiary4").append('<button class="toggle">'+otherinfooptions[i]+'</button> ');
+        }
+        $("#paindiary4").append('<input id="newotherinfo" value="other" />');
+        $("#paindiary4").append('<button id="oknewotherinfo">ok</button><hr>');
+        $("#paindiary4").append('<button class="command" id="finish4">next</button>');
+
         function applyotherinfotoggleclick () {
             $("#paindiary4 .toggle").off("click");
             $("#paindiary4 .toggle").click(function(){
@@ -300,6 +349,15 @@ var app = {
 
 
         // med diary 1
+        for (i=0;i<meds.medication.length;i++) {
+            $("#meddiary1").append('<button class="toggle med">'+meds.medication[i].name,+'</button>');
+            for (j=0;j<meds.medication[i].dose.length;j++) {
+                $("#meddiary1").append('<button class="toggle dose">'+meds.medication[i].dose[j],+'</button> ');
+            }
+            $("#meddiary1").append('<input class="mednum" placeholder="how many?" type="number"><br class="endmed">');
+        }
+        $("#meddiary1").append('<button class="command" id="finishmed1">next</button>');
+    
         $(".toggle.dose").hide();
         $(".mednum").hide();
         function applymedtoggleclick () {
