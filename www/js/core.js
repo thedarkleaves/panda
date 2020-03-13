@@ -90,6 +90,23 @@ function updatepaindiary() {
 }
 
 function addOtherFactors(newOtherFactors) {
+    for (i=0;i<newOtherFactors.length;i++) {
+        var thisisnew = true;
+        for (j=0;j<otherinfooptions.length;j++) {
+            if (newOtherFactors[i] == otherinfooptions[j]) {
+                thisisnew = false;
+                // move the item up in the list
+                if (j>0) {
+                    otherinfooptions.splice(j,1); // remove the item
+                    otherinfooptions.splice((j-1),0,newOtherFactorsp[i]); // reinsert it
+                }
+                break;
+            }
+        }
+        if (thisisnew) {
+            otherinfooptions.push(newOtherFactors[i]);
+        }
+    }
 
 }
 

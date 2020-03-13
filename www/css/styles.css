@@ -116,7 +116,7 @@ input::placeholder {
 
 #debug {
     position: fixed;
-    margin-top: 50%;
+    top: 50%;
     height: 50%;
     width: 100%;
     overflow: scroll;
