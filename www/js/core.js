@@ -89,25 +89,27 @@ function updatepaindiary() {
     });
 }
 
+// not yet functional
 function addOtherFactors(newOtherFactors) {
-    for (i=0;i<newOtherFactors.length;i++) {
-        var thisisnew = true;
-        for (j=0;j<otherinfooptions.length;j++) {
-            if (newOtherFactors[i] == otherinfooptions[j]) {
-                thisisnew = false;
-                // move the item up in the list
-                if (j>0) {
-                    otherinfooptions.splice(j,1); // remove the item
-                    otherinfooptions.splice((j-1),0,newOtherFactorsp[i]); // reinsert it
+    if (newOtherFactors!=undefined) {
+        for (i=0;i<newOtherFactors.length;i++) {
+            var thisisnew = true;
+            for (j=0;j<otherinfooptions.length;j++) {
+                if (newOtherFactors[i] == otherinfooptions[j]) {
+                    thisisnew = false;
+                    // move the item up in the list
+                    if (j>0) {
+                        otherinfooptions.splice(j,1); // remove the item
+                        otherinfooptions.splice(--j,0,newOtherFactors[i]); // reinsert it
+                    }
+                    break;
                 }
-                break;
+            }
+            if (thisisnew) {
+                otherinfooptions.push(newOtherFactors[i]);
             }
         }
-        if (thisisnew) {
-            otherinfooptions.push(newOtherFactors[i]);
-        }
     }
-
 }
 
 function changescreen(screenname) {
