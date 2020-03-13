@@ -19,7 +19,7 @@ button, input{
     font-size: 1em;
     border: none;
     border-radius: 0.5em;
-    padding: 0.25em;
+    padding: 0.5em;
     margin-right: 0.2em;
 }
 input::placeholder {
