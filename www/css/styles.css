@@ -41,6 +41,7 @@ input::placeholder {
 
 #hamburger {
     position: fixed;
+    -webkit-backface-visibility: hidden; /* required to keep fixed in android */
     z-index: 5000;
     top: 0;
     left: 0;
@@ -114,5 +115,9 @@ input::placeholder {
 }
 
 #debug {
-    margin-top:200px;
+    position: fixed;
+    margin-top: 50%;
+    height: 50%;
+    width: 100%;
+    overflow: scroll;
 }

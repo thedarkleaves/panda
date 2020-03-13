@@ -3,6 +3,10 @@ var debug = true;
 var screenspeed=1000;
 var painscore;
 var painhours;
+var db;
+var userid;
+var paindiary = [];
+var todaylogged = false;
 var otherinfo = [];
 var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
 var meds = {
@@ -62,34 +66,6 @@ function popupmessage(content) {
     printdebug(content);
 }
 
-
-function startLogin() {
-    printdebug("the login function has been called.");      
-    // start login
-    // check passwords
-    password1 = $("#newuser_password").val();
-    password2 = $("#newuser_passwordconfirm").val();
-    if (password1==password2) {
-        // passwords match
-        email = $("#newuser_email").val();
-        // create user
-        firebase.auth().createUserWithEmailAndPassword(email, password1).catch(function(error) {
-        // catch errors
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        printdebug("Auth Error: " + errorCode + " " + errorMessage);
-        });
-        printdebug("created user");
-    } else {
-        popupmessage("passwords don't match");
-    }
-}
-
-var db;
-var userid;
-var paindiary = [];
-var todaylogged = false;
-
 function updatepaindiary() {
     // read the pain diary for this user
     db.collection("users").doc(userid).collection("diary").get().then(function(webpaindairy) {
@@ -104,6 +80,7 @@ function updatepaindiary() {
             thispainday.painscore=painday.data().painscore;
             thispainday.painhours=painday.data().painhours;
             thispainday.otherfactors=painday.data().otherfactors;
+            addOtherFactors(thispainday.otherfactors);
             thispainday.medications=painday.data().medications;
             paindiary.push(thispainday);
             console.log('recieved paindata ' + thispainday.date)
@@ -112,6 +89,9 @@ function updatepaindiary() {
     });
 }
 
+function addOtherFactors(newOtherFactors) {
+
+}
 
 function changescreen(screenname) {
     $(".screen").fadeOut(screenspeed/2);
@@ -462,10 +442,10 @@ var app = {
                 "medications": medsused
             })
             .then(function(docRef) {
-                console.log("New pain diary added");
+                printdebug("New pain diary added");
             })
             .catch(function(error) {
-                console.error("Error adding pain diary: ", error);
+                printdebug("Error adding pain diary: ", error);
             });
             updatepaindiary();
             printpaindiary();
