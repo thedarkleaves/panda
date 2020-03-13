@@ -11,6 +11,7 @@ function popupmessage(content) {
     printdebug(content);
 }
 
+
 function startLogin() {
     printdebug("the login function has been called.");      
     // start login
