@@ -86,7 +86,7 @@ function updatepaindiary() {
             console.log('recieved paindata ' + thispainday.date)
         });
         initPainChart(7,0);
-        //makePainDiary4();
+        makePainDiary4();
     });
 }
 
