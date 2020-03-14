@@ -100,11 +100,6 @@ function addOtherFactors(newOtherFactors) {
             for (j=0;j<otherinfooptions.length;j++) {
                 if (newOtherFactors[i] == otherinfooptions[j]) {
                     thisisnew = false;
-                    // move the item up in the list
-                    if (j>0) {
-                        otherinfooptions.splice(j,1); // remove the item
-                        otherinfooptions.splice(--j,0,newOtherFactors[i]); // reinsert it
-                    }
                     break;
                 }
             }
@@ -450,7 +445,7 @@ var app = {
     },
 };
 
-function applyotherinfotoggleclick () {
+function applyotherinfotoggleclick() {
     $("#paindiary4 .toggle").off("click");
     $("#paindiary4 .toggle").click(function(){
         $(this).toggleClass('toggletrue');
