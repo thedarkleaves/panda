@@ -9,7 +9,8 @@
     <author email="thedar.kleaves@zohomail.com.au" href="http://appreciatethesauce.blogspot.com">
         Thedar Kleaves
     </author>
-    
+    <icon src="res/panda.png" />
+
     <!-- specific preferences -->
     <preference name="phonegap-version" value="cli-8.1.1" />
     <preference name="AndroidLaunchMode" value="singleTask" />
