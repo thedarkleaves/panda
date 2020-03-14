@@ -94,7 +94,7 @@ function updatepaindiary() {
 
 // not yet functional, needs debugging
 function addOtherFactors(newOtherFactors) {
-    if (newOtherFactors!=undefined) {
+    /*if (newOtherFactors!=undefined) {
         for (i=0;i<newOtherFactors.length;i++) {
             var thisisnew = true;
             for (j=0;j<otherinfooptions.length;j++) {
@@ -107,7 +107,7 @@ function addOtherFactors(newOtherFactors) {
                 otherinfooptions.push(newOtherFactors[i]);
             }
         }
-    }
+    }*/
 }
 
 function changescreen(screenname) {
