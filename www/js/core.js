@@ -69,7 +69,7 @@ function popupmessage(content) {
 function updatepaindiary() {
     // read the pain diary for this user
     db.collection("users").doc(userid).collection("diary").get().then(function(webpaindairy) {
-            webpaindairy.forEach(function(painday) {
+        webpaindairy.forEach(function(painday) {
             var thispainday = new Object();
             thispainday.date=painday.id;
             if (painday.id==todayString()) {
@@ -90,7 +90,6 @@ function updatepaindiary() {
     });
 }
 
-// not yet functional, needs debugging
 function addOtherFactors(newOtherFactors) {
     if (newOtherFactors!=undefined) {
         for (i=0;i<newOtherFactors.length;i++) {
@@ -102,7 +101,7 @@ function addOtherFactors(newOtherFactors) {
                 }
             }
             if (thisisnew) {
-                otherinfooptions.push(newOtherFactors[i]);
+                otherinfooptions.push(newOtherFactors[i].toLowerCase());
             }
         }
     }
@@ -421,14 +420,16 @@ var app = {
             })
             .then(function(docRef) {
                 printdebug("New pain diary added");
+                updatepaindiary();
+                printpaindiary();
+    
+                changescreen("paindiarysummary");
+                todaylogged=true;
             })
             .catch(function(error) {
                 printdebug("Error adding pain diary: ", error);
             });
-            updatepaindiary();
-            printpaindiary();
-            changescreen("paindiarysummary");
-            todaylogged=true;
+            
         });
 
         $("#submitsettings").click(function(){
@@ -472,7 +473,7 @@ function makePainDiary4() {
     });
     $("#oknewotherinfo").click(function(){
         $("#oknewotherinfo").hide();
-        $('#newotherinfo').before('<button class="toggle">' + $('#newotherinfo').val() + '</button>');
+        $('#newotherinfo').before('<button class="toggle">' + $('#newotherinfo').val().toLowerCase() + '</button>');
         applyotherinfotoggleclick();
         $('#paindiary4 .toggle').last().click();
         $('#newotherinfo').val('other');
