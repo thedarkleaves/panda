@@ -1,5 +1,3 @@
-import { _ } from "core-js";
-
 // global variables
 var debug = true;
 var screenspeed=1000;
