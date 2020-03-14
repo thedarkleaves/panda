@@ -1,3 +1,5 @@
+import { _ } from "core-js";
+
 // global variables
 var debug = true;
 var screenspeed=1000;
@@ -86,6 +88,7 @@ function updatepaindiary() {
             console.log('recieved paindata ' + thispainday.date)
         });
         initPainChart(7,0);
+        makePainDiary4();
     });
 }
 
@@ -330,44 +333,7 @@ var app = {
             changescreen("paindiary4");
         });
 
-        // #paindiary 4
-        for (i=0;i<otherinfooptions.length;i++) {
-            $("#paindiary4").append('<button class="toggle">'+otherinfooptions[i]+'</button> ');
-        }
-        $("#paindiary4").append('<input id="newotherinfo" value="other" />');
-        $("#paindiary4").append('<button id="oknewotherinfo">ok</button><hr>');
-        $("#paindiary4").append('<button class="command" id="finish4">next</button>');
-
-        function applyotherinfotoggleclick () {
-            $("#paindiary4 .toggle").off("click");
-            $("#paindiary4 .toggle").click(function(){
-                $(this).toggleClass('toggletrue');
-                if ($(this).hasClass('toggletrue')) {
-                    otherinfo.push($(this).text());
-                } else {
-                    otherinfo.splice(otherinfo.indexOf($(this).text()),1);
-                }
-            });
-        }
-        applyotherinfotoggleclick();
-
-        $('#oknewotherinfo').hide();
-        $("#newotherinfo").click(function(){
-            $(this).val('');
-            $("#oknewotherinfo").show();
-        });
-        $("#oknewotherinfo").click(function(){
-            $("#oknewotherinfo").hide();
-            $('#newotherinfo').before('<button class="toggle">' + $('#newotherinfo').val() + '</button>');
-            applyotherinfotoggleclick();
-            $('#paindiary4 .toggle').last().click();
-            $('#newotherinfo').val('other');
-        });
-        
-        $("#finish4").click(function(){
-            changescreen("meddiary1");
-        });
-
+        // #paindiary 4 deferred until paindiary loaded
 
         // med diary 1
         for (i=0;i<meds.medication.length;i++) {
@@ -484,5 +450,43 @@ var app = {
     },
 };
 
+function applyotherinfotoggleclick () {
+    $("#paindiary4 .toggle").off("click");
+    $("#paindiary4 .toggle").click(function(){
+        $(this).toggleClass('toggletrue');
+        if ($(this).hasClass('toggletrue')) {
+            otherinfo.push($(this).text());
+        } else {
+            otherinfo.splice(otherinfo.indexOf($(this).text()),1);
+        }
+    });
+}
 
+function makePainDiary4() {
+    for (i=0;i<otherinfooptions.length;i++) {
+        $("#paindiary4").append('<button class="toggle">'+otherinfooptions[i]+'</button> ');
+    }
+    $("#paindiary4").append('<input id="newotherinfo" value="other" />');
+    $("#paindiary4").append('<button id="oknewotherinfo">ok</button><hr>');
+    $("#paindiary4").append('<button class="command" id="finish4">next</button>');
+
+    applyotherinfotoggleclick();
+
+    $('#oknewotherinfo').hide();
+    $("#newotherinfo").click(function(){
+        $(this).val('');
+        $("#oknewotherinfo").show();
+    });
+    $("#oknewotherinfo").click(function(){
+        $("#oknewotherinfo").hide();
+        $('#newotherinfo').before('<button class="toggle">' + $('#newotherinfo').val() + '</button>');
+        applyotherinfotoggleclick();
+        $('#paindiary4 .toggle').last().click();
+        $('#newotherinfo').val('other');
+    });
+    
+    $("#finish4").click(function(){
+        changescreen("meddiary1");
+    });
+}
 
