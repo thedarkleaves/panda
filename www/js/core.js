@@ -115,7 +115,9 @@ function updateproviders() {
                 printdebug("Provider " + thisprovider.name + " loaded.");
                 $("#providers").append('<div class="provider">' + thisprovider.name  + ' <span class="practice">' + thisprovider.practice + '</span></div>');
                 $(".provider").last().append('<button>remove</button>');
-                $(".provider button").last().click(removeProvidor(thisprovider.id));
+                $(".provider button").last().click(function() {
+                    removeProvider(thisprovider.id)
+                });
             });
         });
     }).catch(function(error) {
