@@ -71,6 +71,9 @@ function popupmessage(content) {
 }
 
 function updatepaindiary() {
+    db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
+        printdebug("Loaded provider list");
+    });
     // read the pain diary for this user
     db.collection("users").doc(userid).collection("diary").get().then(function(webpaindairy) {
         webpaindairy.forEach(function(painday) {
