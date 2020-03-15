@@ -105,16 +105,15 @@ function updateproviders() {
         providers = [];
         providerlist.forEach(function(provider) {
             var thisprovider = new Object();
-            thisprovider.name = provider.data().name;
             thisprovider.id = provider.data().id;
-            thisprovider.practice = provider.data().practice;
+            //thisprovider.practice = provider.data().practice;
             providers.push(thisprovider);
-            printdebug("Provider " + thisprovider.name + " loaded.");
+            printdebug("Provider " + thisprovider.id + " loaded.");
         });
         // print the provider list with a delete button
         $("#providers").empty();
         for (i=0;i<providers.length;i++) {
-            $("#providers").append("<button>" + providers[i].name + "</button>");
+            $("#providers").append("<button>" + providers[i].id + "</button>");
         }
     }).catch(function(error) {
         printdebug("error loading providers: " + error);
