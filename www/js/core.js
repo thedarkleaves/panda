@@ -105,6 +105,7 @@ function updateproviders() {
             providers.push(thisprovider);
         });
         // print the provider list with a delete button
+        $("#providers").empty();
         for (i=0;i<providers.length;i++) {
             $("#providers").append("<button>" + providers[i].name + "</button>");
         }
