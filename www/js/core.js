@@ -5,6 +5,8 @@ var painscore;
 var painhours;
 var db;
 var userid;
+var encryptionkey;
+var encryptor;
 var paindiary = [];
 var todaylogged = false;
 var otherinfo = [];
@@ -157,6 +159,15 @@ var app = {
                 $("#topbar").click(function(){
                     changescreen("home");
                 });
+                // get the encryption key (global)
+                var keyobject = db.collection("keys").doc("phoneapp");
+                keyobject.get().then(function(phoneappkey) {
+                    if (phoneappkey.exists) {
+                        encryptionkey = phoneappkey.data().key;
+                    }
+                    encryptor = new SimpleCrypto(encryptionkey);
+                });
+                
                 // check if user is new or existing
                 var currentuserref = db.collection("users").doc(user.uid);
                 currentuserref.get().then(function(currentuser) {
@@ -433,22 +444,21 @@ var app = {
 
         $("#submitsettings").click(function(){
             db.collection("users").doc(userid).update({
-                NHI: $("#nhi").val(),
+                NHI: encryptor.encrypt($("#nhi").val()),
                 studyid: $("#researchid").val()
             });
             changescreen("home");
         });
 
-        // test the notification plugin
+        // TODO: Add option to have no notifications
+        cordova.plugins.notification.local.cancellAll();
         cordova.plugins.notification.local.schedule({
             title: 'Update Pain Diary',
             text: 'You haven\'t logged your pain score today.',
             foreground: true,
-            trigger: { every: 'minute' },
-            icon: 'res/panda.png',
-            smallIcon: 'res/panda.png'
+            trigger: { every: 'day' },
         });
-
+    
         printdebug("ready");
     },
 };
