@@ -134,6 +134,7 @@ function updateproviders() {
 }
 
 function removeProvider(providerid) {
+    $('#providers').empty().append("updating...");
     printdebug('attempting to remove provider ' + providerid);
     db.collection("users").doc(userid).collection("providers").doc(providerid).delete().then(function() {
         updateproviders();
@@ -147,11 +148,10 @@ function removeProvider(providerid) {
 }
 
 function addprovider(providerid) {
+    $('#providers').empty().append("updating...");
     // look up the provider details
     db.collection("providers").doc(providerid).get().then(function(providerdetails) {
-        if (providerdetails!=undefined) {
-            //thisprovider.name = providerdetails.data().name;
-            //thisprovider.practice = providerdetails.data().practice;
+        if (providerdetails.exists) {
             db.collection("users").doc(userid).collection("providers").doc(providerid).set({
                 "options": "none"
             }).then(function(docref) {
