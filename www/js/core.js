@@ -93,15 +93,14 @@ function updatepaindiary() {
 function addOtherFactors(newOtherFactors) {
     if (newOtherFactors!=undefined) {
         for (i=0;i<newOtherFactors.length;i++) {
-            var thisisnew = true;
-            for (j=0;j<otherinfooptions.length;j++) {
-                if (newOtherFactors[i] == otherinfooptions[j]) {
-                    thisisnew = false;
+            // put the factor at the front of the list
+            otherinfooptions.splice(0,0,newOtherFactors[i].toLowerCase());
+            // remove it from anywhere else in the list
+            for (j=1;j<otherinfooptions.length;j++) {
+                if (otherinfooptions[0] == otherinfooptions[j]) {
+                    otherinfooptions.splice(j,1);
                     break;
                 }
-            }
-            if (thisisnew) {
-                otherinfooptions.push(newOtherFactors[i].toLowerCase());
             }
         }
     }
