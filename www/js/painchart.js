@@ -1,10 +1,3 @@
-//var painscores = [10, 6, 3, 2, 3, 4, 3, 5, 4, 2,3,2,3,5,3,2,3];
-//var dates = ['one','two','three','four','five','six', 'seven', 'eight', 'nine', 'ten','eleven','twelve'];
-/*var today = new Date();
-var year = today.getFullYear();
-var month = today.getMonth()+1;
-var date = today.getDate();
-var todaystring = year + '.' + month + '.' + date;*/
 var listofdays = [];
 var painscores = [];
 
