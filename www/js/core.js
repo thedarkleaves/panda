@@ -101,7 +101,15 @@ function updateproviders() {
     printdebug('update providers function running');
     // read the healthcare providers for this user
     $("#providers").empty();
-    $("#providers").append('<button>add provider</button><br>');
+    $("#providers").append('<button id="addproviderbutton">add provider</button><br>');
+    $("#addproviderbutton").click(function() {
+        $("#addproviderbutton").after('<input id="addprovidercode" placeholder="code" type="text"> ');
+        $("#addproviderbutton").after('<button id="confirmaddprovider">add</button>');
+        $("#confirmaddprovider").click(function(){
+            addprovider($("#addprovidercode").val());
+        });
+        $("#addproviderbutton").remove();
+    });
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
         printdebug("Loaded provider list appropriately");
         providers = [];
@@ -153,6 +161,8 @@ function addprovider(providerid) {
             });
         } else {
             // provider not found
+            updateproviders();
+            $("#providers .question").after("<div>provider code not found</div>");
         }
     }).catch(function(error) {
         printdebug('error getting provider ' + error);
