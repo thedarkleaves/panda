@@ -99,6 +99,7 @@ function updateproviders() {
     // read the healthcare providers for this user
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
         printdebug("Loaded provider list");
+    });/*
         providers = [];
         providerlist.forEach(function(provider) {
             var thisprovider = new Object();
@@ -114,8 +115,8 @@ function updateproviders() {
             $("#providers").append("<button>" + providers[i].name + "</button>");
         }
     }).catch(function(error) {
-        printdebug("error: " + error);
-    });
+        printdebug("error loading providers: " + error);
+    });*/
 }
 
 function addOtherFactors(newOtherFactors) {
