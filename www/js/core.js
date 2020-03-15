@@ -83,7 +83,7 @@ function updatepaindiary() {
             addOtherFactors(thispainday.otherfactors);
             thispainday.medications=painday.data().medications;
             paindiary.push(thispainday);
-            console.log('recieved paindata ' + thispainday.date)
+            printdebug('recieved paindata ' + thispainday.date)
         });
         initPainChart(7,0);
         makePainDiary4();
@@ -456,6 +456,8 @@ function applyotherinfotoggleclick() {
 }
 
 function makePainDiary4() {
+    
+    $("#paindiary4").html('<span class="question">other info</span>');
     for (i=0;i<otherinfooptions.length;i++) {
         $("#paindiary4").append('<button class="toggle">'+otherinfooptions[i]+'</button> ');
     }

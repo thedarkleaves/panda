@@ -5,7 +5,7 @@ var year = today.getFullYear();
 var month = today.getMonth()+1;
 var date = today.getDate();
 var todaystring = year + '.' + month + '.' + date;*/
-var last100days = [];
+var listofdays = [];
 var painscores = [];
 
 var marginwidth = 1; // in percent
@@ -24,7 +24,7 @@ function initPainChart(numDays,showHours) {
             if (day<10) { day = "0" + parseInt(day,10); }
             thisday = year + "." + month + "." + day;
 
-            last100days.push(thisday);
+            listofdays.push(thisday);
             // check for pain data for this date
             var foundpaindata = false;
             for (j=0;j<paindiary.length;j++) {
@@ -63,7 +63,7 @@ function initPainChart(numDays,showHours) {
             }
             
         }
-        dates = last100days;
+        dates = listofdays;
         // generate the GUI
         if (numDays<1) {
             numDays = 1;
@@ -99,8 +99,8 @@ function initPainChart(numDays,showHours) {
                     $(".barchartbartitle:last").append(formatdate(dates[i]));
                 }
             } else {
-                // every 5th element
-                if ((i%5)==0) {
+                // every 7th element
+                if ((i%7)==0) {
                     $(".barchartbartitle:last").append(formatdate(dates[i]));
                 }
             }
