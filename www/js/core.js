@@ -268,6 +268,13 @@ var app = {
             changescreen("settings");
         });
         
+        // settings page
+        $("#openProviders").click(function() {
+            changescreen("providers");
+        });
+        $("#openStudies").click(function() {
+            changescreen("studies");
+        })
         
         // print the pain diary
         function printpaindiary() {
