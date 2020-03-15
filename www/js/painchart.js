@@ -79,7 +79,7 @@ function initPainChart(numDays,showHours) {
         console.log(painscores.slice(0,numDays));
         for (i=0;i<numDays;i++) {
             $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');
-            printdebug('plotting ' + dates[i] + ' - ' + painscores[i]); 
+            //printdebug('plotting ' + dates[i] + ' - ' + painscores[i]); 
             if (painscores[i]==0) {
                 $(".barchartbar:last").height("1px").hide().fadeIn();
             } else if (painscores[i]>0) {
