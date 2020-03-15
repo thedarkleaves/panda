@@ -9,6 +9,7 @@ var username;
 var encryptionkey;
 var encryptor;
 var paindiary = [];
+var providers = [];
 var todaylogged = false;
 var otherinfo = [];
 var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
@@ -90,6 +91,23 @@ function updatepaindiary() {
         });
         initPainChart(7,0);
         makePainDiary4();
+    });
+}
+
+function updateproviders() {
+    // read the healthcare providers for this user
+    db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
+        providerlist.forEach(function(provider) {
+            var thisprovider = new Object();
+            thisprovider.name=provider.data().name;
+            thisprovider.id=providor.data().id;
+            thisprovider.practice=provider.data().practice;
+            providers.push(thisprovider);
+        });
+        // print the provider list with a delete button
+        for (i=0;i<providers.length;i++) {
+            $("#providers").append("<button>" + providers[i].name + "</button>");
+        }
     });
 }
 
@@ -270,14 +288,6 @@ var app = {
         $("#settings_button").click(function(){
             changescreen("settings");
         });
-        
-        // settings page
-        $("#openProviders").click(function() {
-            changescreen("providers");
-        });
-        $("#openStudies").click(function() {
-            changescreen("studies");
-        })
         
         // print the pain diary
         function printpaindiary() {
