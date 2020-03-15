@@ -116,8 +116,9 @@ input::placeholder {
 }
 
 #debug {
-    position: static;
+    position: absolute;
     top: 200px;
+    left: 0;
     height: 50%;
     width: 100%;
     overflow: scroll;

@@ -75,8 +75,8 @@ function updatepaindiary() {
         printdebug("Loaded provider list");
     });
     // read the pain diary for this user
-    db.collection("users").doc(userid).collection("diary").get().then(function(webpaindairy) {
-        webpaindairy.forEach(function(painday) {
+    db.collection("users").doc(userid).collection("diary").get().then(function(webpaindiary) {
+        webpaindiary.forEach(function(painday) {
             var thispainday = new Object();
             thispainday.date=painday.id;
             if (painday.id==todayString()) {
@@ -104,7 +104,7 @@ function updateproviders() {
         printdebug("Loaded pain diary");
     });
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
-        printdebug("Loaded provider list");
+        printdebug("Loaded provider list appropriately");
     });/*
         providers = [];
         providerlist.forEach(function(provider) {
