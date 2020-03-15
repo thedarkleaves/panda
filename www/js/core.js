@@ -197,6 +197,7 @@ var app = {
                             $("#nhi").val(encryptor.decrypt(currentuser.data().NHI));
                             $("#researchid").val(currentuser.data().studyid);
                             updatepaindiary();
+                            updateproviders();
                         } else {
                             // add the user to the database
                             console.log("new user");
