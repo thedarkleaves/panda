@@ -171,6 +171,80 @@ function addprovider(providerid) {
     });
 }
 
+function updatestudies() {
+    printdebug('update studies function running');
+    // read the studies for this user
+    $("#studies").empty();
+    $("#studies").append('<button id="addstudybutton">add study</button><br>');
+    $("#addstudybutton").click(function() {
+        $("#addstudybutton").after('<input id="addstudycode" placeholder="code" type="text"> ');
+        $("#addstudycode").after('<button id="confirmaddstudy">add</button><br>');
+        $("#confirmaddstudy").click(function(){
+            addstudy($("#addstudycode").val());
+        });
+        $("#addstudybutton").remove();
+    });
+    $("#studies").append('<div id="tempstudyloading">loading...</div>');
+    db.collection("users").doc(userid).collection("studies").get().then(function(studylist) {
+        printdebug("Loaded study list appropriately");
+        studies = [];
+        studylist.forEach(function(study) {
+            var thisstudy = new Object();
+            thisstudy.id = study.id;
+            db.collection("studies").doc(thisstudy.id).get().then(function(studydetails) {
+                thisstudy.name = studydetails.data().name;
+                studies.push(thisstudy);
+                printdebug("Study " + thisstudy.name + " loaded.");
+                $("#tempstudyloading").remove();
+                $("#studies").append('<div class="study">' + thisstudy.name  + '</div>');
+                $(".study").last().append('<button>remove</button>');
+                $(".study button").last().click(function() {
+                    removeStudy(thisstudy.id);
+                });
+            });
+        });
+    }).catch(function(error) {
+        printdebug("error loading study: " + error);
+    });
+}
+
+function removeStudy(studyid) {
+    $('#studies').empty().append("updating...");
+    printdebug('attempting to remove study ' + studyid);
+    db.collection("users").doc(userid).collection("studies").doc(studyid).delete().then(function() {
+        updatestudies();
+        $('#studies').append('Sudy Removed. <button>undo</button><br>');
+        $('#studies button').last().click(function() {
+            addstudy(studyid);
+        });
+    }).catch(function(error){
+        printdebug('error deleting study ' + studyid + ": " + error);
+    });
+}
+
+function addstudy(studyid) {
+    $('#studies').empty().append("updating...");
+    // look up the provider details
+    db.collection("studies").doc(studyid).get().then(function(studydetails) {
+        if (studydetails.exists) {
+            db.collection("users").doc(userid).collection("studies").doc(studyid).set({
+                "options": "none"
+            }).then(function(docref) {
+                updatestudies();
+            }).catch(function(error){
+                printdebug('error adding study ' + studyid + ": " + error);
+            });
+        } else {
+            // provider not found
+            updatestudies();
+            $("#studies").append("<div>study code not found</div>");
+        }
+    }).catch(function(error) {
+        printdebug('error getting study ' + error);
+    });
+}
+
+
 function addOtherFactors(newOtherFactors) {
     if (newOtherFactors!=undefined) {
         for (i=0;i<newOtherFactors.length;i++) {
@@ -257,6 +331,7 @@ var app = {
                             $("#researchid").val(currentuser.data().studyid);
                             updatepaindiary();
                             updateproviders();
+                            updatestudies();
                         } else {
                             // add the user to the database
                             console.log("new user");
