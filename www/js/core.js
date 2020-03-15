@@ -172,7 +172,7 @@ var app = {
                         if (currentuser.exists) {
                             console.log("logged in as :", currentuser.data().name);
                             userid=encryptor.decrypt(user.uid);
-                            $("#nhi").val(decryptor.decrypt(currentuser.data().NHI));
+                            $("#nhi").val(encryptor.decrypt(currentuser.data().NHI));
                             $("#researchid").val(currentuser.data().studyid);
                             updatepaindiary();
                         } else {
