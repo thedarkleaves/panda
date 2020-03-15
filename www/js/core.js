@@ -97,12 +97,15 @@ function updatepaindiary() {
 function updateproviders() {
     // read the healthcare providers for this user
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
+        printdebug("Loaded provider list");
+        providers = [];
         providerlist.forEach(function(provider) {
             var thisprovider = new Object();
-            thisprovider.name=provider.data().name;
-            thisprovider.id=providor.data().id;
-            thisprovider.practice=provider.data().practice;
+            thisprovider.name = provider.data().name;
+            thisprovider.id = providor.data().id;
+            thisprovider.practice = provider.data().practice;
             providers.push(thisprovider);
+            printdebug("Provider " + thisprovider.name + " loaded.");
         });
         // print the provider list with a delete button
         $("#providers").empty();
