@@ -41,7 +41,7 @@
     <plugin name="cordova-plugin-buildinfo" />
     <plugin name="cordova-plugin-browsertab" spec="0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" />
-    <plugin name="cordova-plugin-local-notificaton" />
+    <plugin name="cordova-plugin-local-notification" />
 
     <!-- not needed - probably delete
     <plugin name="cordova-support-google-services" spec="1.3.2" />
