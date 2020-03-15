@@ -112,11 +112,11 @@ function updateproviders() {
                 thisprovider.practice = providerdetails.data().practice;
                 providers.push(thisprovider);
                 printdebug("Provider " + thisprovider.name + " loaded.");
-                $("#providers").append('<span class="provider">' + thisprovider.name  + '<span class="practice">' + thisprovider.practice + '</span></span>');
-                $("#providers").lastChild().append('<button>remove</remove>');
+                $("#providers").append('<div class="provider">' + thisprovider.name  + ' <span class="practice">' + thisprovider.practice + '</span></div>');
+                $(".provider :last").append('<button>remove</remove>');
             });
         });
-        $("#providers").append('<button>add provider</button>');
+        $("#providers").append('<button>add provider</button><br>');
     }).catch(function(error) {
         printdebug("error loading providers: " + error);
     });
