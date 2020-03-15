@@ -166,37 +166,38 @@ var app = {
                         encryptionkey = phoneappkey.data().key;
                     }
                     encryptor = new SimpleCrypto(encryptionkey);
+                    // check if user is new or existing
+                    var currentuserref = db.collection("users").doc(user.uid);
+                    currentuserref.get().then(function(currentuser) {
+                        if (currentuser.exists) {
+                            console.log("logged in as :", currentuser.data().name);
+                            userid=encryptor.decrypt(user.uid);
+                            $("#nhi").val(decryptor.decrypt(currentuser.data().NHI));
+                            $("#researchid").val(currentuser.data().studyid);
+                            updatepaindiary();
+                        } else {
+                            // add the user to the database
+                            console.log("new user");
+                            db.collection("users").doc(user.uid).set({
+                                name: encyptor.encrypt(user.displayName),
+                                uid: user.uid,
+                                NHI:null,
+                                studyid:null
+                            })
+                            .then(function(docRef) {
+                                printdebug("New user added: ", user.displayName);
+                            })
+                            .catch(function(error) {
+                                printdebug("Error adding new user: ", error);
+                            });
+                            userid=user.uid;
+                        }
+                    }).catch(function(error) {
+                        printdebug("Error loading users:", error);
+                    });
                 });
                 
-                // check if user is new or existing
-                var currentuserref = db.collection("users").doc(user.uid);
-                currentuserref.get().then(function(currentuser) {
-                    if (currentuser.exists) {
-                        console.log("logged in as :", currentuser.data().name);
-                        userid=user.uid;
-                        $("#nhi").val(currentuser.data().NHI); console.log(currentuser.data().NHI);
-                        $("#researchid").val(currentuser.data().studyid);
-                        updatepaindiary();
-                    } else {
-                        // add the user to the database
-                        console.log("new user");
-                        db.collection("users").doc(user.uid).set({
-                            name: user.displayName,
-                            uid: user.uid,
-                            NHI:null,
-                            studyid:null
-                        })
-                        .then(function(docRef) {
-                            printdebug("New user added: ", user.displayName);
-                        })
-                        .catch(function(error) {
-                            printdebug("Error adding new user: ", error);
-                        });
-                        userid=user.uid;
-                    }
-                }).catch(function(error) {
-                    printdebug("Error loading users:", error);
-                });
+                
             } else {
                 printdebug("Not signed in");
                 // Initialize the FirebaseUI Widget using Firebase.
@@ -452,11 +453,15 @@ var app = {
 
         // TODO: Add option to have no notifications
         cordova.plugins.notification.local.cancellAll();
+        var today = new Date(); // right now
+        var tomorrow = new Date(); 
+        tomorrow.setDate(today.getDate()+1); // this time tomorrow
         cordova.plugins.notification.local.schedule({
             title: 'Update Pain Diary',
             text: 'You haven\'t logged your pain score today.',
             foreground: true,
             trigger: { every: 'day' },
+            firstAt: { tomorrow }
         });
     
         printdebug("ready");
