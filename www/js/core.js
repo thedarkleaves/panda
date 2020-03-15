@@ -100,9 +100,10 @@ function updatepaindiary() {
 function updateproviders() {
     printdebug('update providers function running');
     // read the healthcare providers for this user
+    $("#providers").empty();
+    $("#providers").append('<button>add provider</button><br>');
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
         printdebug("Loaded provider list appropriately");
-        $("#providers").empty();
         providers = [];
         providerlist.forEach(function(provider) {
             var thisprovider = new Object();
@@ -113,12 +114,42 @@ function updateproviders() {
                 providers.push(thisprovider);
                 printdebug("Provider " + thisprovider.name + " loaded.");
                 $("#providers").append('<div class="provider">' + thisprovider.name  + ' <span class="practice">' + thisprovider.practice + '</span></div>');
-                $(".provider :last").append('<button>remove</remove>');
+                $(".provider").last().append('<button>remove</button>');
+                $(".provider button").last().click(removeProvidor(thisprovider.id));
             });
         });
-        $("#providers").append('<button>add provider</button><br>');
     }).catch(function(error) {
         printdebug("error loading providers: " + error);
+    });
+}
+
+function removeProvider(providerid) {
+    db.collection("users").doc(userid).collection("providers").doc(providerod).delete().then(function() {
+        updateproviders();
+        $('#providers').append('Provider Removed. <button>undo</button><br>');
+        $('#providers button').last().click(addprovider(providerid));
+    }).catch(function(error){
+        printdebug('error deleting provider ' + providerid + ": " + error);
+    });
+}
+
+function addprovider(providerid) {
+    // look up the provider details
+    db.collection("providers").doc(providerid).get().then(function(providerdetails) {
+        if (providerdetails!=undefined) {
+            thisprovider.name = providerdetails.data().name;
+            thisprovider.practice = providerdetails.data().practice;
+        
+            db.collection("users").doc(userid).collection("providers").doc(providerid).set().then(function(docref) {
+                updateproviders();
+            }).catch(function(error){
+                printdebug('error adding provider ' + providerid + ": " + error);
+            });
+        } else {
+            // provider not found
+        }
+    }).catch(function(error) {
+        printdebug('error getting provider ' + error);
     });
 }
 
