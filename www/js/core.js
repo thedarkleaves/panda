@@ -106,7 +106,7 @@ function updateproviders() {
         providerlist.forEach(function(provider) {
             var thisprovider = new Object();
             thisprovider.name = provider.data().name;
-            thisprovider.id = providor.data().id;
+            thisprovider.id = provider.data().id;
             thisprovider.practice = provider.data().practice;
             providers.push(thisprovider);
             printdebug("Provider " + thisprovider.name + " loaded.");
