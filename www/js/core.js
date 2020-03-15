@@ -87,7 +87,7 @@ function updatepaindiary() {
             addOtherFactors(thispainday.otherfactors);
             thispainday.medications=painday.data().medications;
             paindiary.push(thispainday);
-            printdebug('recieved paindata ' + thispainday.date)
+            printdebug('recieved paindata ' + thispainday.date);
         });
         initPainChart(7,0);
         makePainDiary4();
