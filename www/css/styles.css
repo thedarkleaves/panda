@@ -115,6 +115,14 @@ input::placeholder {
     width: 7em;
 }
 
+.provider {
+    font-weight: bold;
+}
+
+.provider .practice {
+    font-size: 0.5em;
+}
+
 #debug {
     position: absolute;
     top: 1000px;
