@@ -100,9 +100,6 @@ function updatepaindiary() {
 function updateproviders() {
     printdebug('update providers function running');
     // read the healthcare providers for this user
-    db.collection("users").doc(userid).collection("diary").get().then(function(webpaindairy) {
-        printdebug("Loaded pain diary");
-    });
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
         printdebug("Loaded provider list appropriately");
     });/*
