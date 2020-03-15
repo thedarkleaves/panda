@@ -1,14 +1,18 @@
-var listofdays = [];
-var painscores = [];
+var listofdays = []; // list of all dates from today, length=numDays
+var painscores = []; // list of painscores for listofdays
+var painfactors = []; // list of pain factors for listofdays
+var painmeds = []; // list of meds for listofdays
 
 var marginwidth = 1; // in percent
+
+// numdays - number of days to show
+// showHours - not used, probably to be removed
 function initPainChart(numDays,showHours) {
-    
     if(!(numDays>0)){
         printdebug("Invalid Number of days for Chart");
     } else {
         // generate the dates
-        thisday = todayString();
+        var thisday = todayString();
         var day = thisday.split('.')[2];
         var month = thisday.split('.')[1];
         var year = thisday.split('.')[0];
@@ -23,6 +27,9 @@ function initPainChart(numDays,showHours) {
             for (j=0;j<paindiary.length;j++) {
                 if (paindiary[j].date == thisday) {
                     painscores.push(paindiary[j].painscore);
+                    painfactors.push(paindiary[j].otherfactors);
+                    painmeds.push(paindiary[j].medications);
+                    // TODO: just get the medication names, drop the doses
                     printdebug(thisday + ' - found data ' + painscores);
                     foundpaindata = true;
                     break;
@@ -30,6 +37,8 @@ function initPainChart(numDays,showHours) {
             }
             if (!foundpaindata) {
                 painscores.push(-1);
+                painfactors.push(-1);
+                painmeds.push(-1);
             }
             // go back a day
             if (day>1) {
