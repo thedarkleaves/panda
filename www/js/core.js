@@ -95,6 +95,7 @@ function updatepaindiary() {
 }
 
 function updateproviders() {
+    printdebug('update providers function running');
     // read the healthcare providers for this user
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
         printdebug("Loaded provider list");
@@ -196,7 +197,7 @@ var app = {
                         if (currentuser.exists) {
                             userid=user.uid;
                             username=encryptor.decrypt(currentuser.data().name);
-                            printdebug("logged in as :", username);
+                            printdebug("logged in as :" + username);
                             $("#nhi").val(encryptor.decrypt(currentuser.data().NHI));
                             $("#researchid").val(currentuser.data().studyid);
                             updatepaindiary();
