@@ -122,7 +122,6 @@ function updateproviders() {
                 thisprovider.practice = providerdetails.data().practice;
                 providers.push(thisprovider);
                 printdebug("Provider " + thisprovider.name + " loaded.");
-                $("#tempproviderloading").remove();
                 $("#providers").append('<div class="provider">' + thisprovider.name  + ' <span class="practice">' + thisprovider.practice + '</span></div>');
                 $(".provider").last().append('<button>remove</button>');
                 $(".provider button").last().click(function() {
@@ -130,6 +129,7 @@ function updateproviders() {
                 });
             });
         });
+        $("#tempproviderloading").remove();
     }).catch(function(error) {
         printdebug("error loading providers: " + error);
     });
@@ -195,7 +195,6 @@ function updatestudies() {
                 thisstudy.name = studydetails.data().name;
                 studies.push(thisstudy);
                 printdebug("Study " + thisstudy.name + " loaded.");
-                $("#tempstudyloading").remove();
                 $("#studies").append('<div class="study">' + thisstudy.name  + '</div>');
                 $(".study").last().append('<button>remove</button>');
                 $(".study button").last().click(function() {
@@ -203,6 +202,7 @@ function updatestudies() {
                 });
             });
         });
+        $("#tempstudyloading").remove();
     }).catch(function(error) {
         printdebug("error loading study: " + error);
     });
