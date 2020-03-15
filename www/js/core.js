@@ -5,6 +5,7 @@ var painscore;
 var painhours;
 var db;
 var userid;
+var username;
 var encryptionkey;
 var encryptor;
 var paindiary = [];
@@ -152,7 +153,8 @@ var app = {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 // logged in successfully
-                $("#welcome").append(" " + user.displayName);
+                //$("#welcome").append(" " + user.displayName);
+                //$("#welcome").append(" " + user.displayName);
                 $("#home").show(screenspeed);
                 db = firebase.firestore();
                 $("#hamburger").show();
@@ -170,8 +172,9 @@ var app = {
                     var currentuserref = db.collection("users").doc(user.uid);
                     currentuserref.get().then(function(currentuser) {
                         if (currentuser.exists) {
-                            console.log("logged in as :", currentuser.data().name);
-                            userid=encryptor.decrypt(user.uid);
+                            userid=user.uid;
+                            username=encryptor.decrypt(currentuser.data().name);
+                            printdebug("logged in as :", username);
                             $("#nhi").val(encryptor.decrypt(currentuser.data().NHI));
                             $("#researchid").val(currentuser.data().studyid);
                             updatepaindiary();
