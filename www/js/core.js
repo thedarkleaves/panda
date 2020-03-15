@@ -113,6 +113,8 @@ function updateproviders() {
         for (i=0;i<providers.length;i++) {
             $("#providers").append("<button>" + providers[i].name + "</button>");
         }
+    }).catch(function(error) {
+        printdebug("error: " + error);
     });
 }
 
