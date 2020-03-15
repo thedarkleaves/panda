@@ -445,8 +445,8 @@ var app = {
             text: 'You haven\'t logged your pain score today.',
             foreground: true,
             trigger: { every: 'minute' },
-            icon: 'res://panda.png',
-            smallIcon: 'res://panda.png'
+            icon: 'res/panda.png',
+            smallIcon: 'res/panda.png'
         });
 
         printdebug("ready");
