@@ -142,7 +142,7 @@ function addprovider(providerid) {
         if (providerdetails!=undefined) {
             //thisprovider.name = providerdetails.data().name;
             //thisprovider.practice = providerdetails.data().practice;
-            db.collection("users").doc(userid).collection("providers").doc(providerid).set().then(function(docref) {
+            db.collection("users").doc(userid).collection("providers").doc(providerid).set(null).then(function(docref) {
                 updateproviders();
             }).catch(function(error){
                 printdebug('error adding provider ' + providerid + ": " + error);
