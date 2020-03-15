@@ -11,7 +11,7 @@ var painscores = [];
 var marginwidth = 1; // in percent
 function initPainChart(numDays,showHours) {
     
-    if(!(numDays>0) {
+    if(!(numDays>0)){
         printdebug("Invalid Number of days for Chart");
     } else {
         // generate the dates
