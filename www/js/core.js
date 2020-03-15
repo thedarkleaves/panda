@@ -116,7 +116,7 @@ function updateproviders() {
                 $("#providers").append('<div class="provider">' + thisprovider.name  + ' <span class="practice">' + thisprovider.practice + '</span></div>');
                 $(".provider").last().append('<button>remove</button>');
                 $(".provider button").last().click(function() {
-                    removeProvider(thisprovider.id)
+                    removeProvider(thisprovider.id);
                 });
             });
         });
@@ -126,6 +126,7 @@ function updateproviders() {
 }
 
 function removeProvider(providerid) {
+    printdebug('attempting to remove provider ' + providerid);
     db.collection("users").doc(userid).collection("providers").doc(providerod).delete().then(function() {
         updateproviders();
         $('#providers').append('Provider Removed. <button>undo</button><br>');
