@@ -127,7 +127,7 @@ function updateproviders() {
 
 function removeProvider(providerid) {
     printdebug('attempting to remove provider ' + providerid);
-    db.collection("users").doc(userid).collection("providers").doc(providerod).delete().then(function() {
+    db.collection("users").doc(userid).collection("providers").doc(providerid).delete().then(function() {
         updateproviders();
         $('#providers').append('Provider Removed. <button>undo</button><br>');
         $('#providers button').last().click(addprovider(providerid));
