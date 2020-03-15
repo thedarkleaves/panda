@@ -104,12 +104,13 @@ function updateproviders() {
     $("#providers").append('<button id="addproviderbutton">add provider</button><br>');
     $("#addproviderbutton").click(function() {
         $("#addproviderbutton").after('<input id="addprovidercode" placeholder="code" type="text"> ');
-        $("#addproviderbutton").after('<button id="confirmaddprovider">add</button>');
+        $("#addprovidercode").after('<button id="confirmaddprovider">add</button><br>');
         $("#confirmaddprovider").click(function(){
             addprovider($("#addprovidercode").val());
         });
         $("#addproviderbutton").remove();
     });
+    $("#providers").append('<div id="tempproviderloading">loading...</div>');
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
         printdebug("Loaded provider list appropriately");
         providers = [];
@@ -121,6 +122,7 @@ function updateproviders() {
                 thisprovider.practice = providerdetails.data().practice;
                 providers.push(thisprovider);
                 printdebug("Provider " + thisprovider.name + " loaded.");
+                $("#tempproviderloading").remove();
                 $("#providers").append('<div class="provider">' + thisprovider.name  + ' <span class="practice">' + thisprovider.practice + '</span></div>');
                 $(".provider").last().append('<button>remove</button>');
                 $(".provider button").last().click(function() {
@@ -162,7 +164,7 @@ function addprovider(providerid) {
         } else {
             // provider not found
             updateproviders();
-            $("#providers .question").after("<div>provider code not found</div>");
+            $("#providers").append("<div>provider code not found</div>");
         }
     }).catch(function(error) {
         printdebug('error getting provider ' + error);
