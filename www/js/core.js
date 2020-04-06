@@ -8,7 +8,7 @@ var userid;
 var username;
 var encryptionkey;
 var encryptor;
-var paindiary = [];
+var paindiary;
 var providers = [];
 var todaylogged = false;
 var otherinfo = [];
@@ -75,13 +75,14 @@ function updatepaindiary() {
         printdebug("Loaded provider list");
     });
     // read the pain diary for this user
+    paindiary = [];
     db.collection("users").doc(userid).collection("diary").get().then(function(webpaindiary) {
         webpaindiary.forEach(function(painday) {
             var thispainday = new Object();
             thispainday.date=painday.id;
             if (painday.id==todayString()) {
                 todaylogged = true;
-                console.log("today already logged");
+                printdebug("today already logged");
                 $("#logtoday").hide();
             }
             thispainday.painscore=painday.data().painscore;
@@ -609,15 +610,11 @@ var app = {
 
         // TODO: Add option to have no notifications
         cordova.plugins.notification.local.cancellAll();
-        var today = new Date(); // right now
-        var tomorrow = new Date(); 
-        tomorrow.setDate(today.getDate()+1); // this time tomorrow
         cordova.plugins.notification.local.schedule({
             title: 'Update Pain Diary',
             text: 'You haven\'t logged your pain score today.',
             foreground: true,
-            trigger: { every: 'day' },
-            firstAt: { tomorrow }
+            trigger: { every: 'day' }
         });
     
         printdebug("ready");
