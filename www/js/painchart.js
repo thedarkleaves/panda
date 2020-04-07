@@ -9,7 +9,7 @@ var marginwidth = 1; // in percent
 // showHours - not used, probably to be removed
 function initPainChart(numDays,showHours) {
     printdebug("Intialising pain chart");
-    if(!(numDays>0)){
+    if (!(numDays>0)) {
         printdebug("Invalid Number of days for Chart");
     } else {
         // generate the dates
