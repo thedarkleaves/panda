@@ -8,12 +8,6 @@ var marginwidth = 1; // in percent
 // numdays - number of days to show
 // showHours - not used, probably to be removed
 function initPainChart(numDays,showHours) {
-    // reset everything
-    listofdays = [];
-    painscores = [];
-    painfactors = [];
-    painmeds = [];
-
     if(!(numDays>0)){
         printdebug("Invalid Number of days for Chart");
     } else {
