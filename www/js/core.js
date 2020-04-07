@@ -93,7 +93,7 @@ function updatepaindiary() {
             paindiary.push(thispainday);
             printdebug('received paindata ' + thispainday.date);
         });
-        printpaindiary();
+        //printpaindiary();
         printdebug("Trying to create pain chart.");
         initPainChart(7,0);
         makePainDiary4();
