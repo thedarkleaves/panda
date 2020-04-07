@@ -93,6 +93,7 @@ function updatepaindiary() {
             paindiary.push(thispainday);
             printdebug('recieved paindata ' + thispainday.date);
         });
+        printpaindiary();
         initPainChart(7,0);
         makePainDiary4();
     });
@@ -589,8 +590,7 @@ var app = {
             .then(function(docRef) {
                 printdebug("New pain diary added");
                 updatepaindiary();
-                printpaindiary();
-    
+                
                 changescreen("paindiarysummary");
                 todaylogged=true;
             })

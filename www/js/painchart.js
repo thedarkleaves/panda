@@ -1,13 +1,19 @@
-var listofdays = []; // list of all dates from today, length=numDays
-var painscores = []; // list of painscores for listofdays
-var painfactors = []; // list of pain factors for listofdays
-var painmeds = []; // list of meds for listofdays
+var listofdays; // list of all dates from today, length=numDays
+var painscores; // list of painscores for listofdays
+var painfactors; // list of pain factors for listofdays
+var painmeds; // list of meds for listofdays
 
 var marginwidth = 1; // in percent
 
 // numdays - number of days to show
 // showHours - not used, probably to be removed
 function initPainChart(numDays,showHours) {
+    // reset everything
+    listofdays = [];
+    painscores = [];
+    painfactors = [];
+    painmeds = [];
+
     if(!(numDays>0)){
         printdebug("Invalid Number of days for Chart");
     } else {
