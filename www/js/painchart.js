@@ -1,7 +1,7 @@
-var listofdays; // list of all dates from today, length=numDays
-var painscores; // list of painscores for listofdays
-var painfactors; // list of pain factors for listofdays
-var painmeds; // list of meds for listofdays
+var listofdays = []; // list of all dates from today, length=numDays
+var painscores = []; // list of painscores for listofdays
+var painfactors = []; // list of pain factors for listofdays
+var painmeds = []; // list of meds for listofdays
 
 var marginwidth = 1; // in percent
 
