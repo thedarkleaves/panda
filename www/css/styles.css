@@ -83,6 +83,24 @@ input::placeholder {
     font-size: 1.5em;
 }
 
+#confirmbox {
+    position: fixed;
+    -webkit-backface-visibility: hidden; /* required to keep fixed in android */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.confirmboxback {
+    background-color: #000000;
+    opacity: 50%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
 .command {
     width:50%;
 }

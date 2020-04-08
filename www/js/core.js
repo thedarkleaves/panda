@@ -93,7 +93,7 @@ function updatepaindiary() {
             paindiary.push(thispainday);
             printdebug('received paindata ' + thispainday.date);
         });
-        //printpaindiary();
+        printpaindiary();
         printdebug("Trying to create pain chart.");
         initPainChart(7,0);
         makePainDiary4();
@@ -109,7 +109,9 @@ function updateproviders() {
         $("#addproviderbutton").after('<input id="addprovidercode" placeholder="code" type="text"> ');
         $("#addprovidercode").after('<button id="confirmaddprovider">add</button><br>');
         $("#confirmaddprovider").click(function(){
-            addprovider($("#addprovidercode").val());
+            var checkmessage = "Are you sure you want to give this provider access to your data?";
+            // TODO: CHECK IF THE NEXT LINE  WORKS??!
+            checkUserReallyWantsToContinue(checkmessage,addprovider($("#addprovidercode").val()));
         });
         $("#addproviderbutton").remove();
     });
@@ -278,6 +280,43 @@ function changescreen(screenname) {
     
 }
 
+// print the pain diary
+function printpaindiary() {
+    $("#paindiarysummary").empty()
+    for (i=paindiary.length-1;i>=0;i--) {
+        $("#paindiarysummary").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
+        $("#paindiarysummary").last().append("pain score: " + paindiary[i].painscore+"<br>");
+        $("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
+        if (paindiary[i].otherfactors != undefined) {
+            $("#paindiarysummary").last().append("factors:");
+            for (j=0;j<paindiary[i].otherfactors.length;j++) {
+                $("#paindiarysummary").last().append(paindiary[i].otherfactors[j] + ", ");
+            }
+        }
+        if (paindiary[i].medications != undefined) {
+            $("#paindiarysummary").last().append("<br>medications:");
+            for (j=0;j<paindiary[i].medications.length;j++) {
+                $("#paindiarysummary").last().append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + ", ");
+            }
+        }
+        $("#paindiarysummary").last().append("<hr>");
+    }
+}
+
+function checkUserReallyWantsToContinue(message,functioniftrue) {
+    $(".confirmboxfront").html(message + "<br>");
+    $(".confirmboxfront").append("<button>go ahead</button> <button>don't do it</button>");
+    $(".confirmboxfront button:first-child").click(function() {
+        $(".confirmboxfront").html("");
+        $("#confirmbox").hide();
+        functioniftrue();
+    });
+    $(".confirmboxfront button:last-child").click(function() {
+        $(".confirmboxfront").html("");
+        $("#confirmbox").hide();
+    });
+}
+
 // application constructor
 var app = {
     initialise: function() {
@@ -428,29 +467,6 @@ var app = {
             changescreen("settings");
         });
         
-        // print the pain diary
-        function printpaindiary() {
-            $("#paindiarysummary").empty()
-            for (i=paindiary.length-1;i>=0;i--) {
-                $("#paindiarysummary").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
-                $("#paindiarysummary").last().append("pain score: " + paindiary[i].painscore+"<br>");
-                $("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
-                if (paindiary[i].otherfactors != undefined) {
-                    $("#paindiarysummary").last().append("factors:");
-                    for (j=0;j<paindiary[i].otherfactors.length;j++) {
-                        $("#paindiarysummary").last().append(paindiary[i].otherfactors[j] + ", ");
-                    }
-                }
-                if (paindiary[i].medications != undefined) {
-                    $("#paindiarysummary").last().append("<br>medications:");
-                    for (j=0;j<paindiary[i].medications.length;j++) {
-                        $("#paindiarysummary").last().append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + ", ");
-                    }
-                }
-                $("#paindiarysummary").last().append("<hr>");
-            }
-        }
-
         // #paindiary1
         $("#todaypainyes").click(function(){
             changescreen("paindiary2");
