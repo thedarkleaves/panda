@@ -1,3 +1,5 @@
+import { _ } from "core-js";
+
 // global variables
 var debug = true;
 var screenspeed=1000;
@@ -308,8 +310,9 @@ function printpaindiary() {
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
-    $(".confirmboxfront").html(message + "<br>");
+    printdebug("Confirm Function Running");
     $(".confirmbox").show();
+    $(".confirmboxfront").html(message + "<br>");
     $(".confirmboxfront").append("<button>go ahead</button> <button>don't do it</button>");
     $(".confirmboxfront button:first-child").click(function() {
         $(".confirmboxfront").html("");
