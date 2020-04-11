@@ -309,6 +309,7 @@ function printpaindiary() {
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
     $(".confirmboxfront").html(message + "<br>");
+    $(".confirmbox").show();
     $(".confirmboxfront").append("<button>go ahead</button> <button>don't do it</button>");
     $(".confirmboxfront button:first-child").click(function() {
         $(".confirmboxfront").html("");
@@ -635,7 +636,7 @@ var app = {
             title: 'Update Pain Diary',
             text: 'You haven\'t logged your pain score today.',
             foreground: true,
-            trigger: { every: 'day' }
+            trigger: { every: 'minute' }
         });
     
         printdebug("ready");
