@@ -311,7 +311,7 @@ function printpaindiary() {
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
     printdebug("Confirm Function Running");
-    $(".confirmbox").show();
+    $("#confirmbox").show();
     $(".confirmboxfront").html(message + "<br>");
     $(".confirmboxfront").append("<button>go ahead</button> <button>don't do it</button>");
     $(".confirmboxfront button:first-child").click(function() {
