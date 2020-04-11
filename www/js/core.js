@@ -100,6 +100,29 @@ function updatepaindiary() {
     });
 }
 
+function addprovider(providerid) {
+    $('#providers').empty().append("updating...");
+    // look up the provider details
+    db.collection("providers").doc(providerid).get().then(function(providerdetails) {
+        if (providerdetails.exists) {
+            db.collection("users").doc(userid).collection("providers").doc(providerid).set({
+                "options": "none"
+            }).then(function(docref) {
+                updateproviders();
+            }).catch(function(error){
+                printdebug('error adding provider ' + providerid + ": " + error);
+            });
+        } else {
+            // provider not found
+            updateproviders();
+            $("#providers").append("<div>provider code not found</div>");
+        }
+    }).catch(function(error) {
+        printdebug('error getting provider ' + error);
+    });
+}
+
+
 function updateproviders() {
     printdebug('update providers function running');
     // read the healthcare providers for this user
@@ -111,7 +134,9 @@ function updateproviders() {
         $("#confirmaddprovider").click(function(){
             var checkmessage = "Are you sure you want to give this provider access to your data?";
             // TODO: CHECK IF THE NEXT LINE  WORKS??!
-            checkUserReallyWantsToContinue(checkmessage,addprovider($("#addprovidercode").val()));
+            checkUserReallyWantsToContinue(checkmessage,function(){
+                addprovider($("#addprovidercode").val());
+            });
         });
         $("#addproviderbutton").remove();
     });
@@ -154,27 +179,6 @@ function removeProvider(providerid) {
     });
 }
 
-function addprovider(providerid) {
-    $('#providers').empty().append("updating...");
-    // look up the provider details
-    db.collection("providers").doc(providerid).get().then(function(providerdetails) {
-        if (providerdetails.exists) {
-            db.collection("users").doc(userid).collection("providers").doc(providerid).set({
-                "options": "none"
-            }).then(function(docref) {
-                updateproviders();
-            }).catch(function(error){
-                printdebug('error adding provider ' + providerid + ": " + error);
-            });
-        } else {
-            // provider not found
-            updateproviders();
-            $("#providers").append("<div>provider code not found</div>");
-        }
-    }).catch(function(error) {
-        printdebug('error getting provider ' + error);
-    });
-}
 
 function updatestudies() {
     printdebug('update studies function running');
