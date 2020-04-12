@@ -134,9 +134,9 @@ function updateproviders() {
         $("#confirmaddprovider").click(function(){
             var checkmessage = "Are you sure you want to give this provider access to your data?";
             // TODO: CHECK IF THE NEXT LINE  WORKS??!
+            var providercode = $("#addprovidercode").val();
             checkUserReallyWantsToContinue(checkmessage,function(){
-                //addprovider($("#addprovidercode").val());
-                printdebug("clicked the button");
+                addprovider(providercode);
             });
         });
         $("#addproviderbutton").remove();
@@ -638,7 +638,7 @@ var app = {
             title: 'Update Pain Diary',
             text: 'You haven\'t logged your pain score today.',
             foreground: true,
-            trigger: { every: 'day' }
+            trigger: { every: 'minute' }
         });
     
         printdebug("ready");
