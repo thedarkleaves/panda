@@ -1,3 +1,5 @@
+import { _ } from "core-js";
+
 // global variables
 var debug = true;
 var screenspeed=1000;
@@ -308,6 +310,8 @@ function printpaindiary() {
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
+    printdebug("Confirm Function Running");
+    $("#confirmbox").show();
     $(".confirmboxfront").html(message + "<br>");
     $(".confirmboxfront").append("<button>go ahead</button> <button>don't do it</button>");
     $(".confirmboxfront button:first-child").click(function() {
@@ -635,9 +639,8 @@ var app = {
             title: 'Update Pain Diary',
             text: 'You haven\'t logged your pain score today.',
             foreground: true,
-            trigger: { every: 'day' }
+            trigger: { every: 'minute' }
         });
-    
         printdebug("ready");
     },
 };
@@ -683,3 +686,4 @@ function makePainDiary4() {
         changescreen("meddiary1");
     });
 }
+
