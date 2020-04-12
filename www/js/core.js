@@ -189,7 +189,11 @@ function updatestudies() {
         $("#addstudybutton").after('<input id="addstudycode" placeholder="code" type="text"> ');
         $("#addstudycode").after('<button id="confirmaddstudy">add</button><br>');
         $("#confirmaddstudy").click(function(){
-            addstudy($("#addstudycode").val());
+            var studycode = $("#addstudycode").val();
+            var message="This will allow some of your personal information and pain diary to be available to the selected study.";
+            checkUserReallyWantsToContinue(message,function() {
+                addstudy(studycode);
+            });
         });
         $("#addstudybutton").remove();
     });
@@ -639,7 +643,6 @@ var app = {
         cordova.plugins.notification.local.schedule({
             title: 'Update Pain Diary',
             text: 'You haven\'t logged your pain score today.',
-            foreground: true,
             trigger: { every: 'minute' }
         });
     
