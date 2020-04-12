@@ -624,10 +624,11 @@ var app = {
         });
 
         $("#submitnhi").click(function(){
-            checkUserReallyWantsToContinue("Any healthcare providors and research studies you have given permission to will see this information.",function(){
+            var message="Any healthcare providors and research studies you have given permission to will see this information.";
+            checkUserReallyWantsToContinue(message,function(){
+                printdebug("Saving NHI");                
                 db.collection("users").doc(userid).update({
                     NHI: encryptor.encrypt($("#nhi").val()),
-                    studyid: $("#researchid").val()
                 });
                 changescreen("home");
             });
