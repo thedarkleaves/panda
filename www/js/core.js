@@ -133,14 +133,13 @@ function updateproviders() {
     $("#addproviderbutton").click(function() {
         $("#addproviderbutton").after('<input id="addprovidercode" placeholder="code" type="text"> ');
         $("#addprovidercode").after('<button id="confirmaddprovider">add</button><br>');
-        /*
         $("#confirmaddprovider").click(function(){
             var checkmessage = "Are you sure you want to give this provider access to your data?";
             // TODO: CHECK IF THE NEXT LINE  WORKS??!
             checkUserReallyWantsToContinue(checkmessage,function(){
                 addprovider($("#addprovidercode").val());
             });
-        });*/
+        });
         $("#addproviderbutton").remove();
     });
     $("#providers").append('<div id="tempproviderloading">loading...</div>');
