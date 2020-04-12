@@ -3,13 +3,16 @@
 </head>
 <body>
     <script language="javascript">
-        function printcrap(crap) {
-            document.write(crap);
+        function dosomecrap(craptodo) {
+            alert("i'm about to do some crap");
+            craptodo();
         }
-        function jeff(somestring,somefunction) {
-            somefunction(somestring);
+        function jeff() {
+            dosomecrap(function() {
+                document.write("it works");
+            });
         }
     </script>
-    <button onclick="jeff('test',printcrap);">test</button>
+    <button onclick="jeff();">test</button>
 </body>
 </html>
