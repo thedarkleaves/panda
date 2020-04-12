@@ -133,7 +133,6 @@ function updateproviders() {
         $("#addprovidercode").after('<button id="confirmaddprovider">add</button><br>');
         $("#confirmaddprovider").click(function(){
             var checkmessage = "Are you sure you want to give this provider access to your data?";
-            // TODO: CHECK IF THE NEXT LINE  WORKS??!
             var providercode = $("#addprovidercode").val();
             checkUserReallyWantsToContinue(checkmessage,function(){
                 addprovider(providercode);
@@ -624,12 +623,14 @@ var app = {
             
         });
 
-        $("#submitsettings").click(function(){
-            db.collection("users").doc(userid).update({
-                NHI: encryptor.encrypt($("#nhi").val()),
-                studyid: $("#researchid").val()
+        $("#submitnhi").click(function(){
+            checkUserReallyWantsToContinue("Any healthcare providors and research studies you have given permission to will see this information.",function(){
+                db.collection("users").doc(userid).update({
+                    NHI: encryptor.encrypt($("#nhi").val()),
+                    studyid: $("#researchid").val()
+                });
+                changescreen("home");
             });
-            changescreen("home");
         });
 
         // TODO: Add option to have no notifications
