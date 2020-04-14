@@ -67,11 +67,18 @@
     height: 13px;
     padding-bottom: 2px;
 }
-.factorname, .medname {
+.factorname {
     font-size: 10px;
     height: 100%;
     margin-top: -10px;
     text-align: left;
+}
+
+.medname {
+    font-size: 10px;
+    height: 100%;
+    text-align: left;
+    background-color: red;
 }
 .factordates, .meddates {
     height: 100%;
