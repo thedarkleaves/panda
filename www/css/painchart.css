@@ -12,22 +12,27 @@
     writing-mode: vertical-lr;
     vertical-align: top;
     font-size: 0.5em;
-    height: 15px;
+    height: 50px;
+}
+
+.factor {
+    height: 20px;
 }
 .factorname {
     font-size: 0.5em;
     height: 100%;
-    margin-top: -15px;
+    margin-top: -20px;
+}
+.factordates {
+    height: 100%;
+    border-bottom: solid white 2px;
 }
 .factorelement {
     background-color: #DDDDDD;
     display: inline-block;
     height: 100%;
 }
-.factordates {
-    height: 100%;
-    border-bottom: solid white 2px;
-}
+
 #painchart {
     display:block;
     min-height:200px;
