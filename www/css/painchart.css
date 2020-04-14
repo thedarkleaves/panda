@@ -19,6 +19,7 @@
 .factorelement {
     background-color: #DDDDDD;
     display: inline-block;
+    height: 20px;
 }
 #painchart {
     display:block;
