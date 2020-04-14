@@ -58,10 +58,6 @@
     text-align: right;
 }
 
-#meds {
-    background-color: black;
-}
-
 #factors button, #meds button {
     font-size: 0.5em;
     padding: 2px;
@@ -70,6 +66,10 @@
 .factor, .med {
     height: 13px;
     padding-bottom: 2px;
+}
+
+.med {
+    background-color: black;
 }
 .factorname {
     font-size: 10px;
