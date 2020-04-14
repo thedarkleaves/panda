@@ -154,6 +154,9 @@ function initPainChart(numDays,showHours) {
             
         }
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
+        $( ".factor" ).on( "swipe",function(event) {
+            $(event.target).hide("slide");
+        });
         
         
 
