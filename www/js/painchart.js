@@ -131,21 +131,23 @@ function initPainChart(numDays,showHours) {
         }
         $(".barchartelement").width(barwidth+"%").css("margin",marginwidth+"%");
         
-        /*
+        
         // list the factors
         $("#painbarchart").append('<div id="factors"><div>');
         for (i=0;i<otherinfooptions.length;i++) {
             $('#factors').append('<div class="factor"><div>');
             $('.factor:last').append('<div class="factorname">'+otherinfooptions[i]+'</div>');
             $('.factor:last').append('<div class="factordates"></div>');
+            /*
             for (j=0;j<numDays;j++) {
                 $('.factordates:last').append('<span class="factorelement"></span>');
                 if (painfactors[j].includes(otherinfooptions[i])) {
                     $('.factorelement:last').addClass('litup');
                 }
             }
+            */
         }
-        */
+        
 
         $("#painbarchart").append('<div id="painchartcontrols"></div>');
         $("#painchartcontrols").append("<button>week</button").children().last().click(function() {
