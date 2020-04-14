@@ -130,6 +130,9 @@ function initPainChart(numDays,showHours) {
             }
         }
         $(".barchartelement").width(barwidth+"%").css("margin",marginwidth+"%");
+        
+        /*
+        // list the factors
         $("#painbarchart").append('<div id="factors"><div>');
         for (i=0;i<otherinfooptions.length;i++) {
             $('#factors').append('<div class="factor"><div>');
@@ -142,7 +145,7 @@ function initPainChart(numDays,showHours) {
                 }
             }
         }
-
+        */
 
         $("#painbarchart").append('<div id="painchartcontrols"></div>');
         $("#painchartcontrols").append("<button>week</button").children().last().click(function() {

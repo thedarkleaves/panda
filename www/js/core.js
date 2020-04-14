@@ -71,7 +71,7 @@ function showLoading() {
     setInterval(function(){
         var numberofdots = Math.round(Math.random()*5);
         var loadingtext = "loading";
-        for (i=0;i++;i<numberofdots) {
+        for (i=0;i<numberofdots;i++) {
             loadingtext = loadingtext + ".";
         }
         $("#loadingscreen").html(loadingtext);
