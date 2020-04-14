@@ -14,6 +14,7 @@
     <!-- specific preferences -->
     <preference name="phonegap-version" value="cli-8.1.1" />
     <preference name="AndroidLaunchMode" value="singleTask" />
+    <preference name="android-targetSdkVersion" value="28" />
     
     <content src="index.html" />
 
