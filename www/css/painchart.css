@@ -16,13 +16,13 @@
 }
 
 .factor {
-    height: 10px;
+    height: 13px;
     padding-bottom: 2px;
 }
 .factorname {
-    font-size: 0.5em;
+    font-size: 10px;
     height: 100%;
-    margin-top: -5px;
+    margin-top: -10px;
     text-align: left;
 }
 .factordates {
