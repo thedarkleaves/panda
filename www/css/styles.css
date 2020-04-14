@@ -79,10 +79,6 @@ input::placeholder {
     margin-top: 10px;
 }
 
-#painchart button {
-    font-size: 1.5em;
-}
-
 #loadingscreen {
     position: fixed;
     -webkit-backface-visibility: hidden; /* required to keep fixed in android */

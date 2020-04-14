@@ -174,21 +174,21 @@ function initPainChart(numDays,showHours) {
                 $("#meds button").html("hide medications");
             }
         });
-        for (i=0;i<meds.length;i++) {
+        for (i=0;i<meds.medication.length;i++) {
             $('#meds').append('<div class="factor"><div>');
             $('.factor:last').append('<div class="factordates"></div>');
             
             for (j=0;j<numDays;j++) {
                 $('.factordates:last').append('<span class="factorelement"></span>');
                 try {
-                    if (painmeds[j].includes(meds[i].name)) {
+                    if (painmeds[j].includes(meds.medication[i].name)) {
                         $('.factorelement:last').addClass('litup');
                     }
                 } catch(err) {
                     // painmeds[j] not defined or meds[i] undefined
                 } 
             }
-            $('.factor:last').append('<div class="factorname">'+meds[i].name+'</div>');
+            $('.factor:last').append('<div class="factorname">'+meds.medication[i].name+'</div>');
             
         }
 
