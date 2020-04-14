@@ -16,8 +16,8 @@
 }
 .factorname {
     font-size: 0.5em;
-    height: 20px;
-    margin-top: -20px;
+    height: 100%;
+    margin-top: -15px;
 }
 .factorelement {
     background-color: #DDDDDD;
@@ -25,7 +25,8 @@
     height: 100%;
 }
 .factordates {
-    height: 20px;
+    height: 100%;
+    border-bottom: solid white 2px;
 }
 #painchart {
     display:block;
