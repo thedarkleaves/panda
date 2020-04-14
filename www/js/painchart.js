@@ -196,7 +196,7 @@ function initPainChart(numDays,showHours) {
                 }
             }
             */
-            $('.med:last').append('<div class="factorname">' + meds.medication[i].name + '</div>');
+            $('.med:last').append('<div class="medname">' + meds.medication[i].name + '</div>');
         }
         
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
