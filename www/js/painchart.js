@@ -136,6 +136,10 @@ function initPainChart(numDays,showHours) {
         
         // list the factors
         $("#painbarchart").append('<div id="factors"><div>');
+        $("#factors").append("<button>hide/show factors</button>");
+        $("#factors button").click(function() {
+            $(".factor").toggle();
+        });
         for (i=0;i<otherinfooptions.length;i++) {
             $('#factors').append('<div class="factor"><div>');
             $('.factor:last').append('<div class="factordates"></div>');
