@@ -42,6 +42,7 @@ function formatdate(datestring) {
     splitdate=datestring.split('.');
     return(splitdate[2]+'/'+splitdate[1]+'/'+splitdate[0]);
 }
+
 function todayString() {
     var today = new Date();
     var monthstring, datestring;
@@ -63,6 +64,23 @@ function printdebug(content) {
     if (debug) {
         $("#debug").append("<br>"+content);
     }
+}
+
+function showLoading() {
+    $("#loadingscreen").show();
+    setInterval(function(){
+        var numberofdots = Math.round(Math.random()*5);
+        var loadingtext = "loading";
+        for (i=0;i++;i<numberofdots) {
+            loadingtext = loadingtext + ".";
+        }
+        $("#loadingscreen").html(loadingtext);
+    }, 333);
+}
+
+function hideLoading() {
+    clearInterval();
+    $("#loadingscreen").hide();
 }
 
 // TODO: make this better 
@@ -358,7 +376,6 @@ var app = {
             if (user) {
                 // logged in successfully
                 //$("#welcome").append(" " + user.displayName);
-                //$("#welcome").append(" " + user.displayName);
                 $("#home").show(screenspeed);
                 db = firebase.firestore();
                 $("#hamburger").show();
@@ -405,8 +422,7 @@ var app = {
                         printdebug("Error loading users:", error);
                     });
                 });
-                
-                
+                hideLoading();
             } else {
                 printdebug("Not signed in");
                 // Initialize the FirebaseUI Widget using Firebase.
@@ -441,6 +457,7 @@ var app = {
                 ui.start('#firebaseui-auth-container', uiConfig);
                 changescreen("authenticator");
                 $("#firebaseui-auth-container").show();
+                hideLoading();
             }
         });
 
@@ -691,3 +708,5 @@ function makePainDiary4() {
         changescreen("meddiary1");
     });
 }
+
+showLoading();
