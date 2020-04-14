@@ -35,7 +35,11 @@ function initPainChart(numDays,showHours) {
                 if (paindiary[j].date == thisday) {
                     painscores.push(paindiary[j].painscore);
                     painfactors.push(paindiary[j].otherfactors.toString());
-                    painmeds.push(paindiary[j].medications.toString());
+                    var todaysmeds = "";
+                    for (k=0;k<paindiary[j].medication.length;k++) {
+                        todaysmeds = todaysmeds + " " + paindiary[j].medication[k].name;
+                    }
+                    painmeds.push(todaysmeds);
                     // TODO: just get the medication names, drop the doses
                     printdebug(thisday + ' found: ' + painscores[painscores.length-1] + painfactors[painfactors.length-1] + painmeds[painmeds.length-1]);
                     foundpaindata = true;
