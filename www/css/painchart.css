@@ -12,17 +12,17 @@
     writing-mode: vertical-lr;
     vertical-align: top;
     font-size: 0.5em;
-    height: 50px;
+    min-height: 50px;
 }
 
 .factor {
-    height: 15px;
+    height: 10px;
     padding-bottom: 2px;
 }
 .factorname {
     font-size: 0.5em;
     height: 100%;
-    margin-top: -15px;
+    margin-top: -5px;
     text-align: left;
 }
 .factordates {
