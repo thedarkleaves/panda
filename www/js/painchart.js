@@ -154,11 +154,6 @@ function initPainChart(numDays,showHours) {
             
         }
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
-        $( ".factor" ).on( "swipe",function(event) {
-            $(event.target).hide("slide");
-        });
-        
-        
 
         $("#painbarchart").append('<div id="painchartcontrols"></div>');
         $("#painchartcontrols").append("<button>week</button").children().last().click(function() {
