@@ -58,6 +58,10 @@
     text-align: right;
 }
 
+#meds {
+    background-color: black;
+}
+
 #factors button, #meds button {
     font-size: 0.5em;
     padding: 2px;
