@@ -80,7 +80,7 @@ function showLoading() {
             loadingtext = loadingtext + ".";
         }
         $("#loadingscreen").html(loadingtext);
-    }, 333);
+    }, 200);
 }
 
 function hideLoading() {
