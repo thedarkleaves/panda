@@ -643,7 +643,7 @@ var app = {
         cordova.plugins.notification.local.schedule({
             title: 'Update Pain Diary',
             text: 'You haven\'t logged your pain score today.',
-            trigger: { every: 'minute' }
+            trigger: { every: 'minute', count: 2 }
         });
     
         printdebug("ready");
