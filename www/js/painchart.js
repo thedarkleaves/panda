@@ -136,9 +136,14 @@ function initPainChart(numDays,showHours) {
         
         // list the factors
         $("#painbarchart").append('<div id="factors"><div>');
-        $("#factors").append("<button>hide/show factors</button>");
+        $("#factors").append("<button>hide factors</button>");
         $("#factors button").click(function() {
             $(".factor").toggle();
+            if (("$.factor:last").is(":hidden")) {
+                $("#factors button").html("show factors");
+            } else {
+                $("#factors button").html("hide factors");
+            }
         });
         for (i=0;i<otherinfooptions.length;i++) {
             $('#factors').append('<div class="factor"><div>');
