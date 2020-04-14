@@ -73,6 +73,19 @@ function initPainChart(numDays,showHours) {
             
         }
         dates = listofdays;
+
+        /*
+        #painbarchart
+            #painchartbars
+                (multiple) .barchartbar .barchartelement (.nodata)
+            #factors
+                (multiple) .factorname
+                (multiple*multiple) .factorelement (.litup)
+            #meds
+                (multiple) .factorname
+                (multiple*multiple) .factorelement (.litup)
+        */
+
         // generate the GUI
         if (numDays<1) {
             numDays = 1;

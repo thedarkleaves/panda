@@ -115,6 +115,7 @@ function updatepaindiary() {
         printdebug("Trying to create pain chart.");
         initPainChart(7,0);
         makePainDiary4();
+        hideLoading();
     });
 }
 
@@ -426,7 +427,6 @@ var app = {
                         printdebug("Error loading users:", error);
                     });
                 });
-                hideLoading();
             } else {
                 printdebug("Not signed in");
                 // Initialize the FirebaseUI Widget using Firebase.
@@ -629,9 +629,11 @@ var app = {
             }
             medslist = medslist.substr(0,medslist.length-2); // get rid of the last comma
 
+            // add pain diary data to database
+            showLoading();
             db.collection("users").doc(userid).collection("diary").doc(todayString()).set({
                 "painscore": painscore,
-                "painhours": painhours,
+                //"painhours": painhours,
                 "otherfactors": otherinfo,
                 "medications": medsused
             })
@@ -660,11 +662,11 @@ var app = {
         });
 
         // TODO: Add option to have no notifications
-        //cordova.plugins.notification.local.cancellAll();
+        cordova.plugins.notification.local.clearAll();
         cordova.plugins.notification.local.schedule({
             title: 'Update Pain Diary',
             text: 'You haven\'t logged your pain score today.',
-            trigger: { every: 'minute', count: 2 }
+            trigger: { every: 'day' }
         });
     
         printdebug("ready");
