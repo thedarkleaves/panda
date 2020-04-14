@@ -142,9 +142,13 @@ function initPainChart(numDays,showHours) {
             for (j=0;j<numDays;j++) {
                 $('.factordates:last').append('<span class="factorelement"></span>');
                 printdebug("comparing " + painfactors[j] + " with " + otherinfooptions[i]);
-                /*if (painfactors[j].includes(otherinfooptions[i])) {
-                    $('.factorelement:last').addClass('litup');
-                }*/
+                try {
+                    if (painfactors[j].includes(otherinfooptions[i])) {
+                        $('.factorelement:last').addClass('litup');
+                    }
+                } catch(err) {
+                    printdebug(err.message);
+                } 
             }
             
         }
