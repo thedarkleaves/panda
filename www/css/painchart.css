@@ -30,6 +30,7 @@
 
 #painchartbartitles {
     white-space: nowrap;
+    text-align: right;
 }
 
 .barchartbar {

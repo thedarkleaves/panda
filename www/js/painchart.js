@@ -167,6 +167,37 @@ function initPainChart(numDays,showHours) {
             
         }
         
+        // list the factors
+        $("#painbarchart").append('<div id="meds"><div>');
+        $("#meds").append("<button>hide medications</button>");
+        $("#meds button").click(function() {
+            $(".med").toggle();
+            if ($(".med:last").is(":hidden")) {
+                $("#meds button").html("show medications");
+            } else {
+                $("#meds button").html("hide medications");
+            }
+        });
+        for (i=0;i<meds.medication.length;i++) {
+            $('#meds').append('<div class="med"><div>');
+            $('.med:last').append('<div class="factordates"></div>');
+            for (j=0;j<numDays;j++) {
+                $('.factordates:last').append('<span class="factorelement"></span>');
+                /*
+                try {
+                    if (painfactors[j].includes(otherinfooptions[i])) {
+                        $('.factorelement:last').addClass('litup');
+                    }
+                } catch(err) {
+                    // painfactors[j] not defined
+                } 
+                */
+            }
+            $('.med:last').append('<div class="factorname">'+meds.medication[i].name+'</div>');
+            
+        }
+
+        /*
         // list the medications
         $("#painbarchart").append('<div id="meds"><div>');
         $("#meds").append("<button>hide medications</button>");
@@ -181,7 +212,6 @@ function initPainChart(numDays,showHours) {
         for (i=0;i<meds.medication.length;i++) {
             printdebug("printing medication " + meds.medication[i].name);
             $('#meds').append('<div class="med"><div>');
-            /*
             $('.med:last').append('<div class="factordates"></div>');
             for (j=0;j<numDays;j++) {
                 printdebug("adding med for day " + j);
@@ -195,9 +225,9 @@ function initPainChart(numDays,showHours) {
                     // painmeds[j] not defined or meds[i] undefined
                 }
             }
-            */
             $('.med:last').append('<div class="medname">' + meds.medication[i].name + '</div>');
         }
+        */
         
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
 
