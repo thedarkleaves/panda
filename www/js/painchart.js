@@ -34,7 +34,7 @@ function initPainChart(numDays,showHours) {
             for (j=0;j<paindiary.length;j++) {
                 if (paindiary[j].date == thisday) {
                     painscores.push(paindiary[j].painscore);
-                    painfactors.push(paindiary[j].otherfactors);
+                    painfactors.push(paindiary[j].otherfactors.toString());
                     painmeds.push(paindiary[j].medications);
                     // TODO: just get the medication names, drop the doses
                     printdebug(thisday + ' - found data ' + painscores);
@@ -140,11 +140,9 @@ function initPainChart(numDays,showHours) {
             $('.factor:last').append('<div class="factordates"></div>');
             for (j=0;j<numDays;j++) {
                 $('.factordates:last').append('<span class="factorelement"></span>');
-                /*
                 if (painfactors[j].includes(otherinfooptions[i])) {
                     $('.factorelement:last').addClass('litup');
                 }
-                */
             }
         }
         
