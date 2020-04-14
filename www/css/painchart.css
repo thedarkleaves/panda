@@ -12,6 +12,7 @@
     writing-mode: vertical-lr;
     vertical-align: top;
     font-size: 0.5em;
+    height: 15px;
 }
 .factorname {
     font-size: 0.5em;
@@ -19,7 +20,8 @@
 .factorelement {
     background-color: #DDDDDD;
     display: inline-block;
-    height: 20px;    
+    height: 15px;
+    margin-top: -15px;    
 }
 #painchart {
     display:block;
@@ -51,5 +53,5 @@
     overflow: auto;
 }
 .litup {
-    background-color: green;
+    background-color: #ec7a77;
 }
