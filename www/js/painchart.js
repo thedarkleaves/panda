@@ -79,8 +79,10 @@ function initPainChart(numDays,showHours) {
             #painchartbars
                 (multiple) .barchartbar .barchartelement (.nodata)
             #factors
-                (multiple) .factorname
-                (multiple*multiple) .factorelement (.litup)
+                (multiple) .factor
+                    .factorname
+                    .factordates
+                        (multiple) .factorelement (.litup)
             #meds
                 (multiple) .factorname
                 (multiple*multiple) .factorelement (.litup)
@@ -128,8 +130,18 @@ function initPainChart(numDays,showHours) {
             }
         }
         $(".barchartelement").width(barwidth+"%").css("margin",marginwidth+"%");
-        $("#painbarchart").append('<div id="factors">factors<div>');
-
+        $("#painbarchart").append('<div id="factors"><div>');
+        for (i=0;i<otherinfooptions.length;i++) {
+            $('#factors').append('<div class="factor"><div>');
+            $('.factor:last').append('<div class="factorname">'+otherinfooptions[i]+'</div>');
+            $('.factor:last').append('<div class="factordates"></div>');
+            for (j=0;j<numDays;j++) {
+                $('.factordates:last').append('<span class="factorelement"></span>');
+                if (painfactors[j].includes(otherinfooptions[i])) {
+                    $('.factorelement:last').addClass('litup');
+                }
+            }
+        }
 
 
         $("#painbarchart").append('<div id="painchartcontrols"></div>');
