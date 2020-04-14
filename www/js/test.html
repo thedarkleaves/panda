@@ -1,57 +1,73 @@
 <html>
 <head>
-    <style>
-        #confirmbox {
-    position: fixed;
-    -webkit-backface-visibility: hidden; /* required to keep fixed in android */
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 5000;
-}
 
-.confirmboxfront {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    text-align: center;
-    vertical-align: middle;
-    z-index: 5002;
-}
-
-.confirmboxback {
-    background-color: #000000;
-    opacity: 80%;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index:5001;
-}
-
-
-    </style>
+<link rel="stylesheet" type="text/css" href="../css/painchart.css">
 </head>
 <body>
-    <script language="javascript">
-        function dosomecrap(craptodo) {
-            alert("i'm about to do some crap");
-            craptodo();
-        }
-        function jeff() {
-            dosomecrap(function() {
-                document.write("it works");
-            });
-        }
-    </script>
-    <button onclick="jeff();">test</button>
 
 
-    <div id="confirmbox">
-        <div class="confirmboxfront">i have writing in me</div>
-        <div class="confirmboxback"></div>
+<!--
+
+   #painbarchart
+            #painchartbars
+                (multiple) .barchartbar .barchartelement (.nodata)
+            #factors
+                (multiple) .factor
+                    .factorname
+                    .factordates
+                        (multiple) .factorelement (.litup)
+            #meds
+                (multiple) .factorname
+                (multiple*multiple) .factorelement (.litup)
+-->
+    <div id="painbarchart">
+        <div id="painchartbars">
+            <span class="barchartbar barchartelement"></span>
+            <span class="barchartbar barchartelement"></span>
+            <span class="barchartbar barchartelement"></span>
+            <span class="barchartbar barchartelement"></span>
+            <span class="barchartbar barchartelement"></span>
+        </div>
+        <div id="painchartbartitles">
+            <span class="barchartbartitle barchartelement">test1</span>
+            <span class="barchartbartitle barchartelement">test2</span>
+            <span class="barchartbartitle barchartelement">test3</span>
+            <span class="barchartbartitle barchartelement">test4</span>
+            <span class="barchartbartitle barchartelement ">test5</span>
+        </div>
+        <div id="factors">
+            <div class="factor">
+                <div class="factordates">
+                    <span class="factorelement"></span>
+                    <span class="factorelement"></span>
+                    <span class="factorelement"></span>
+                    <span class="factorelement litup"></span>
+                    <span class="factorelement litup"></span>
+                </div>
+                <div class="factorname">factor1</div>
+            </div>
+            <div class="factor">
+                <div class="factordates">
+                    <span class="factorelement litup"></span>
+                    <span class="factorelement litup"></span>
+                    <span class="factorelement"></span>
+                    <span class="factorelement"></span>
+                    <span class="factorelement litup"></span>
+                </div>
+                <div class="factorname">factor2</div>
+            </div>
+            <div class="factor">
+                <div class="factordates">
+                    <span class="factorelement"></span>
+                    <span class="factorelement"></span>
+                    <span class="factorelement litup"></span>
+                    <span class="factorelement litup"></span>
+                    <span class="factorelement"></span>
+                </div>
+                <div class="factorname">factor3</div>
+            </div>
+        </div>
     </div>
-</body>
+
+    </body>
 </html>

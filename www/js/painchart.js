@@ -77,7 +77,9 @@ function initPainChart(numDays,showHours) {
         /*
         #painbarchart
             #painchartbars
-                (multiple) .barchartbar .barchartelement (.nodata)
+                (multiple) .painchartbar .painchartelement (.nodata)
+            #painchartbartitles
+                (multiple) .painchartbartitle    
             #factors
                 (multiple) .factor
                     .factorname
@@ -136,7 +138,6 @@ function initPainChart(numDays,showHours) {
         $("#painbarchart").append('<div id="factors"><div>');
         for (i=0;i<otherinfooptions.length;i++) {
             $('#factors').append('<div class="factor"><div>');
-            $('.factor:last').append('<div class="factorname">'+otherinfooptions[i]+'</div>');
             $('.factor:last').append('<div class="factordates"></div>');
             
             for (j=0;j<numDays;j++) {
@@ -149,6 +150,7 @@ function initPainChart(numDays,showHours) {
                     // painfactors[j] not defined
                 } 
             }
+            $('.factor:last').append('<div class="factorname">'+otherinfooptions[i]+'</div>');
             
         }
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
