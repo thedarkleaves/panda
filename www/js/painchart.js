@@ -40,8 +40,7 @@ function initPainChart(numDays,showHours) {
                         todaysmeds = todaysmeds + " " + paindiary[j].medications[k].name;
                     }
                     painmeds.push(todaysmeds);
-                    // TODO: just get the medication names, drop the doses
-                    printdebug(thisday + ' found: ' + painscores[painscores.length-1] + painfactors[painfactors.length-1] + painmeds[painmeds.length-1]);
+                    //printdebug(thisday + ' found: ' + painscores[painscores.length-1] + painfactors[painfactors.length-1] + painmeds[painmeds.length-1]);
                     foundpaindata = true;
                     break;
                 }
@@ -90,8 +89,10 @@ function initPainChart(numDays,showHours) {
                     .factordates
                         (multiple) .factorelement (.litup)
             #meds
-                (multiple) .factorname
-                (multiple*multiple) .factorelement (.litup)
+                (multiple) .med
+                    .factorname
+                    .factordates
+                        (multiple) .factorelement (.litup)
         */
 
         // generate the GUI
@@ -107,7 +108,6 @@ function initPainChart(numDays,showHours) {
         console.log(painscores.slice(0,numDays));
         for (i=0;i<numDays;i++) {
             $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');
-            //printdebug('plotting ' + dates[i] + ' - ' + painscores[i]); 
             if (painscores[i]==0) {
                 $(".barchartbar:last").height("1px").hide().fadeIn();
             } else if (painscores[i]>0) {
@@ -179,10 +179,12 @@ function initPainChart(numDays,showHours) {
             }
         });
         for (i=0;i<meds.medication.length;i++) {
+            printdebug("printing medication " + meds.medication[i]);
             $('#meds').append('<div class="med"><div>');
             $('.med:last').append('<div class="factordates"></div>');
             
             for (j=0;j<numDays;j++) {
+                printdebug("adding med for day " + j);
                 $('.factordates:last').append('<span class="factorelement"></span>');
                 try {
                     printdebug("comparing " + painmends[j] + " with " + meds.medication[i].name);
