@@ -179,7 +179,7 @@ function initPainChart(numDays,showHours) {
             }
         });
         for (i=0;i<meds.medication.length;i++) {
-            printdebug("printing medication " + meds.medication[i]);
+            printdebug("printing medication " + meds.medication[i].name);
             $('#meds').append('<div class="med"><div>');
             $('.med:last').append('<div class="factordates"></div>');
             
@@ -196,7 +196,6 @@ function initPainChart(numDays,showHours) {
                 } 
             }
             $('.med:last').append('<div class="factorname">'+meds.medication[i].name+'</div>');
-            
         }
 
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
