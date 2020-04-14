@@ -312,7 +312,7 @@ function printpaindiary() {
     for (i=paindiary.length-1;i>=0;i--) {
         $("#paindiarysummary").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
         $("#paindiarysummary").last().append("pain score: " + paindiary[i].painscore+"<br>");
-        $("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
+        //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         if (paindiary[i].otherfactors != undefined) {
             $("#paindiarysummary").last().append("factors:");
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
@@ -322,7 +322,11 @@ function printpaindiary() {
         if (paindiary[i].medications != undefined) {
             $("#paindiarysummary").last().append("<br>medications:");
             for (j=0;j<paindiary[i].medications.length;j++) {
-                $("#paindiarysummary").last().append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + ", ");
+                if ((paindiary[i].medications[j].dose != undefined) && (paindiary[i].medications[j].mednum != undefined)) {
+                    $("#paindiarysummary").last().append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + ", ");
+                } else {
+                    $("#paindiarysummary").last().append(paindiary[i].medications[j].name + ", ");    
+                }
             }
         }
         $("#paindiarysummary").last().append("<hr>");
@@ -659,8 +663,8 @@ var app = {
         cordova.plugins.notification.local.cancellAll();
         cordova.plugins.notification.local.schedule({
             title: 'Update Pain Diary',
-            text: 'You haven\'t logged your pain score today.',
-            trigger: { every: 'minute', count: 2 }
+            text: 'You haven\'t logged your pain score today.'
+            //trigger: { every: 'minute', count: 2 }
         });
     
         printdebug("ready");
