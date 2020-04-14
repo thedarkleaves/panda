@@ -73,10 +73,10 @@ function showLoading() {
         if (loadingdots==0) {
             loadingdots = 1;
         } else {
-            loadingdots += Math.round(1-Math.random()*2);
+            loadingdots += Math.round(1-(Math.random()*2));
         }
         var loadingtext = "loading";
-        for (i=0;i<numberofdots;i++) {
+        for (i=0;i<loadingdots;i++) {
             loadingtext = loadingtext + ".";
         }
         $("#loadingscreen").html(loadingtext);
