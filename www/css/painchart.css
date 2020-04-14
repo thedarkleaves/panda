@@ -13,6 +13,13 @@
     vertical-align: top;
     font-size: 0.5em;
 }
+.factorname {
+    font-size: 0.5em;
+}
+.factorelement {
+    background-color: #DDDDDD;
+    display: inline-block;
+}
 #painchart {
     display:block;
     min-height:200px;
