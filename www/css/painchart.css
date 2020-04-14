@@ -73,10 +73,10 @@
     margin-top: -10px;
     text-align: left;
 }
-.factordates {
+.factordates, .meddates {
     height: 100%;
 }
-.factorelement {
+.factorelement, .medelement {
     background-color: #DDDDDD;
     height: 100%;
     display: inline-block;
