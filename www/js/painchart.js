@@ -137,7 +137,7 @@ function initPainChart(numDays,showHours) {
         for (i=0;i<otherinfooptions.length;i++) {
             $('#factors').append('<div class="factor"><div>');
             $('.factor:last').append('<div class="factorname">'+otherinfooptions[i]+'</div>');
-            $('.factor:last').append('<div class="factordates">'+painfactors[j]+'</div>');
+            $('.factor:last').append('<div class="factordates">'+painfactors[i]+'</div>');
             /*
             for (j=0;j<numDays;j++) {
                 $('.factordates:last').append('<span class="factorelement"></span>');
