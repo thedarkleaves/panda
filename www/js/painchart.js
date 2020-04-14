@@ -139,7 +139,7 @@ function initPainChart(numDays,showHours) {
         $("#factors").append("<button>hide factors</button>");
         $("#factors button").click(function() {
             $(".factor").toggle();
-            if (("$.factor:last").is(":hidden")) {
+            if ((".factor:last").is(":hidden")) {
                 $("#factors button").html("show factors");
             } else {
                 $("#factors button").html("hide factors");
