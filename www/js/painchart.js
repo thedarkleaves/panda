@@ -167,6 +167,7 @@ function initPainChart(numDays,showHours) {
             
         }
         
+        /*
         // list the medications
         $("#painbarchart").append('<div id="meds"><div>');
         $("#meds").append("<button>hide medications</button>");
@@ -186,7 +187,6 @@ function initPainChart(numDays,showHours) {
             for (j=0;j<numDays;j++) {
                 printdebug("adding med for day " + j);
                 $('.factordates:last').append('<span class="factorelement"></span>');
-                /*
                 try {
                     printdebug("comparing " + painmends[j] + " with " + meds.medication[i].name);
                     if (painmeds[j].includes(meds.medication[i].name)) {
@@ -195,10 +195,10 @@ function initPainChart(numDays,showHours) {
                 } catch(err) {
                     // painmeds[j] not defined or meds[i] undefined
                 }
-                */ 
             }
             $('.med:last').append('<div class="factorname">'+meds.medication[i].name+'</div>');
         }
+        */
 
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
 
