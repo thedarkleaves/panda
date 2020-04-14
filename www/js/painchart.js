@@ -193,7 +193,7 @@ function initPainChart(numDays,showHours) {
                     // painmeds[j] not defined or meds[i] undefined
                 } 
             }
-            $('.factor:last').append('<div class="factorname">'+meds.medication[i].name+'</div>');
+            $('.med:last').append('<div class="factorname">'+meds.medication[i].name+'</div>');
             
         }
 
