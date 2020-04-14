@@ -181,8 +181,8 @@ function initPainChart(numDays,showHours) {
         for (i=0;i<meds.medication.length;i++) {
             printdebug("printing medication " + meds.medication[i].name);
             $('#meds').append('<div class="med"><div>');
-            $('.med:last').append('<div class="factordates"></div>');
             /*
+            $('.med:last').append('<div class="factordates"></div>');
             for (j=0;j<numDays;j++) {
                 printdebug("adding med for day " + j);
                 $('.factordates:last').append('<span class="factorelement"></span>');
@@ -196,7 +196,7 @@ function initPainChart(numDays,showHours) {
                 }
             }
             */
-            $('.med:last').append('<div class="factorname">'+meds.medication[i].name+'</div>');
+            $('.med:last').append('<div class="factorname">' + meds.medication[i].name + '</div>');
         }
         
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
