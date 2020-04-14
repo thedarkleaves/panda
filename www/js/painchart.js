@@ -37,7 +37,7 @@ function initPainChart(numDays,showHours) {
                     painfactors.push(paindiary[j].otherfactors.toString());
                     painmeds.push(paindiary[j].medications);
                     // TODO: just get the medication names, drop the doses
-                    printdebug(thisday + ' - found data ' + painscores);
+                    printdebug(thisday + ' - found data ' + painscores[painscores.length-1] + painfactors[painfactors.length-1]);
                     foundpaindata = true;
                     break;
                 }
