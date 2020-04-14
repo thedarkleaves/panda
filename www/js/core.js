@@ -660,11 +660,11 @@ var app = {
         });
 
         // TODO: Add option to have no notifications
-        cordova.plugins.notification.local.cancellAll();
+        //cordova.plugins.notification.local.cancellAll();
         cordova.plugins.notification.local.schedule({
             title: 'Update Pain Diary',
-            text: 'You haven\'t logged your pain score today.'
-            //trigger: { every: 'minute', count: 2 }
+            text: 'You haven\'t logged your pain score today.',
+            trigger: { every: 'minute', count: 2 }
         });
     
         printdebug("ready");
