@@ -175,12 +175,13 @@ function initPainChart(numDays,showHours) {
             }
         });
         for (i=0;i<meds.medication.length;i++) {
-            $('#meds').append('<div class="factor"><div>');
-            $('.factor:last').append('<div class="factordates"></div>');
+            $('#meds').append('<div class="med"><div>');
+            $('.med:last').append('<div class="factordates"></div>');
             
             for (j=0;j<numDays;j++) {
                 $('.factordates:last').append('<span class="factorelement"></span>');
                 try {
+                    printdebug("comparing " + painmends[j] + " with " + meds.medication[i].name);
                     if (painmeds[j].includes(meds.medication[i].name)) {
                         $('.factorelement:last').addClass('litup');
                     }

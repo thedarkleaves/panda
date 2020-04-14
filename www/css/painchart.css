@@ -16,16 +16,35 @@
     font-size: 1em;
 }
 
+#painbarchart {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+#painchartbars {
+    white-space: nowrap;
+    height: 200px;
+    text-align: right;
+}
+
+#painchartbartitles {
+    white-space: nowrap;
+}
+
 .barchartbar {
     background-color: #ec7a77;
     display: inline-block;
 }
+
 .barchartbar.nodata {
     background-color: #DDDDDD;
 }
+
 .barchartelement {
     min-width:2px;
 }
+
 .barchartbartitle {
     writing-mode: vertical-lr;
     vertical-align: top;
@@ -62,18 +81,6 @@
     display: inline-block;
 }
 
-#painchartbars {
-    white-space: nowrap;
-    height: 200px;
-}
-#painchartbartitles {
-    white-space: nowrap;
-}
-#painbarchart {
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-}
 .litup {
     background-color: #ec7a77;
 }
