@@ -13,6 +13,7 @@ var providers = [];
 var todaylogged = false;
 var otherinfo = [];
 var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
+var loadingdots = 0;
 var meds = {
     "medication": [
         {
@@ -69,7 +70,11 @@ function printdebug(content) {
 function showLoading() {
     $("#loadingscreen").show();
     setInterval(function(){
-        var numberofdots = Math.round(Math.random()*5);
+        if (loadingdots==0) {
+            loadingdots = 1;
+        } else {
+            loadingdots += Math.round(1-Math.random()*2);
+        }
         var loadingtext = "loading";
         for (i=0;i<numberofdots;i++) {
             loadingtext = loadingtext + ".";
