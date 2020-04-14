@@ -128,6 +128,10 @@ function initPainChart(numDays,showHours) {
             }
         }
         $(".barchartelement").width(barwidth+"%").css("margin",marginwidth+"%");
+        $("#painbarchart").append('<div id="factors">factors<div>');
+
+
+
         $("#painbarchart").append('<div id="painchartcontrols"></div>');
         $("#painchartcontrols").append("<button>week</button").children().last().click(function() {
             initPainChart(7,showHours);
