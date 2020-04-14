@@ -35,7 +35,7 @@ function initPainChart(numDays,showHours) {
                 if (paindiary[j].date == thisday) {
                     painscores.push(paindiary[j].painscore);
                     painfactors.push(paindiary[j].otherfactors.toString());
-                    painmeds.push(paindiary[j].medications);
+                    painmeds.push(paindiary[j].medications.toString());
                     // TODO: just get the medication names, drop the doses
                     printdebug(thisday + ' - found data ' + painscores[painscores.length-1] + painfactors[painfactors.length-1]);
                     foundpaindata = true;
@@ -139,7 +139,7 @@ function initPainChart(numDays,showHours) {
         $("#factors").append("<button>hide factors</button>");
         $("#factors button").click(function() {
             $(".factor").toggle();
-            if ((".factor:last").is(":hidden")) {
+            if ($(".factor:last").is(":hidden")) {
                 $("#factors button").html("show factors");
             } else {
                 $("#factors button").html("hide factors");
@@ -162,7 +162,40 @@ function initPainChart(numDays,showHours) {
             $('.factor:last').append('<div class="factorname">'+otherinfooptions[i]+'</div>');
             
         }
+        
+        // list the medications
+        $("#painbarchart").append('<div id="meds"><div>');
+        $("#meds").append("<button>hide medications</button>");
+        $("#meds button").click(function() {
+            $(".med").toggle();
+            if ($(".med:last").is(":hidden")) {
+                $("#meds button").html("show medications");
+            } else {
+                $("#meds button").html("hide medications");
+            }
+        });
+        for (i=0;i<meds.length;i++) {
+            $('#meds').append('<div class="factor"><div>');
+            $('.factor:last').append('<div class="factordates"></div>');
+            
+            for (j=0;j<numDays;j++) {
+                $('.factordates:last').append('<span class="factorelement"></span>');
+                try {
+                    if (painmeds[j].includes(meds[i].name)) {
+                        $('.factorelement:last').addClass('litup');
+                    }
+                } catch(err) {
+                    // painmeds[j] not defined or meds[i] undefined
+                } 
+            }
+            $('.factor:last').append('<div class="factorname">'+meds[i].name+'</div>');
+            
+        }
+
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
+
+
+
 
         $("#painbarchart").append('<div id="painchartcontrols"></div>');
         $("#painchartcontrols").append("<button>week</button").children().last().click(function() {

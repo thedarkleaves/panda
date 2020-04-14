@@ -15,10 +15,16 @@
     min-height: 50px;
 }
 
-#factors button {
-    font-size: 0.5em;
+#factors, #meds {
+    padding-bottom: 5px;
 }
-.factor {
+
+#factors button, #meds button {
+    font-size: 0.5em;
+    padding: 2px;
+}
+
+.factor, .med {
     height: 13px;
     padding-bottom: 2px;
 }
