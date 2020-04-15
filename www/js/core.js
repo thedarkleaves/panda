@@ -340,26 +340,30 @@ function changescreen(screenname) {
 function printpaindiary() {
     $("#paindiarysummary").empty()
     for (i=paindiary.length-1;i>=0;i--) {
-        $("#paindiarysummary").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
-        $("#paindiarysummary").last().append("pain score: " + paindiary[i].painscore+"<br>");
+        $("#paindiarysummary").append('<div class="paindiaryday"></div>');
+        $(".paindiaryday:last").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
+        $(".paindiaryday:last").last().append('pain score: <input type="number" value="' + paindiary[i].painscore + '" readonly="true"><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         if (paindiary[i].otherfactors != undefined) {
-            $("#paindiarysummary").last().append("factors:");
+            $(".paindiaryday:last").last().append("factors:");
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
-                $("#paindiarysummary").last().append(paindiary[i].otherfactors[j] + ", ");
+                $(".paindiaryday:last").last().append(paindiary[i].otherfactors[j] + ", ");
             }
         }
         if (paindiary[i].medications != undefined) {
-            $("#paindiarysummary").last().append("<br>medications:");
+            $(".paindiaryday:last").last().append("<br>medications:");
             for (j=0;j<paindiary[i].medications.length;j++) {
                 if ((paindiary[i].medications[j].dose != undefined) && (paindiary[i].medications[j].mednum != undefined)) {
-                    $("#paindiarysummary").last().append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + ", ");
+                    $(".paindiaryday:last").last().append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + ", ");
                 } else {
-                    $("#paindiarysummary").last().append(paindiary[i].medications[j].name + ", ");    
+                    $(".paindiaryday:last").last().append(paindiary[i].medications[j].name + ", ");    
                 }
             }
         }
-        $("#paindiarysummary").last().append("<hr>");
+        $(".paindiaryday:last").last().append("<button>modify this entry</button><hr>");
+        $(".paindiaryday:last button:last").click(function(){
+            $(".paindiaryday:last input").attr('readonly',false);
+        });
     }
 }
 
