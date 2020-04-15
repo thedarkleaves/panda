@@ -99,7 +99,7 @@ function showLoading() {
     var sizeofeach=(100/gridsize);
     $(".pandaloader_row").height(sizeofeach + "%");
     $(".pandaloader_box").height("100%").width(sizeofeach + "%").css("display","inline-block");
-    $(".pandaloader_box").on("swipe",function() {
+    $(".pandaloader_box").on("click",function() {
         $(this).css('background-color',"#FFFFFF");
     });
     setInterval(function(){

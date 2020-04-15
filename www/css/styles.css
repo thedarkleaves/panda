@@ -182,12 +182,12 @@ input::placeholder {
 }
 
 .paindiaryday input {
-    width: 20px;
+    width: 20%;
     display: inline-block;
 }
 
 .paindiaryday input:read-only {
-    background-color: #e9d6a8;
-    color: #ec7a77;
+    background-color: #f6a282;
+    color: #e9d6a8;
     font-weight: bold;
 }
