@@ -187,7 +187,7 @@ input::placeholder {
 }
 
 .paindiaryday input:read-only {
-    background-color: #ec7a77;
-    color: #e9d6a8;
+    background-color: #e9d6a8;
+    color: #ec7a77;
     font-weight: bold;
 }
