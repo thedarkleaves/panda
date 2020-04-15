@@ -182,7 +182,7 @@ function initPainChart(numDays,showHours) {
         });
         for (i=0;i<meds.medication.length;i++) {
             printdebug("printing medication " + meds.medication[i].name);
-            $('#meds').append('<div class="med"><div class="meddates"></div><div>');
+            $('#meds').append('<div class="medd"><div class="meddates"></div><div>');
             for (j=0;j<numDays;j++) {
                 $('.meddates:last').append('<span class="medelement">j</span>');
                 try {
@@ -194,7 +194,7 @@ function initPainChart(numDays,showHours) {
                     // painmeds[j] not defined or meds[i] undefined
                 }
             }
-            $('.med:last').append('<div class="medname">jeff2</div>');
+            $('.medd:last').append('<div class="medname">jeff2</div>');
         }
         
         $(".medelement").width(barwidth+"%").css("margin",marginwidth+"%");
