@@ -181,9 +181,13 @@ input::placeholder {
     overflow: scroll;
 }
 
+.paindiaryday input {
+    width: 20px;
+    display: inline;
+}
+
 .paindiaryday input:read-only {
     background-color: #ec7a77;
     color: #e9d6a8;
     font-weight: bold;
-    display: inline;
 }
