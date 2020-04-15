@@ -173,7 +173,7 @@ function initPainChart(numDays,showHours) {
         $("#painbarchart").append('<div id="meds"><div>');
         $("#meds").append("<button>hide medications</button>");
         $("#meds button").click(function() {
-            $(".med").toggle();
+            $(".medd").toggle();
             if ($(".med:last").is(":hidden")) {
                 $("#meds button").html("show medications");
             } else {
