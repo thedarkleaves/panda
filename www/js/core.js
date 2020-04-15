@@ -342,7 +342,7 @@ function printpaindiary() {
     for (i=paindiary.length-1;i>=0;i--) {
         $("#paindiarysummary").append('<div class="paindiaryday"></div>');
         $(".paindiaryday:last").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
-        $(".paindiaryday:last").append('pain score: <input type="number" value="' + paindiary[i].painscore + '" readonly="true"><br>');
+        $(".paindiaryday:last").append('pain score: <input type="number" size=2 value="' + paindiary[i].painscore + '" readonly="true"><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         if (paindiary[i].otherfactors != undefined) {
             $(".paindiaryday:last").append("factors:");
