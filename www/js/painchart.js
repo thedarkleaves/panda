@@ -185,7 +185,7 @@ function initPainChart(numDays,showHours) {
             $('#meds').append('<div class="medd"><div class="meddates"></div></div>');
             for (j=0;j<numDays;j++) {
                 $('.meddates:last').append('<span class="medelement"></span>');
-                printdebug("comparing " + painmends[j] + " with " + meds.medication[i].name);
+                printdebug("comparing " + painmeds[j] + " with " + meds.medication[i].name);
                 try {
                     if (painmeds[j].includes(meds.medication[i].name)) {
                         $('.medelement:last').addClass('litup');
