@@ -372,7 +372,6 @@ function printpaindiary() {
                         $(".paindiaryfactorlist button:last").toggleClass("toggleTrue");
                     }
                 }
-
             }
             
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
