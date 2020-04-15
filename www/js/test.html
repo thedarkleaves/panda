@@ -1,13 +1,39 @@
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 <body>
 
 
 
-    <div style="height:100px;width:100px;background-color:green;">100px box</div>
-    <div style="font-size:100px">100px font</div>
+
+
+    <div id="pandaloading"></div>
+
+<script language="JavaScript">
+
+    function buildLoader(gridsize) {
+        $("#pandaloading").height("100%").width("100%");
+        for (i=0;i<gridsize;i++) {
+            $("#pandaloading").append('<div class="pandaloader_row" id="pandaloader_row' + i + '"></div>');
+            for (j=0;j<gridsize;j++) {
+                $("#pandaloader_row" + i).append('<div id="pandaloader_row' + i + '_col' + j + '" class="pandaloader_box"></div>');    
+            }      
+        }
+        var sizeofeach=(100/gridsize);
+        $(".pandaloader_row").height(sizeofeach + "%");
+        $(".pandaloader_box").height("100%").width(sizeofeach + "%").css("display","inline-block");
+        setInterval(function(){
+            var row = Math.floor(Math.random()*gridsize);
+            var col = Math.floor(Math.random()*gridsize);
+            var colour = "#" + (Math.floor(Math.random()*10) * 111111);
+            $("#pandaloader_row" + row + "_col" + col).css("background-color",colour);
+        },20);
+    }
+
+    buildLoader(20);
+</script>
 
     </body>
 </html>

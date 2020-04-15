@@ -67,25 +67,49 @@ function printdebug(content) {
     }
 }
 
-function showLoading() {
-    $("#loadingscreen").show();
+function buildLoader(gridsize) {
+    $("#pandaloading").height("100%").width("100%");
+    for (i=0;i<gridsize;i++) {
+        $("#pandaloading").append('<div class="pandaloader_row" id="pandaloader_row' + i + '"></div>');
+        for (j=0;j<gridsize;j++) {
+            $("#pandaloader_row" + i).append('<div id="pandaloader_row' + i + '_col' + j + '" class="pandaloader_box"></div>');    
+        }      
+    }
+    var sizeofeach=(100/gridsize);
+    $(".pandaloader_row").height(sizeofeach + "%");
+    $(".pandaloader_box").height("100%").width(sizeofeach + "%").css("display","inline-block");
     setInterval(function(){
-        if (loadingdots==0) {
-            loadingdots = 1;
-        } else {
-            loadingdots += Math.round(1-(Math.random()*2));
-        }
-        var loadingtext = "loading";
-        for (i=0;i<loadingdots;i++) {
-            loadingtext = loadingtext + ".";
-        }
-        $("#loadingscreen").html(loadingtext);
-    }, 200);
+        var row = Math.floor(Math.random()*gridsize);
+        var col = Math.floor(Math.random()*gridsize);
+        var colour = "#" + (Math.floor(Math.random()*10) * 111111);
+        $("#pandaloader_row" + row + "_col" + col).css("background-color",colour);
+    },20);
+}
+
+
+function showLoading() {
+    var gridsize=10;
+    $("#loadingscreen").show().empty();
+    for (i=0;i<gridsize;i++) {
+        $("#loadingscreen").append('<div class="pandaloader_row" id="pandaloader_row' + i + '"></div>');
+        for (j=0;j<gridsize;j++) {
+            $("#pandaloader_row" + i).append('<div id="pandaloader_row' + i + '_col' + j + '" class="pandaloader_box"></div>');    
+        }      
+    }
+    var sizeofeach=(100/gridsize);
+    $(".pandaloader_row").height(sizeofeach + "%");
+    $(".pandaloader_box").height("100%").width(sizeofeach + "%").css("display","inline-block");
+    setInterval(function(){
+        var row = Math.floor(Math.random()*gridsize);
+        var col = Math.floor(Math.random()*gridsize);
+        var colour = "#" + (Math.floor(Math.random()*10) * 111111);
+        $("#pandaloader_row" + row + "_col" + col).css("background-color",colour);
+    },20);
 }
 
 function hideLoading() {
     clearInterval();
-    $("#loadingscreen").hide();
+    $("#loadingscreen").empty().hide();
 }
 
 // TODO: make this better 
