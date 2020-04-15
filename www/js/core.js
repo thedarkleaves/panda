@@ -342,27 +342,27 @@ function printpaindiary() {
     for (i=paindiary.length-1;i>=0;i--) {
         $("#paindiarysummary").append('<div class="paindiaryday"></div>');
         $(".paindiaryday:last").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
-        $(".paindiaryday:last").last().append('pain score: <input type="number" value="' + paindiary[i].painscore + '" readonly="true"><br>');
+        $(".paindiaryday:last").append('pain score: <input type="number" value="' + paindiary[i].painscore + '" readonly="true"><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         if (paindiary[i].otherfactors != undefined) {
-            $(".paindiaryday:last").last().append("factors:");
+            $(".paindiaryday:last").append("factors:");
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
-                $(".paindiaryday:last").last().append(paindiary[i].otherfactors[j] + ", ");
+                $(".paindiaryday:last").append(paindiary[i].otherfactors[j] + ", ");
             }
         }
         if (paindiary[i].medications != undefined) {
-            $(".paindiaryday:last").last().append("<br>medications:");
+            $(".paindiaryday:last").append("<br>medications:");
             for (j=0;j<paindiary[i].medications.length;j++) {
                 if ((paindiary[i].medications[j].dose != undefined) && (paindiary[i].medications[j].mednum != undefined)) {
-                    $(".paindiaryday:last").last().append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + ", ");
+                    $(".paindiaryday:last").append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + ", ");
                 } else {
-                    $(".paindiaryday:last").last().append(paindiary[i].medications[j].name + ", ");    
+                    $(".paindiaryday:last").append(paindiary[i].medications[j].name + ", ");    
                 }
             }
         }
-        $(".paindiaryday:last").last().append("<button>modify this entry</button><hr>");
-        $(".paindiaryday:last button:last").click(function(){
-            $(".paindiaryday:last input").attr('readonly',false);
+        $(".paindiaryday:last").append("<button>modify this entry</button><hr>");
+        $(".paindiaryday button:last").click(function(){
+            $(this).parent().children(":input").attr('readonly',false);
         });
     }
 }
