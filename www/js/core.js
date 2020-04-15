@@ -99,6 +99,9 @@ function showLoading() {
     var sizeofeach=(100/gridsize);
     $(".pandaloader_row").height(sizeofeach + "%");
     $(".pandaloader_box").height("100%").width(sizeofeach + "%").css("display","inline-block");
+    $(".pandaloader_box").on("swipe",function() {
+        $(this).css('background-color',"#FFFFFF");
+    });
     setInterval(function(){
         var row = Math.floor(Math.random()*gridsize);
         var col = Math.floor(Math.random()*gridsize);
