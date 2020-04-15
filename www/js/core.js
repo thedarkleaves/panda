@@ -100,9 +100,25 @@ function showLoading() {
     $(".pandaloader_row").height(sizeofeach + "%");
     $(".pandaloader_box").height("100%").width(sizeofeach + "%").css("display","inline-block");
     $(".pandaloader_box").on("click",function() {
-        $(this).css('background-color',"#FFFFFF");
-    });
-    setInterval(function(){
+        $(this).css('background-color',"red");
+        var thisguy = $(this).attr('id');
+        thisguy = thisguy.split("_row")[1];
+        var row = thisguy.split("_col")[0];
+        var col = thisguy.split("_col")[1];
+        for (i=row;i>=0;i--) {
+            $("#pandaloader_row" + i + "_col" + col).css("background-color","red");
+        }
+        for (i=row;i<gridsize;i++) {
+            $("#pandaloader_row" + i + "_col" + col).css("background-color","red");    
+        }
+        for (i=col;i>=0;i--) {
+            $("#pandaloader_row" + row + "_col" + i).css("background-color","red");
+        }
+        for (i=col;i<gridsize;i++) {
+            $("#pandaloader_row" + row + "_col" + i).css("background-color","red");    
+        }
+        
+    });setInterval(function(){
         var row = Math.floor(Math.random()*gridsize);
         var col = Math.floor(Math.random()*gridsize);
         var colour = "#" + (Math.floor(Math.random()*10) * 111111);
@@ -348,9 +364,19 @@ function printpaindiary() {
         $(".paindiaryday:last").append('pain score: <input type="number" size="2" min="0" max="10" value="' + paindiary[i].painscore + '" readonly="true"><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         if (paindiary[i].otherfactors != undefined) {
-            $(".paindiaryday:last").append("factors:");
+            $(".paindiaryday:last").append('factors:<div class="paindiaryfactorlist"></div>');
+            for (j=0;j<otherinfooptions.length;j++) {
+                $(this).parent().children(".paindiaryfactorlist").append('<button class="toggle" readonly="true">'+otherinfooptions[j]+'</button> ');
+                for (k=0;k<paindiary[i].otherfactors.length;k++) {
+                    if (paindiary[i].otherfactors[k] == otherinfooptions[j]) {
+                        $(".paindiaryfactorlist button:last").toggleClass("toggleTrue");
+                    }
+                }
+
+            }
+            
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
-                $(".paindiaryday:last").append(paindiary[i].otherfactors[j] + ", ");
+                $(".paindiaryfactorlist:last").append(paindiary[i].otherfactors[j] + ", ");
             }
         }
         if (paindiary[i].medications != undefined) {
@@ -365,7 +391,12 @@ function printpaindiary() {
         }
         $(".paindiaryday:last").append("<button>modify this entry</button><hr>");
         $(".paindiaryday button:last").click(function(){
+            // make the painscore editable
             $(this).parent().children(":input").attr('readonly',false);
+            // add the options for other factors
+            $(this).parent().children(".paindiaryfactorlist .toggle").attr('readonly',false).click(function(){
+                $(this).toggleClass('toggletrue');
+            });
         });
     }
 }
@@ -543,7 +574,6 @@ var app = {
             // Log no pain today
             db.collection("users").doc(userid).collection("diary").doc(todayString()).set({
                 "painscore": 0,
-                "painhours": 0,
             })
             .then(function(docRef) {
                 console.log("New pain diary added");

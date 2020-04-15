@@ -27,6 +27,27 @@
         $(".pandaloader_box").on("mouseover",function() {
             $(this).css('background-color',"#FFFFFF");
         });
+        $(".pandaloader_box").on("click",function() {
+            $(this).css('background-color',"red");
+            var thisguy = $(this).attr('id');
+            thisguy = thisguy.split("_row")[1];
+            var row = thisguy.split("_col")[0];
+            var col = thisguy.split("_col")[1];
+            for (i=row;i>=0;i--) {
+                $("#pandaloader_row" + i + "_col" + col).css("background-color","red");
+            }
+            for (i=row;i<gridsize;i++) {
+                $("#pandaloader_row" + i + "_col" + col).css("background-color","red");    
+            }
+            for (i=col;i>=0;i--) {
+                $("#pandaloader_row" + row + "_col" + i).css("background-color","red");
+            }
+            for (i=col;i<gridsize;i++) {
+                $("#pandaloader_row" + row + "_col" + i).css("background-color","red");    
+            }
+            
+        });
+        
         
         setInterval(function(){
             var row = Math.floor(Math.random()*gridsize);
@@ -36,7 +57,7 @@
         },20);
     }
 
-    buildLoader(20);
+    buildLoader(100);
 </script>
 
     </body>

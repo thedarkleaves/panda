@@ -191,3 +191,7 @@ input::placeholder {
     color: #e9d6a8;
     font-weight: bold;
 }
+
+.paindiaryfactorlist button .readonly:not(.toggletrue) {
+    display: none;
+}
