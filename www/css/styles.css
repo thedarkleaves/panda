@@ -183,7 +183,7 @@ input::placeholder {
 
 .paindiaryday input {
     width: 20px;
-    display: inline;
+    display: inline-block;
 }
 
 .paindiaryday input:read-only {
