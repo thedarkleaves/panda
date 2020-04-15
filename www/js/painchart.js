@@ -182,8 +182,7 @@ function initPainChart(numDays,showHours) {
         });
         for (i=0;i<meds.medication.length;i++) {
             printdebug("printing medication " + meds.medication[i].name);
-            $('#meds').append('<div class="med"><div>');
-            $('.med:last').append('<div>jeff1</div>');
+            $('#meds').append('<div class="med"><div id="meddates">jeff1</div><div>');
             for (j=0;j<numDays;j++) {
                 $('.meddates:last').append('<span class="medelement">j</span>');
                 try {
