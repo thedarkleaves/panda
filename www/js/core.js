@@ -363,6 +363,9 @@ function printpaindiary() {
         $(".paindiaryday:last").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
         $(".paindiaryday:last").append('pain score: <input type="number" size="2" min="0" max="10" value="' + paindiary[i].painscore + '" readonly="true"><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
+        
+        // not sure if this works TODO: check (no checking as PGB dead)
+        // ??
         if (paindiary[i].otherfactors != undefined) {
             $(".paindiaryday:last").append('factors:<div class="paindiaryfactorlist"></div>');
             for (j=0;j<otherinfooptions.length;j++) {
