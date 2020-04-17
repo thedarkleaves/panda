@@ -165,6 +165,7 @@ function updatepaindiary() {
         initPainChart(7,0);
         makePainDiary4();
         hideLoading();
+        resetNotifications(notificationsOn);
     });
 }
 
@@ -396,7 +397,7 @@ function printpaindiary() {
             // make the painscore editable
             $(this).parent().children(":input").attr('readonly',false);
             // add the options for other factors
-            $(this).parent().children(".paindiaryfactorlist button").attr('readonly',false)
+            $(this).parent().children(".paindiaryfactorlist button").attr('readonly',false);
             $(this).parent().children(".paindiaryfactorlist button").click(function(){
                 $(this).toggleClass('toggletrue');
             });
@@ -756,8 +757,8 @@ function resetNotifications(showNotifications) {
             });
         }
     }
-
 }
+
 function applyotherinfotoggleclick() {
     $("#paindiary4 .toggle").off("click");
     $("#paindiary4 .toggle").click(function(){
