@@ -372,8 +372,7 @@ function printpaindiary() {
             $(".paindiaryday:last").append('factors: <div class="paindiaryfactorlist"></div>');
             for (j=0;j<otherinfooptions.length;j++) {
                 printdebug("printing " + otherinfooptions[j]);
-                $(this).parent().children(".paindiaryfactorlist").append('<button class="toggle" readonly="true">'+otherinfooptions[j]+'</button> ');
-                
+                $(".paindiaryfactorlist:last").append('<button class="toggle" readonly="true">'+otherinfooptions[j]+'</button> ');                
                 for (k=0;k<paindiary[i].otherfactors.length;k++) {
                     if (paindiary[i].otherfactors[k] == otherinfooptions[j]) {
                         $(".paindiaryfactorlist button:last").toggleClass("toggleTrue");
