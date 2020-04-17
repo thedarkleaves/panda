@@ -360,21 +360,25 @@ function printpaindiary() {
     $("#paindiarysummary").empty()
     for (i=paindiary.length-1;i>=0;i--) {
         $("#paindiarysummary").append('<div class="paindiaryday"></div>');
+        // print the date
         $(".paindiaryday:last").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
+        // print the pain score
         $(".paindiaryday:last").append('pain score: <input type="number" size="2" min="0" max="10" value="' + paindiary[i].painscore + '" readonly="true"><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         
-        // not sure if this works TODO: check (no checking as PGB dead)
-        // ??
+        // print the other factors as buttons
         if (paindiary[i].otherfactors != undefined) {
-            $(".paindiaryday:last").append('factors:<div class="paindiaryfactorlist"></div>');
+            $(".paindiaryday:last").append('factors: <div class="paindiaryfactorlist"></div>');
             for (j=0;j<otherinfooptions.length;j++) {
+                printdebut("printing " + otherinfooptions[j]);
                 $(this).parent().children(".paindiaryfactorlist").append('<button class="toggle" readonly="true">'+otherinfooptions[j]+'</button> ');
+                /*
                 for (k=0;k<paindiary[i].otherfactors.length;k++) {
                     if (paindiary[i].otherfactors[k] == otherinfooptions[j]) {
                         $(".paindiaryfactorlist button:last").toggleClass("toggleTrue");
                     }
                 }
+                */
             }
         }
         if (paindiary[i].medications != undefined) {
