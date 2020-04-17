@@ -14,6 +14,7 @@ var todaylogged = false;
 var otherinfo = [];
 var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
 var loadingdots = 0;
+var notificationsOn = true;
 var meds = {
     "medication": [
         {
@@ -370,7 +371,7 @@ function printpaindiary() {
         if (paindiary[i].otherfactors != undefined) {
             $(".paindiaryday:last").append('factors: <div class="paindiaryfactorlist"></div>');
             for (j=0;j<otherinfooptions.length;j++) {
-                printdebut("printing " + otherinfooptions[j]);
+                printdebug("printing " + otherinfooptions[j]);
                 $(this).parent().children(".paindiaryfactorlist").append('<button class="toggle" readonly="true">'+otherinfooptions[j]+'</button> ');
                 /*
                 for (k=0;k<paindiary[i].otherfactors.length;k++) {
@@ -584,6 +585,7 @@ var app = {
                 console.error("Error adding pain diary: ", error);
             });
             todaylogged=true;
+            resetNotifications(notificationsOn);
             updatepaindiary();
             changescreen("home");
         });
@@ -708,9 +710,9 @@ var app = {
             .then(function(docRef) {
                 printdebug("New pain diary added");
                 updatepaindiary();
-                
                 changescreen("paindiarysummary");
                 todaylogged=true;
+                resetNotifications(notificationsOn);
             })
             .catch(function(error) {
                 printdebug("Error adding pain diary: ", error);
@@ -730,17 +732,30 @@ var app = {
         });
 
         // TODO: Add option to have no notifications
-        cordova.plugins.notification.local.clearAll();
-        cordova.plugins.notification.local.schedule({
-            title: 'Update Pain Diary',
-            text: 'You haven\'t logged your pain score today.',
-            trigger: { every: 'day' }
-        });
-    
+        resetNotifications(notificationsOn);
         printdebug("ready");
     },
 };
 
+function resetNotifications(showNotifications) {
+    cordova.plugins.notification.local.clearAll();
+    if (notificationsOn) {
+        if (todaylogged) {
+            cordova.plugins.notification.local.schedule({
+                title: 'Update Pain Diary',
+                text: 'You haven\'t logged your pain score today.',
+                trigger: { every: 'day' }
+            });
+        } else {
+            cordova.plugins.notification.local.schedule({
+                title: 'Update Pain Diary',
+                text: 'You haven\'t logged your pain score today.',
+                trigger:  { in: 1, unit: 'hour' }
+            });
+        }
+    }
+
+}
 function applyotherinfotoggleclick() {
     $("#paindiary4 .toggle").off("click");
     $("#paindiary4 .toggle").click(function(){
