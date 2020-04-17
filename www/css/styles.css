@@ -192,6 +192,6 @@ input::placeholder {
     font-weight: bold;
 }
 
-.paindiaryfactorlist button .readonly:not(.toggletrue) {
+.paindiaryfactorlist button :read-only:not(.toggletrue) {
     display: none;
 }

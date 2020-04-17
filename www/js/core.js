@@ -373,13 +373,13 @@ function printpaindiary() {
             for (j=0;j<otherinfooptions.length;j++) {
                 printdebug("printing " + otherinfooptions[j]);
                 $(this).parent().children(".paindiaryfactorlist").append('<button class="toggle" readonly="true">'+otherinfooptions[j]+'</button> ');
-                /*
+                
                 for (k=0;k<paindiary[i].otherfactors.length;k++) {
                     if (paindiary[i].otherfactors[k] == otherinfooptions[j]) {
                         $(".paindiaryfactorlist button:last").toggleClass("toggleTrue");
                     }
                 }
-                */
+                
             }
         }
         if (paindiary[i].medications != undefined) {
