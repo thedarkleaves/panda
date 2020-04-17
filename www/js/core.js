@@ -376,10 +376,6 @@ function printpaindiary() {
                     }
                 }
             }
-            
-            for (j=0;j<paindiary[i].otherfactors.length;j++) {
-                $(".paindiaryfactorlist:last").append(paindiary[i].otherfactors[j] + ", ");
-            }
         }
         if (paindiary[i].medications != undefined) {
             $(".paindiaryday:last").append("<br>medications:");
@@ -396,7 +392,7 @@ function printpaindiary() {
             // make the painscore editable
             $(this).parent().children(":input").attr('readonly',false);
             // add the options for other factors
-            $(this).parent().children(".paindiaryfactorlist .toggle").attr('readonly',false).click(function(){
+            $(this).parent().children(".paindiaryfactorlist button").attr('readonly',false).click(function(){
                 $(this).toggleClass('toggletrue');
             });
         });
