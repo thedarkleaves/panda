@@ -396,7 +396,8 @@ function printpaindiary() {
             // make the painscore editable
             $(this).parent().children(":input").attr('readonly',false);
             // add the options for other factors
-            $(this).parent().children(".paindiaryfactorlist button").attr('readonly',false).click(function(){
+            $(this).parent().children(".paindiaryfactorlist button").attr('readonly',false)
+            $(this).parent().children(".paindiaryfactorlist button").click(function(){
                 $(this).toggleClass('toggletrue');
             });
         });
@@ -743,12 +744,14 @@ function resetNotifications(showNotifications) {
             cordova.plugins.notification.local.schedule({
                 title: 'Update Pain Diary',
                 text: 'You haven\'t logged your pain score today.',
+                icon: 'file://img/panda.png',
                 trigger: { every: 'day' }
             });
         } else {
             cordova.plugins.notification.local.schedule({
                 title: 'Update Pain Diary',
                 text: 'You haven\'t logged your pain score today.',
+                icon: 'file://img/panda.png',
                 trigger:  { in: 1, unit: 'hour' }
             });
         }

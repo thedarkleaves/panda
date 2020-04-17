@@ -14,7 +14,7 @@
 <script language="JavaScript">
 
     function buildLoader(gridsize) {
-        $("#pandaloading").height("100%").width("100%");
+        $("#pandaloading").height("100%").width("100%").css('position','absolute').css('top',0).css('left',0);
         for (i=0;i<gridsize;i++) {
             $("#pandaloading").append('<div class="pandaloader_row" id="pandaloader_row' + i + '"></div>');
             for (j=0;j<gridsize;j++) {
