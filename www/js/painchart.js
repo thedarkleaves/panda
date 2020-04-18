@@ -41,8 +41,12 @@ function initPainChart(numDays,showHours) {
                         painfactors.push("");
                     }
                     var todaysmeds = "";
-                    for (k=0;k<paindiary[j].medications.length;k++) {
-                        todaysmeds = todaysmeds + " " + paindiary[j].medications[k].name;
+                    try {
+                        for (k=0;k<paindiary[j].medications.length;k++) {
+                            todaysmeds = todaysmeds + " " + paindiary[j].medications[k].name;
+                        }
+                    } catch(err) {
+                        // no meds found
                     }
                     painmeds.push(todaysmeds);
                     printdebug(thisday + ' found: ' + painscores[painscores.length-1] + painfactors[painfactors.length-1] + painmeds[painmeds.length-1]);
