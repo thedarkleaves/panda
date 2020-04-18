@@ -40,7 +40,7 @@ function initPainChart(numDays,showHours) {
                         todaysmeds = todaysmeds + " " + paindiary[j].medications[k].name;
                     }
                     painmeds.push(todaysmeds);
-                    //printdebug(thisday + ' found: ' + painscores[painscores.length-1] + painfactors[painfactors.length-1] + painmeds[painmeds.length-1]);
+                    printdebug(thisday + ' found: ' + painscores[painscores.length-1] + painfactors[painfactors.length-1] + painmeds[painmeds.length-1]);
                     foundpaindata = true;
                     break;
                 }
