@@ -154,12 +154,16 @@ function updatepaindiary() {
             paindiary.push(thispainday);
             printdebug('received paindata ' + thispainday.date);
         });
-        printpaindiary();
-        printdebug("Trying to create pain chart.");
-        initPainChart(7,0);
-        makePainDiary4();
-        hideLoading();
-        resetNotifications();
+        try {
+            printpaindiary();
+            printdebug("Trying to create pain chart.");
+            initPainChart(7,0);
+            makePainDiary4();
+            hideLoading();
+            resetNotifications();
+        } catch(err) {
+            popupmessage(err.message);
+        }
     });
 }
 
@@ -802,4 +806,4 @@ function makePainDiary4() {
     });
 }
 
-showLoading();
+// showLoading();
