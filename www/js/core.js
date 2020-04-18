@@ -165,7 +165,7 @@ function updatepaindiary() {
         initPainChart(7,0);
         makePainDiary4();
         hideLoading();
-        resetNotifications(notificationsOn);
+        resetNotifications();
     });
 }
 
@@ -586,7 +586,7 @@ var app = {
                 console.error("Error adding pain diary: ", error);
             });
             todaylogged=true;
-            resetNotifications(notificationsOn);
+            resetNotifications();
             updatepaindiary();
             changescreen("home");
         });
@@ -713,7 +713,7 @@ var app = {
                 updatepaindiary();
                 changescreen("paindiarysummary");
                 todaylogged=true;
-                resetNotifications(notificationsOn);
+                resetNotifications();
             })
             .catch(function(error) {
                 printdebug("Error adding pain diary: ", error);
@@ -733,12 +733,11 @@ var app = {
         });
 
         // TODO: Add option to have no notifications
-        resetNotifications(notificationsOn);
         printdebug("ready");
     },
 };
 
-function resetNotifications(showNotifications) {
+function resetNotifications() {
     cordova.plugins.notification.local.clearAll();
     if (notificationsOn) {
         if (todaylogged) {
