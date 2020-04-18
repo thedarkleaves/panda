@@ -586,7 +586,6 @@ var app = {
                 console.error("Error adding pain diary: ", error);
             });
             todaylogged=true;
-            resetNotifications();
             updatepaindiary();
             changescreen("home");
         });
@@ -713,7 +712,6 @@ var app = {
                 updatepaindiary();
                 changescreen("paindiarysummary");
                 todaylogged=true;
-                resetNotifications();
             })
             .catch(function(error) {
                 printdebug("Error adding pain diary: ", error);
@@ -744,14 +742,16 @@ function resetNotifications() {
             cordova.plugins.notification.local.schedule({
                 title: 'Update Pain Diary',
                 text: 'You haven\'t logged your pain score today.',
-                icon: 'file://img/panda.png',
+                icon: 'res://panda.png',
+                smallicon: 'res://notification.png',
                 trigger: { every: 'day' }
             });
         } else {
             cordova.plugins.notification.local.schedule({
                 title: 'Update Pain Diary',
-                text: 'You haven\'t logged your pain score today.',
-                icon: 'file://img/panda.png',
+                text: 'You still haven\'t logged your pain score today.',
+                icon: 'res://panda.png',
+                smallicon: 'res://notification.png',
                 trigger:  { in: 1, unit: 'hour' }
             });
         }
