@@ -131,11 +131,6 @@ function hideLoading() {
     $("#loadingscreen").empty().hide();
 }
 
-// TODO: make this better 
-function popupmessage(content) {
-    printdebug(content);
-}
-
 function updatepaindiary() {
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
         printdebug("Loaded provider list");
@@ -415,7 +410,17 @@ function checkUserReallyWantsToContinue(message,functioniftrue) {
     });
     $(".confirmboxfront").append("<button>don't do it</button>");
     $(".confirmboxfront button:last-child").click(function() {
-        $(".confirmboxfront").html("");
+        $(".confirmboxfront").empty();
+        $("#confirmbox").hide();
+    });
+}
+
+function popupmessage(message) {
+    $("#confirmbox").show();
+    $(".confirmboxfront").html(message + "<br>");
+    $(".confirmboxfront").append("<button>got it</button>");
+    $(".confirmboxfront button:last-child").click(function() {
+        $(".confirmboxfront").empty();
         $("#confirmbox").hide();
     });
 }
@@ -731,6 +736,8 @@ var app = {
 
         // TODO: Add option to have no notifications
         printdebug("ready");
+        popupmessage("ready");
+        // hello?
     },
 };
 
