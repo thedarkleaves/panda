@@ -391,10 +391,10 @@ function printpaindiary() {
         $(".paindiaryday:last").append("<button>modify this entry</button><hr>");
         $(".paindiaryday button:last").click(function(){
             // make the painscore editable
-            $(this).parent().children(":input").attr('readonly',false);
+            $(this).parent().children("input").attr('readonly',false);
             // add the options for other factors
-            $(this).parent().children(".paindiaryfactorlist button").attr('readonly',false);
-            $(this).parent().children(".paindiaryfactorlist button").click(function(){
+            $(this).parent().children("button").attr('readonly',false);
+            $(this).parent().children("button").click(function(){
                 $(this).toggleClass('toggletrue');
             });
         });
@@ -806,4 +806,4 @@ function makePainDiary4() {
     });
 }
 
-//showLoading();
+showLoading();
