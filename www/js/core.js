@@ -393,8 +393,8 @@ function printpaindiary() {
             // make the painscore editable
             $(this).parent().children("input").attr('readonly',false);
             // add the options for other factors
-            $(this).parent().children("button").attr('readonly',false);
-            $(this).parent().children("button").click(function(){
+            $(this).parent().children("button").attr('readonly',false).show();
+            $(this).parent().children(".paindiaryfactorlist button").click(function(){
                 $(this).toggleClass('toggletrue');
             });
         });
