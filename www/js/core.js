@@ -353,7 +353,7 @@ function changescreen(screenname) {
 
 // print the pain diary
 function printpaindiary() {
-    $("#paindiarysummary").empty()
+    $("#paindiarysummary").empty();
     for (i=paindiary.length-1;i>=0;i--) {
         $("#paindiarysummary").append('<div class="paindiaryday"></div>');
         // print the date
@@ -366,14 +366,12 @@ function printpaindiary() {
         if (paindiary[i].otherfactors != undefined) {
             $(".paindiaryday:last").append('factors: <div class="paindiaryfactorlist"></div>');
             for (j=0;j<otherinfooptions.length;j++) {
-                printdebug("printing " + otherinfooptions[j]);
                 $(".paindiaryfactorlist:last").append('<button class="toggle" readonly="true">'+otherinfooptions[j]+'</button> ');                
                 for (k=0;k<paindiary[i].otherfactors.length;k++) {
                     if (paindiary[i].otherfactors[k] == otherinfooptions[j]) {
                         $(".paindiaryfactorlist button:last").toggleClass("toggleTrue");
                     }
                 }
-                
             }
         }
         if (paindiary[i].medications != undefined) {
