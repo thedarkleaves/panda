@@ -34,7 +34,12 @@ function initPainChart(numDays,showHours) {
             for (j=0;j<paindiary.length;j++) {
                 if (paindiary[j].date == thisday) {
                     painscores.push(paindiary[j].painscore);
-                    painfactors.push(paindiary[j].otherfactors.toString());
+                    try {
+                        painfactors.push(paindiary[j].otherfactors.toString());
+                    } catch(err) {
+                        // no pain factors found
+                        painfactors.push("");
+                    }
                     var todaysmeds = "";
                     for (k=0;k<paindiary[j].medications.length;k++) {
                         todaysmeds = todaysmeds + " " + paindiary[j].medications[k].name;
