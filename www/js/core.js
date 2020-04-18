@@ -13,7 +13,6 @@ var providers = [];
 var todaylogged = false;
 var otherinfo = [];
 var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
-var loadingdots = 0;
 var notificationsOn = true;
 var meds = {
     "medication": [
