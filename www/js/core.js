@@ -136,7 +136,6 @@ function updatepaindiary() {
         printdebug("Loaded provider list");
     });
     // read the pain diary for this user
-    popupmessage("loading the pain diary");
     paindiary = [];
     db.collection("users").doc(userid).collection("diary").get().then(function(webpaindiary) {
         webpaindiary.forEach(function(painday) {
@@ -155,7 +154,6 @@ function updatepaindiary() {
             paindiary.push(thispainday);
             printdebug('received paindata ' + thispainday.date);
         });
-        popupmessage("got the pain diary");
         printpaindiary();
         printdebug("Trying to create pain chart.");
         initPainChart(7,0);
@@ -806,4 +804,4 @@ function makePainDiary4() {
     });
 }
 
-showLoading();
+//showLoading();
