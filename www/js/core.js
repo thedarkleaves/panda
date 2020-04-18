@@ -806,5 +806,4 @@ function makePainDiary4() {
     });
 }
 
-// showLoading();
-// ??
+showLoading();
