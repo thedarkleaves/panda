@@ -346,6 +346,7 @@ function addOtherFactors(newOtherFactors) {
 
 function changescreen(screenname) {
     $(".screen").fadeOut(screenspeed/2);
+    window.scrollTo(0,0);
     $("#" + screenname).show(screenspeed);
     if (screenname=="home") {
         if (todaylogged) {
@@ -355,7 +356,6 @@ function changescreen(screenname) {
     if (screenname=="paindiary3") {
         $("#painhoursquestion").append("for how many hours was your pain more than " + painscore + " out of 10?");
     }
-    
 }
 
 // print the pain diary
@@ -367,16 +367,14 @@ function printpaindiary() {
         $(".paindiaryday:last").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
         $(".paindiaryday:last").append('<span class="date_for_db" style="display:none">'+paindiary[i].date+'</span');
         // print the pain score
-        $(".paindiaryday:last").append('pain score: <b>' + paindiary[i].painscore + '</b><br>');
+        $(".paindiaryday:last").append('pain score: <span class="painscore_for_db">' + paindiary[i].painscore + '</span><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         
         // print the other factors as buttons
         if (paindiary[i].otherfactors != undefined) {
             $(".paindiaryday:last").append('factors:<br> <div class="paindiaryfactorlist"></div>');
-            for (k=0;k<paindiary[i].otherfactors.length;k++) {
-                if (paindiary[i].otherfactors[k] == otherinfooptions[j]) {
-                    $(".paindiaryfactorlist:last").append('<button class="toggle toggleTrue" readonly="true">'+otherinfooptions[j]+'</button> ');
-                }
+            for (j=0;j<paindiary[i].otherfactors.length;j++) {
+                $(".paindiaryfactorlist:last").append('<button class="toggle toggleTrue" readonly="true">'+otherinfooptions[j]+'</button> ');
             }
         }
         if (paindiary[i].medications != undefined) {
@@ -391,8 +389,24 @@ function printpaindiary() {
         }
         $(".paindiaryday:last").append("<button>modify this entry</button><hr>");
         $(".paindiaryday button:last").click(function(){
+            // set the date
             currenteditdate = $(this).parent().find(".date_for_db:last").html();
-            changescreen("paindiary1");
+            // highlight the painscore
+            $("#painscore" + $(this).parent().find(".painscore_for_db").html()).toggleClass("toggletrue");
+            // pre click the factors
+            for (j=0;j<otherfactors.length;j++) {
+                // fire click on #paindiary4 button that matches
+                var numfactorsthisday = $(this).parent().find(".paindiaryfactorlist button").length;
+                for (k=0;k<numfactorsthisday;k++) {
+                    var thisfactor = $(this).parent().find(".paindiaryfactorlist button")[k].val();
+                    var thatfactor = $("#paindiary4 button")[j].val();
+                    if (thisfactor==thatfactor) {
+                        $("#paindiary4 button")[j].trigger("click");
+                    }
+                }
+            }
+            // TODO: preclick the medications
+            changescreen("paindiary2");
         });
     }
 }
