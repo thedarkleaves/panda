@@ -14,6 +14,7 @@ var todaylogged = false;
 var otherinfo = [];
 var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
 var notificationsOn = true;
+var currenteditdate;
 var meds = {
     "medication": [
         {
@@ -547,6 +548,7 @@ var app = {
         // set up buttons
         // #home
         $("#logtoday").click(function(){
+            currenteditdate = todayString();
             changescreen("paindiary1");
         });
         
@@ -581,7 +583,7 @@ var app = {
 
         $("#todaypainno").click(function(){
             // Log no pain today
-            db.collection("users").doc(userid).collection("diary").doc(todayString()).set({
+            db.collection("users").doc(userid).collection("diary").doc(currenteditdate).set({
                 "painscore": 0,
             })
             .then(function(docRef) {
@@ -706,7 +708,7 @@ var app = {
 
             // add pain diary data to database
             showLoading();
-            db.collection("users").doc(userid).collection("diary").doc(todayString()).set({
+            db.collection("users").doc(userid).collection("diary").doc(currenteditdate).set({
                 "painscore": painscore,
                 //"painhours": painhours,
                 "otherfactors": otherinfo,
