@@ -395,17 +395,15 @@ function printpaindiary() {
                 // highlight the painscore
                 $("#painscore" + $(this).parent().find(".painscore_for_db").html()).toggleClass("toggletrue");
                 // pre click the factors
-                for (j=0;j<otherinfooptions.length;j++) {
-                    // fire click on #paindiary4 button that matches
-                    var numfactorsthisday = $(this).parent().find(".paindiaryfactorlist button").length;
-                    for (k=0;k<numfactorsthisday;k++) {
-                        var thisfactor = $(this).parent().find(".paindiaryfactorlist button")[k].val();
-                        var thatfactor = $("#paindiary4 button")[j].val();
-                        if (thisfactor==thatfactor) {
-                            $("#paindiary4 button")[j].trigger("click");
+                // fire click on #paindiary4 button that matches
+                $(this).parent().find(".paindiaryfactorlist button").each(function() {
+                    var thisfactor = $(this).val()
+                    $("#paindiary4 button").each(function(thisfactor){
+                        if ($(this).val() == thisfactor) {
+                            $(this).trigger("click");
                         }
-                    }
-                }
+                    });
+                });
                 // TODO: preclick the medications
                 changescreen("paindiary2");
             } catch(err) {
