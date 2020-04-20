@@ -395,7 +395,7 @@ function printpaindiary() {
                 // highlight the painscore
                 $("#painscore" + $(this).parent().find(".painscore_for_db").html()).toggleClass("toggletrue");
                 // pre click the factors
-                for (j=0;j<otherfactors.length;j++) {
+                for (j=0;j<otherinfooptions.length;j++) {
                     // fire click on #paindiary4 button that matches
                     var numfactorsthisday = $(this).parent().find(".paindiaryfactorlist button").length;
                     for (k=0;k<numfactorsthisday;k++) {
