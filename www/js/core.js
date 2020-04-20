@@ -360,6 +360,7 @@ function changescreen(screenname) {
 
 // print the pain diary
 function printpaindiary() {
+    // reset the inputs
     $("#paindiarysummary").empty();
     for (i=paindiary.length-1;i>=0;i--) {
         $("#paindiarysummary").append('<div class="paindiaryday"></div>');
@@ -618,6 +619,7 @@ var app = {
         }
         $(".1to10").click(function(){
             changescreen("paindiary3");
+            $("#paindiary2 button").removeClass("toggleTrue");
         });
 
         // #paindiary3
@@ -815,6 +817,7 @@ function makePainDiary4() {
     });
     
     $("#finish4").click(function(){
+        $("paindiary4 button").removeClass("toggleTrue");
         changescreen("meddiary1");
     });
 }
