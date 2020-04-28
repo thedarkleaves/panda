@@ -699,17 +699,13 @@ function enterNewPainDiary(dateString) {
         // pre click the factors (fire click on #paindiary4 button that matches)
         for (i=0;i<dateforediting.otherfactors.length;i++) {
             var thisfactor = dateforediting.otherfactors[i];
-            $("#paindiary4 button").each(function(thisfactor){
-                if ($(this).val() == thisfactor) {
-                    $(this).trigger("click");
-                }
-            });
+            $("#factorbutton_" + thisfactor).trigger("click");
         }
         // preclick the medications
         for (i=0; i<dateforediting.medications.length;i++) {
-            thismedname = dateforediting.medications[i].name;
-            $("#meddiary1 button").each(function(thismed) {
-                if ($(this).val() == thismed) {
+            var thismedname = dateforediting.medications[i].name;
+            $("#meddiary1 button").each(function(thismedname) {
+                if ($(this).val() == thismedname) {
                     $(this).trigger("click");
                     // TODO: get the dose and the number
                 }
@@ -730,7 +726,7 @@ function makePainDiary4() {
     
     $("#paindiary4").html('<span class="question">other info</span>');
     for (i=0;i<otherinfooptions.length;i++) {
-        $("#paindiary4").append('<button class="toggle">'+otherinfooptions[i]+'</button> ');
+        $("#paindiary4").append('<button class="toggle" id="factoerbutton_' + otherinfooptions[i] + '">'+otherinfooptions[i]+'</button> ');
     }
     $("#paindiary4").append('<input id="newotherinfo" value="other" />');
     $("#paindiary4").append('<button id="oknewotherinfo">ok</button><hr>');
@@ -759,6 +755,7 @@ function makePainDiary4() {
 
 function makeMedDiary() {
     // med diary 1
+    $("#meddiary1").empty();
     for (i=0;i<meds.medication.length;i++) {
         $("#meddiary1").append('<button class="toggle med">'+meds.medication[i].name,+'</button>');
         for (j=0;j<meds.medication[i].dose.length;j++) {
