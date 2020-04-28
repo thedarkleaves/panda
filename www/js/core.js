@@ -355,7 +355,7 @@ function changescreen(screenname) {
         }
     }
     if (screenname=="paindiary3") {
-        $("#painhoursquestion").append("for how many hours was your pain more than " + painscore + " out of 10?");
+        $("#painhoursquestion").append("for how many hours was your pain more 'than " + painscore + " out of 10?");
     }
 }
 
@@ -376,7 +376,7 @@ function printpaindiary() {
         if (paindiary[i].otherfactors != undefined) {
             $(".paindiaryday:last").append('factors:<br> <div class="paindiaryfactorlist"></div>');
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
-                $(".paindiaryfactorlist:last").append('<button class="toggle toggleTrue" readonly="true">'+otherinfooptions[j]+'</button> ');
+                $(".paindiaryfactorlist:last").append(otherinfooptions[j] + ' ');
             }
         }
         if (paindiary[i].medications != undefined) {
@@ -729,7 +729,7 @@ function makePainDiary4() {
     
     $("#paindiary4").html('<span class="question">other info</span>');
     for (i=0;i<otherinfooptions.length;i++) {
-        $("#paindiary4").append('<button class="toggle" id="factoerbutton_' + otherinfooptions[i] + '">'+otherinfooptions[i]+'</button> ');
+        $("#paindiary4").append('<button class="toggle" id="factorbutton_' + otherinfooptions[i] + '">'+otherinfooptions[i]+'</button> ');
     }
     $("#paindiary4").append('<input id="newotherinfo" value="other" />');
     $("#paindiary4").append('<button id="oknewotherinfo">ok</button><hr>');
@@ -758,7 +758,7 @@ function makePainDiary4() {
 
 function makeMedDiary() {
     // med diary 1
-    $("#meddiary1").html('<span class="question">medications</span><br>');
+    $("#meddiary1").html('<span class="question">which medications did you use?</span><br>');
     for (i=0;i<meds.medication.length;i++) {
         $("#meddiary1").append('<button class="toggle med">'+meds.medication[i].name,+'</button>');
         for (j=0;j<meds.medication[i].dose.length;j++) {
@@ -766,7 +766,7 @@ function makeMedDiary() {
         }
         $("#meddiary1").append('<input class="mednum" placeholder="how many?" type="number"><br class="endmed">');
     }
-    $("#meddiary1").append('<button class="command" id="finishmed1">next</button>');
+    $("#meddiary1").append('<hr><button class="command" id="finishmed1">next</button>');
 
     $(".toggle.dose").hide();
     $(".mednum").hide();
