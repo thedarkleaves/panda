@@ -390,23 +390,9 @@ function printpaindiary() {
         }
         $(".paindiaryday:last").append("<button>modify this entry</button><hr>");
         $(".paindiaryday button:last").click(function(){
+            // modify the current pain diary entry
             try {
-                // set the date
-                currenteditdate = $(this).parent().find(".date_for_db:last").html();
-                // highlight the painscore
-                $("#painscore" + $(this).parent().find(".painscore_for_db").html()).toggleClass("toggletrue");
-                // pre click the factors
-                // fire click on #paindiary4 button that matches
-                $(this).parent().find(".paindiaryfactorlist button").each(function() {
-                    var thisfactor = $(this).val()
-                    $("#paindiary4 button").each(function(thisfactor){
-                        if ($(this).val() == thisfactor) {
-                            $(this).trigger("click");
-                        }
-                    });
-                });
-                // TODO: preclick the medications
-                changescreen("paindiary2");
+                enterNewPainDiary($(this).parent().find(".date_for_db:last").html());
             } catch(err) {
                 popupmessage(err.message);
             }
@@ -561,8 +547,7 @@ var app = {
         // set up buttons
         // #home
         $("#logtoday").click(function(){
-            currenteditdate = todayString();
-            changescreen("paindiary1");
+            enterNewPainDiary(todayString());
         });
         
         // #controls
@@ -610,7 +595,7 @@ var app = {
             changescreen("home");
         });
 
-        // #paindiary2
+        // #paindiary2 (only needs to be done once at intiial load)
         for (i=0;i<=10;i++) {
             $("#paindiary2").append('<button class="1to10" id="painscore'+i+'">'+i+'</button>');
             $("#painscore"+i).click(function(){
@@ -618,11 +603,11 @@ var app = {
             });
         }
         $(".1to10").click(function(){
-            changescreen("paindiary3");
+            changescreen("paindiary4");
             $("#paindiary2 button").removeClass("toggleTrue");
         });
 
-        // #paindiary3
+        /* #paindiary3 (removed)
         for (i=1;i<=24;i++) {
             $("#paindiary3").append('<button class="1to24" id="painhours'+i+'">'+i+'</button>');
             $("#painhours"+i).click(function(){
@@ -632,114 +617,11 @@ var app = {
         $(".1to24").click(function(){
             changescreen("paindiary4");
         });
+        */
 
-        // #paindiary 4 deferred until paindiary loaded
-
-        // med diary 1
-        for (i=0;i<meds.medication.length;i++) {
-            $("#meddiary1").append('<button class="toggle med">'+meds.medication[i].name,+'</button>');
-            for (j=0;j<meds.medication[i].dose.length;j++) {
-                $("#meddiary1").append('<button class="toggle dose">'+meds.medication[i].dose[j],+'</button> ');
-            }
-            $("#meddiary1").append('<input class="mednum" placeholder="how many?" type="number"><br class="endmed">');
-        }
-        $("#meddiary1").append('<button class="command" id="finishmed1">next</button>');
-    
-        $(".toggle.dose").hide();
-        $(".mednum").hide();
-        function applymedtoggleclick () {
-            $("#meddiary1 .toggle").off("click");
-            $("#meddiary1 .toggle").click(function(){
-                $(this).toggleClass('toggletrue');
-                if ($(this).hasClass('toggletrue')) {
-                    dosebutton=$(this).next();
-                    while (dosebutton.hasClass("dose")) {
-                        dosebutton.show();
-                        dosebutton=dosebutton.next();
-                    }
-                    $(".toggle.dose").off("click");
-                    $(".toggle.dose").click(function(){
-                        $(this).toggleClass('toggletrue');
-                        somebutton=$(this).prev();
-                        // turn off other doses and find the mednum button
-                        while (!somebutton.hasClass("med")) {
-                            somebutton=somebutton.prev();
-                        } // somebutton is the previous medication button
-                        somebutton=somebutton.next();
-                        while (!somebutton.hasClass("mednum")) {
-                            somebutton.removeClass('toggletrue');
-                            somebutton=somebutton.next();
-                        };
-                        $(this).toggleClass('toggletrue');
-                        somebutton.show();
-                        somebutton.click(function(){
-                            $(this).val('');
-                        });
-                    });
-                } else {
-                    // hide all the dose buttons and num input
-                    nextbit = $(this).next();
-                    while (!nextbit.hasClass('endmed')) {
-                        nextbit.hide();
-                        nextbit=nextbit.next();
-                    }
-                }
-            });
-        }
-        applymedtoggleclick();
-
-        $("#finishmed1").click(function(){
-            // collect all logged meds
-            var medsused = [];
-            $('.med.toggletrue').each(function() {
-                
-                thismed = {};
-                thismed.name = $(this).text();
-                // check if a dose was selected
-                var dosebutton = $(this).next();
-                while (dosebutton.hasClass("dose")) {
-                    if (dosebutton.hasClass("toggletrue")) {
-                        thismed.dose=dosebutton.text();
-                        break;
-                    } else {
-                        dosebutton = dosebutton.next();
-                    }
-                }
-                while (!dosebutton.hasClass("mednum")) {
-                    dosebutton=dosebutton.next();
-                } 
-                if (dosebutton.val()!="how many?") {
-                    thismed.mednum=dosebutton.val();
-                } // caution this needs updating if the question changes
-                medsused.push(thismed);
-            });
-
-            var medslist = "";
-            for (i=0;i<medsused.length;i++) {
-                medslist += medsused[i].name + ", ";
-            }
-            medslist = medslist.substr(0,medslist.length-2); // get rid of the last comma
-
-            // add pain diary data to database
-            showLoading();
-            db.collection("users").doc(userid).collection("diary").doc(currenteditdate).set({
-                "painscore": painscore,
-                //"painhours": painhours,
-                "otherfactors": otherinfo,
-                "medications": medsused
-            })
-            .then(function(docRef) {
-                printdebug("New pain diary added");
-                updatepaindiary();
-                changescreen("paindiarysummary");
-                todaylogged=true;
-            })
-            .catch(function(error) {
-                printdebug("Error adding pain diary: ", error);
-            });
-            
-        });
-
+        // #paindiary4 deferred until paindiary loaded, needs to be reloaded every entry
+        // #meddiary1 as above 
+        
         $("#submitnhi").click(function(){
             var message="Any healthcare providors and research studies you have given permission to will see this information.";
             checkUserReallyWantsToContinue(message,function(){
@@ -791,6 +673,59 @@ function applyotherinfotoggleclick() {
     });
 }
 
+function enterNewPainDiary(dateString) {
+    currenteditdate = dateString;
+    
+    // check if this date already has data 
+    var alreadyentered = false;
+    var dateforediting;
+    for (i=0;i<paindiary.length;i++) {
+        if (paindiary[i].date == currenteditdate) {
+            alreadyentered = true;
+            dateforediting = paindiary[i];
+            break;
+        }
+    }
+
+    // remake some bits
+    makePainDiary4();
+    makeMedDiary();
+
+    // preload data into the pain diary entry screens
+    if (alreadyentered) {
+        // highlight the painscore on paindiary2
+        painscore = dateforediting.painscore;
+        $("#painscore" + painscore).toggleClass("toggletrue");
+        // pre click the factors (fire click on #paindiary4 button that matches)
+        for (i=0;i<dateforediting.otherfactors.length;i++) {
+            var thisfactor = dateforediting.otherfactors[i];
+            $("#paindiary4 button").each(function(thisfactor){
+                if ($(this).val() == thisfactor) {
+                    $(this).trigger("click");
+                }
+            });
+        }
+        // preclick the medications
+        for (i=0; i<dateforediting.medications.length;i++) {
+            thismedname = dateforediting.medications[i].name;
+            $("#meddiary1 button").each(function(thismed) {
+                if ($(this).val() == thismed) {
+                    $(this).trigger("click");
+                    // TODO: get the dose and the number
+                }
+            });
+        }
+
+        // jump to screen 2
+        changescreen("paindiary2");
+    } else {
+        // reset pain entry screens to blank
+        // load screen 1
+        changescreen("paindiary1");
+    }
+    
+}
+
 function makePainDiary4() {
     
     $("#paindiary4").html('<span class="question">other info</span>');
@@ -819,6 +754,113 @@ function makePainDiary4() {
     $("#finish4").click(function(){
         $("paindiary4 button").removeClass("toggleTrue");
         changescreen("meddiary1");
+    });
+}
+
+function makeMedDiary() {
+    // med diary 1
+    for (i=0;i<meds.medication.length;i++) {
+        $("#meddiary1").append('<button class="toggle med">'+meds.medication[i].name,+'</button>');
+        for (j=0;j<meds.medication[i].dose.length;j++) {
+            $("#meddiary1").append('<button class="toggle dose">'+meds.medication[i].dose[j],+'</button> ');
+        }
+        $("#meddiary1").append('<input class="mednum" placeholder="how many?" type="number"><br class="endmed">');
+    }
+    $("#meddiary1").append('<button class="command" id="finishmed1">next</button>');
+
+    $(".toggle.dose").hide();
+    $(".mednum").hide();
+    function applymedtoggleclick () {
+        $("#meddiary1 .toggle").off("click");
+        $("#meddiary1 .toggle").click(function(){
+            $(this).toggleClass('toggletrue');
+            if ($(this).hasClass('toggletrue')) {
+                dosebutton=$(this).next();
+                while (dosebutton.hasClass("dose")) {
+                    dosebutton.show();
+                    dosebutton=dosebutton.next();
+                }
+                $(".toggle.dose").off("click");
+                $(".toggle.dose").click(function(){
+                    $(this).toggleClass('toggletrue');
+                    somebutton=$(this).prev();
+                    // turn off other doses and find the mednum button
+                    while (!somebutton.hasClass("med")) {
+                        somebutton=somebutton.prev();
+                    } // somebutton is the previous medication button
+                    somebutton=somebutton.next();
+                    while (!somebutton.hasClass("mednum")) {
+                        somebutton.removeClass('toggletrue');
+                        somebutton=somebutton.next();
+                    };
+                    $(this).toggleClass('toggletrue');
+                    somebutton.show();
+                    somebutton.click(function(){
+                        $(this).val('');
+                    });
+                });
+            } else {
+                // hide all the dose buttons and num input
+                nextbit = $(this).next();
+                while (!nextbit.hasClass('endmed')) {
+                    nextbit.hide();
+                    nextbit=nextbit.next();
+                }
+            }
+        });
+    }
+    applymedtoggleclick();
+
+    $("#finishmed1").click(function(){
+        // collect all logged meds
+        var medsused = [];
+        $('.med.toggletrue').each(function() {
+            
+            thismed = {};
+            thismed.name = $(this).text();
+            // check if a dose was selected
+            var dosebutton = $(this).next();
+            while (dosebutton.hasClass("dose")) {
+                if (dosebutton.hasClass("toggletrue")) {
+                    thismed.dose=dosebutton.text();
+                    break;
+                } else {
+                    dosebutton = dosebutton.next();
+                }
+            }
+            while (!dosebutton.hasClass("mednum")) {
+                dosebutton=dosebutton.next();
+            } 
+            if (dosebutton.val()!="how many?") {
+                thismed.mednum=dosebutton.val();
+            } // caution this needs updating if the question changes
+            medsused.push(thismed);
+        });
+
+        var medslist = "";
+        for (i=0;i<medsused.length;i++) {
+            medslist += medsused[i].name + ", ";
+        }
+        medslist = medslist.substr(0,medslist.length-2); // get rid of the last comma
+
+        // add pain diary data to database
+        showLoading();
+        db.collection("users").doc(userid).collection("diary").doc(currenteditdate).set({
+            "painscore": painscore,
+            //"painhours": painhours,
+            "otherfactors": otherinfo,
+            "medications": medsused
+        })
+        .then(function(docRef) {
+            printdebug("New pain diary added");
+            updatepaindiary();
+            changescreen("paindiarysummary");
+            todaylogged=true;
+        })
+        .catch(function(error) {
+            printdebug("Error adding pain diary: ", error);
+        });
+        
     });
 }
 
