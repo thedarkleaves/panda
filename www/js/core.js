@@ -168,6 +168,7 @@ function updatepaindiary() {
             popupmessage(err.message);
         }
     });
+
 }
 
 function addprovider(providerid) {
@@ -398,6 +399,7 @@ function printpaindiary() {
             }
         });
     }
+    // TODO: Jump to currenteditdate
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
@@ -698,6 +700,7 @@ function enterNewPainDiary(dateString) {
         $("#painscore" + painscore).toggleClass("toggletrue");
         // pre click the factors (fire click on #paindiary4 button that matches)
         for (i=0;i<dateforediting.otherfactors.length;i++) {
+            printdebug("pre-clicking button " + dateforediting.otherfactors[i]);
             var thisfactor = dateforediting.otherfactors[i];
             $("#factorbutton_" + thisfactor).trigger("click");
         }
@@ -755,7 +758,7 @@ function makePainDiary4() {
 
 function makeMedDiary() {
     // med diary 1
-    $("#meddiary1").empty();
+    $("#meddiary1").html('<span class="question">medications</span><br>');
     for (i=0;i<meds.medication.length;i++) {
         $("#meddiary1").append('<button class="toggle med">'+meds.medication[i].name,+'</button>');
         for (j=0;j<meds.medication[i].dose.length;j++) {
