@@ -121,7 +121,8 @@ function showLoading() {
             $("#pandaloader_row" + row + "_col" + i).css("background-color","red");    
         }
         
-    });setInterval(function(){
+    });
+    setInterval(function(){
         var row = Math.floor(Math.random()*gridsize);
         var col = Math.floor(Math.random()*gridsize);
         var colour = "#" + (Math.floor(Math.random()*10) * 111111);
@@ -690,9 +691,10 @@ function enterNewPainDiary(dateString) {
     }
 
     // remake some bits
+    $('.1to10').removeClass("toggletrue");
     makePainDiary4();
     makeMedDiary();
-
+        
     // preload data into the pain diary entry screens
     if (alreadyentered) {
         // highlight the painscore on paindiary2
@@ -707,12 +709,8 @@ function enterNewPainDiary(dateString) {
         // preclick the medications
         for (i=0; i<dateforediting.medications.length;i++) {
             var thismedname = dateforediting.medications[i].name;
-            $("#meddiary1 button").each(function(thismedname) {
-                if ($(this).val() == thismedname) {
-                    $(this).trigger("click");
-                    // TODO: get the dose and the number
-                }
-            });
+            $("#medbutton_" + thismedname).trigger("click");
+            // TODO: add doses and number
         }
 
         // jump to screen 2
@@ -760,7 +758,7 @@ function makeMedDiary() {
     // med diary 1
     $("#meddiary1").html('<span class="question">which medications did you use?</span><br>');
     for (i=0;i<meds.medication.length;i++) {
-        $("#meddiary1").append('<button class="toggle med">'+meds.medication[i].name,+'</button>');
+        $("#meddiary1").append('<button class="toggle med" + id="medbutton_' + meds.medication[i].name + '">' + meds.medication[i].name + '</button>');
         for (j=0;j<meds.medication[i].dose.length;j++) {
             $("#meddiary1").append('<button class="toggle dose">'+meds.medication[i].dose[j],+'</button> ');
         }
