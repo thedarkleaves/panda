@@ -48,13 +48,11 @@ function formatdate(datestring) {
 
 // return string for saving to the database
 function todayString(dateToFormat) {
-    var today;
+    var today = new Date(); // if no argument passed use today
     var monthstring, datestring;
     if (dateToFormat instanceof Date) {
         today = dateToFormat;
-    } else { 
-        today = new Date();
-    }
+    } 
     // pad with zeros
     if (today.getMonth()<9) {
         monthstring = "0" + (today.getMonth()+1);
