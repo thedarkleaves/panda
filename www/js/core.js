@@ -52,14 +52,16 @@ function todayString(dateToFormat) {
     var monthstring, datestring;
     if (dateToFormat instanceof Date) {
         today = dateToFormat;
+        addone = 0;
     } else { 
         today = new Date();
+        addone = 1; // javascript months start at zero
     }
     // pad with zeros
     if (today.getMonth()<9) {
-        monthstring = "0" + (today.getMonth()+1);
+        monthstring = "0" + (today.getMonth()+addone);
     } else {
-        monthstring = (today.getMonth()+1);
+        monthstring = (today.getMonth()+addone);
     }
     if (today.getDate()<10) {
         datestring = "0" + today.getDate();
@@ -370,7 +372,6 @@ function printpaindiary() {
     // reset the inputs
     $("#paindiarysummary").empty().append("<button>add missing day</button><hr>");
     $("#paindiarysummary button").click(function() {
-        // TODO: bring up a calendar
         changescreen("calendar");
     });
     for (i=paindiary.length-1;i>=0;i--) {
@@ -592,10 +593,22 @@ var app = {
         });
 
         $("#calendar input").change(function() {
-            // TODO: validate date (not future, not more than ?3 months behind)
             var caughtdate = todayString($("#calendar input").val());
-            printdebug("editing " + caughtdate);
-            enterNewPainDiary(caughtdate);
+            var futurechecker = new Date();
+            var validdate = true;
+            if (caughtdate.getTime() > futurechecker.getTime()) {
+                popupmessage("Sorry! You can't add pain a diary in the future!");
+                validdate = false;
+            }
+            futurechecker.setMonth(futurechecker.getMonth() - 3); // technically it's a pastchecker now
+            if (caughtdate.getTime() < futurechecker.getTime()) {
+                popupmessage("Sorry! You can't add a pain diary more than 3 months old.");
+                validdate = false;
+            }
+            if (validdate) {
+                printdebug("editing " + caughtdate);
+                enterNewPainDiary(caughtdate);
+            }
         });
 
         $("#todaypainno").click(function(){
