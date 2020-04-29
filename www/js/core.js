@@ -47,9 +47,14 @@ function formatdate(datestring) {
 }
 
 // return string for saving to the database
-function todayString() {
-    var today = new Date();
+function todayString(dateToFormat) {
+    var today;
     var monthstring, datestring;
+    if (dateToFormat instanceof Date) {
+        today = dateToFormat;
+    } else { 
+        today = new Date();
+    }
     // pad with zeros
     if (today.getMonth()<9) {
         monthstring = "0" + (today.getMonth()+1);
@@ -588,7 +593,7 @@ var app = {
 
         $("#calendar input").change(function() {
             // TODO: validate date (not future, not more than ?3 months behind)
-            var caughtdate = formatdate($("#calendar input").val());
+            var caughtdate = todayString($("#calendar input").val());
             printdebug("editing " + caughtdate);
             enterNewPainDiary(caughtdate);
         });
