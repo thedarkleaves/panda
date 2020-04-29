@@ -363,7 +363,7 @@ function changescreen(screenname) {
 // print the pain diary
 function printpaindiary() {
     // reset the inputs
-    $("#paindiarysummary").empty().append("<button>add missing day</button>");
+    $("#paindiarysummary").empty().append("<button>add missing day</button><hr>");
     $("#paindiarysummary button").click(function() {
         // TODO: bring up a calendar
         popupmessage("This function hasn't been built yet.");
@@ -709,7 +709,7 @@ function enterNewPainDiary(dateString) {
         for (i=0;i<paindiary[dateforediting].otherfactors.length;i++) {
             var thisfactor = paindiary[dateforediting].otherfactors[i];
             printdebug("pre-clicking button " + thisfactor);
-            $("#factorbutton_" + thisfactor).trigger("click");
+            $("#factorbutton_" + cleanString(thisfactor)).trigger("click");
         }
         // preclick the medications
         for (i=0; i<paindiary[dateforediting].medications.length;i++) {
@@ -728,11 +728,16 @@ function enterNewPainDiary(dateString) {
     
 }
 
+function cleanString(dirtyString) {
+    return dirtyString.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
+}
+ 
+
 function makePainDiary4() {
     
     $("#paindiary4").html('<span class="question">other info</span>');
     for (i=0;i<otherinfooptions.length;i++) {
-        $("#paindiary4").append('<button class="toggle" id="factorbutton_' + otherinfooptions[i] + '">'+otherinfooptions[i]+'</button> ');
+        $("#paindiary4").append('<button class="toggle" id="factorbutton_' + cleanString(otherinfooptions[i]) + '">'+otherinfooptions[i]+'</button> ');
     }
     $("#paindiary4").append('<input id="newotherinfo" value="other" />');
     $("#paindiary4").append('<button id="oknewotherinfo">ok</button><hr>');
