@@ -596,6 +596,7 @@ var app = {
             var caughtdate = $("#calendar input").val();
             var futurechecker = new Date();
             var validdate = true;
+            printdebug("checking date: " + caughtdate);
             if (caughtdate.getTime() > futurechecker.getTime()) {
                 popupmessage("Sorry! You can't add pain a diary in the future!");
                 validdate = false;
@@ -605,6 +606,7 @@ var app = {
                 popupmessage("Sorry! You can't add a pain diary more than 3 months old.");
                 validdate = false;
             }
+            printdebug("date validity: " + validdate.toString());
             if (validdate) {
                 printdebug("editing " + caughtdate);
                 enterNewPainDiary(todayString(caughtdate));
