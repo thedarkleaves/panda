@@ -685,7 +685,8 @@ function enterNewPainDiary(dateString) {
     for (i=0;i<paindiary.length;i++) {
         if (paindiary[i].date == currenteditdate) {
             alreadyentered = true;
-            dateforediting = paindiary[i];
+            dateforediting = i;
+            printdebug("editing date " + paindiary[dateforediting].date);
             break;
         }
     }
@@ -698,17 +699,17 @@ function enterNewPainDiary(dateString) {
     // preload data into the pain diary entry screens
     if (alreadyentered) {
         // highlight the painscore on paindiary2
-        painscore = dateforediting.painscore;
+        painscore = paindiary[dateforediting].painscore;
         $("#painscore" + painscore).toggleClass("toggletrue");
         // pre click the factors (fire click on #paindiary4 button that matches)
-        for (i=0;i<dateforediting.otherfactors.length;i++) {
-            printdebug("pre-clicking button " + dateforediting.otherfactors[i]);
-            var thisfactor = dateforediting.otherfactors[i];
+        for (i=0;i<paindiary[dateforediting].otherfactors.length;i++) {
+            var thisfactor = paindiary[dateforediting].otherfactors[i];
+            printdebug("pre-clicking button " + thisfactor);
             $("#factorbutton_" + thisfactor).trigger("click");
         }
         // preclick the medications
-        for (i=0; i<dateforediting.medications.length;i++) {
-            var thismedname = dateforediting.medications[i].name;
+        for (i=0; i<paindiary[dateforediting].medications.length;i++) {
+            var thismedname = paindiary[dateforediting].medications[i].name;
             $("#medbutton_" + thismedname).trigger("click");
             // TODO: add doses and number
         }
