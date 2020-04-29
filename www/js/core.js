@@ -40,7 +40,11 @@ var meds = {
     ]
 };
 
-// return normal format date from database format
+/**
+ *  Return display format date from database format
+ * @param dateString Date from the database
+ * @returns Date formatted for display
+ */
 function formatdate(datestring) {
     splitdate=datestring.split('.');
     return(splitdate[2]+'/'+splitdate[1]+'/'+splitdate[0]);
@@ -593,10 +597,16 @@ var app = {
             var futurechecker = new Date();
             var validdate = true;
             printdebug("checking date: " + caughtdate);
+            // check that a date was selected
+            if (caughtdate.getTime()!=caughtdate.getTime()) {
+                validdate = false;
+            }
+            // check the date is not in the future
             if (caughtdate.getTime() > futurechecker.getTime()) {
                 popupmessage("Sorry! You can't add pain a diary in the future!");
                 validdate = false;
             }
+            // check the date is not more than 3 months ago
             futurechecker.setMonth(futurechecker.getMonth() - 3); // technically it's a pastchecker now
             if (caughtdate.getTime() < futurechecker.getTime()) {
                 popupmessage("Sorry! You can't add a pain diary more than 3 months old.");
