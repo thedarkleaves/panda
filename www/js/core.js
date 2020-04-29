@@ -593,7 +593,7 @@ var app = {
         });
 
         $("#calendar input").change(function() {
-            var caughtdate = todayString($("#calendar input").val());
+            var caughtdate = $("#calendar input").val();
             var futurechecker = new Date();
             var validdate = true;
             if (caughtdate.getTime() > futurechecker.getTime()) {
@@ -607,7 +607,7 @@ var app = {
             }
             if (validdate) {
                 printdebug("editing " + caughtdate);
-                enterNewPainDiary(caughtdate);
+                enterNewPainDiary(todayString(caughtdate));
             }
         });
 
