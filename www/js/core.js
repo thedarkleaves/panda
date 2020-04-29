@@ -52,16 +52,14 @@ function todayString(dateToFormat) {
     var monthstring, datestring;
     if (dateToFormat instanceof Date) {
         today = dateToFormat;
-        addone = 0;
     } else { 
         today = new Date();
-        addone = 1; // javascript months start at zero
     }
     // pad with zeros
     if (today.getMonth()<9) {
-        monthstring = "0" + (today.getMonth()+addone);
+        monthstring = "0" + (today.getMonth()+1);
     } else {
-        monthstring = (today.getMonth()+addone);
+        monthstring = (today.getMonth()+1);
     }
     if (today.getDate()<10) {
         datestring = "0" + today.getDate();
