@@ -593,7 +593,7 @@ var app = {
         });
 
         $("#calendar input").change(function() {
-            var caughtdate = $("#calendar input").val();
+            var caughtdate = new Date($("#calendar input").val());
             var futurechecker = new Date();
             var validdate = true;
             printdebug("checking date: " + caughtdate);
