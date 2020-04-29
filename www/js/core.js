@@ -366,7 +366,7 @@ function printpaindiary() {
     $("#paindiarysummary").empty().append("<button>add missing day</button><hr>");
     $("#paindiarysummary button").click(function() {
         // TODO: bring up a calendar
-        popupmessage("This function hasn't been built yet.");
+        changescreen("calendar");
     });
     for (i=paindiary.length-1;i>=0;i--) {
         $("#paindiarysummary").append('<div class="paindiaryday"></div>');
@@ -584,6 +584,13 @@ var app = {
         // #paindiary1
         $("#todaypainyes").click(function(){
             changescreen("paindiary2");
+        });
+
+        $("#calendar input").change(function() {
+            // TODO: validate date (not future, not more than ?3 months behind)
+            var caughtdate = formatdate($("#calendar input").val());
+            printdebug("editing " + caughtdate);
+            enterNewPainDiary(caughtdate);
         });
 
         $("#todaypainno").click(function(){
