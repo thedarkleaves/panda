@@ -760,9 +760,14 @@ function enterNewPainDiary(dateString) {
         // preclick the medications
         for (i=0; i<paindiary[dateforediting].medications.length;i++) {
             var thismedname = paindiary[dateforediting].medications[i].name;
-            $("#medbutton_" + thismedname).trigger("click");
-            // TODO: add doses and number
-        }
+            var thismeddose = paindiary[dateforediting].medications[i].dose;
+            var thismednum = paindiary[dateforediting].medications[i].mednum;
+            $("#medbutton_" + cleanString(thismedname)).trigger("click");
+            $("#medbutton_" + cleanString(thismedname) + "_" + cleanString(thismeddose)).trigger("click");
+            if (!isNaN(thismednum)) {
+                $("#mednumber_" + cleanString(thismedname)).val(thismednum);
+            }
+ =       }
 
         // jump to screen 2
         changescreen("paindiary2");
@@ -774,6 +779,11 @@ function enterNewPainDiary(dateString) {
     
 }
 
+/**
+ * Remove all non alphanumeric characters from a string
+ * @param {*} dirtyString The string with whatever bits in it
+ * @returns A string with only alphanumeric characters
+ */
 function cleanString(dirtyString) {
     return dirtyString.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
 }
@@ -814,11 +824,11 @@ function makeMedDiary() {
     // med diary 1
     $("#meddiary1").html('<span class="question">which medications did you use?</span><br>');
     for (i=0;i<meds.medication.length;i++) {
-        $("#meddiary1").append('<button class="toggle med" + id="medbutton_' + meds.medication[i].name + '">' + meds.medication[i].name + '</button>');
+        $("#meddiary1").append('<button class="toggle med" id="medbutton_' + cleanString(meds.medication[i].name) + '">' + meds.medication[i].name + '</button>');
         for (j=0;j<meds.medication[i].dose.length;j++) {
-            $("#meddiary1").append('<button class="toggle dose">'+meds.medication[i].dose[j],+'</button> ');
+            $("#meddiary1").append('<button class="toggle dose" id="medbutton_' + cleanString(meds.medication[i].name) + '_' + cleanString(meds.medication[i].dose) + '">' + meds.medication[i].dose[j],+'</button> ');
         }
-        $("#meddiary1").append('<input class="mednum" placeholder="how many?" type="number"><br class="endmed">');
+        $("#meddiary1").append('<input class="mednum" id="mednumber_' + cleanString(meds.medication[i].name) + '" placeholder="how many?" type="number"><br class="endmed">');
     }
     $("#meddiary1").append('<hr><button class="command" id="finishmed1">next</button>');
 
