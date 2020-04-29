@@ -429,6 +429,10 @@ function checkUserReallyWantsToContinue(message,functioniftrue) {
     });
 }
 
+/**
+ * Pop up a message on the screen (with a "Got it" button)
+ * @param  message Message to be given the user
+ */
 function popupmessage(message) {
     $("#confirmbox").show();
     $(".confirmboxfront").html(message + "<br>");
@@ -614,6 +618,15 @@ var app = {
             }
             printdebug("date validity: " + validdate.toString());
             if (validdate) {
+                // check if the date already has data
+                var dateSelected = todayString(caughtdate);
+                // warn if this date already has data
+                for (i=0;i<paindiary.length;i++) {
+                    if (paindiary[i].date==dateSelected) {
+                        popupmessage("This date already has data, but you can go ahead and change it if you like.");
+                        break;
+                    }
+                }
                 printdebug("editing " + caughtdate);
                 enterNewPainDiary(todayString(caughtdate));
             }
