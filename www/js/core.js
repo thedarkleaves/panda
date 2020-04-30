@@ -50,11 +50,14 @@ function formatdate(datestring) {
     return(splitdate[2]+'/'+splitdate[1]+'/'+splitdate[0]);
 }
 
-// return string for saving to the database
+/**
+ * Return string for saving to the database
+ * @param dateToFormat Date object to format
+ */
 function todayString(dateToFormat) {
     var today = new Date(); // if no argument passed use today
     var monthstring, datestring;
-    if (dateToFormat instanceof Date) {
+    if ((dateToFormat instanceof Date) && (dateToFormat.getTime()==dateToFormat.getTime())) {
         today = dateToFormat;
     } 
     // pad with zeros
