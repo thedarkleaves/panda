@@ -729,6 +729,7 @@ function applyotherinfotoggleclick() {
             otherinfo.splice(otherinfo.indexOf($(this).text()),1);
         }
     });
+    printdebug('other factors: ' + otherinfo);
 }
 
 /**
