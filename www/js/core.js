@@ -711,9 +711,8 @@ function resetNotifications() {
             cordova.plugins.notification.local.schedule({
                 title: 'Update Pain Diary',
                 text: 'You still haven\'t logged your pain score today.',
-                icon: 'res://panda.png',
-                smallicon: 'res://notification.png',
-                trigger:  { in: 1, unit: 'hour' }
+                icon: 'img/panda_bw.png',
+                trigger:  { in: 1, unit: 'minute' }
             });
         }
     }
@@ -728,8 +727,8 @@ function applyotherinfotoggleclick() {
         } else {
             otherinfo.splice(otherinfo.indexOf($(this).text()),1);
         }
+        printdebug('other factors: ' + otherinfo);
     });
-    printdebug('other factors: ' + otherinfo);
 }
 
 /**
