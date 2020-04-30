@@ -739,6 +739,7 @@ function applyotherinfotoggleclick() {
 function enterNewPainDiary(dateString) {
     
     currenteditdate = dateString;
+    otherinfo = [];
 
     // check if this date already has data 
     var alreadyentered = false;
@@ -835,7 +836,6 @@ function makePainDiary4() {
 }
 
 function makeMedDiary() {
-    try {
     // med diary 1
     $("#meddiary1").html('<span class="question">which medications did you use?</span><br>');
     for (i=0;i<meds.medication.length;i++) {
@@ -849,9 +849,7 @@ function makeMedDiary() {
 
     $(".toggle.dose").hide();
     $(".mednum").hide();
-    } catch(err) {
-        printdebug(err.message);
-    } 
+
     function applymedtoggleclick () {
         $("#meddiary1 .toggle").off("click");
         $("#meddiary1 .toggle").click(function(){
@@ -890,8 +888,7 @@ function makeMedDiary() {
                 }
             }
         });
-    }
-    
+    }    
 
     applymedtoggleclick();
 
