@@ -795,11 +795,11 @@ function enterNewPainDiary(dateString) {
 
 /**
  * Remove all non alphanumeric characters from a string
- * @param {*} dirtyString The string with whatever bits in it
+ * @param {} dirtyString The string with whatever bits in it
  * @returns A string with only alphanumeric characters
  */
 function cleanString(dirtyString) {
-    return dirtyString.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
+    return dirtyString.toString().toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
 }
  
 
