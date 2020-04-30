@@ -731,9 +731,15 @@ function applyotherinfotoggleclick() {
     });
 }
 
+/**
+ * Start a new pain diary entry
+ * 
+ * @param {*} currenteditdate the date to be entered
+ */
 function enterNewPainDiary(dateString) {
-    currenteditdate = dateString;
     
+    currenteditdate = dateString;
+
     // check if this date already has data 
     var alreadyentered = false;
     var dateforediting;
@@ -741,7 +747,6 @@ function enterNewPainDiary(dateString) {
         if (paindiary[i].date == currenteditdate) {
             alreadyentered = true;
             dateforediting = i;
-            printdebug("editing date " + paindiary[dateforediting].date);
             break;
         }
     }
@@ -753,6 +758,7 @@ function enterNewPainDiary(dateString) {
         
     // preload data into the pain diary entry screens
     if (alreadyentered) {
+        printdebug("preloading data");
         // highlight the painscore on paindiary2
         painscore = paindiary[dateforediting].painscore;
         $("#painscore" + painscore).toggleClass("toggletrue");
@@ -765,12 +771,16 @@ function enterNewPainDiary(dateString) {
         // preclick the medications
         for (i=0; i<paindiary[dateforediting].medications.length;i++) {
             var thismedname = paindiary[dateforediting].medications[i].name;
-            var thismeddose = paindiary[dateforediting].medications[i].dose;
-            var thismednum = paindiary[dateforediting].medications[i].mednum;
             $("#medbutton_" + cleanString(thismedname)).trigger("click");
-            $("#medbutton_" + cleanString(thismedname) + "_" + cleanString(thismeddose)).trigger("click");
-            if (!isNaN(thismednum)) {
-                $("#mednumber_" + cleanString(thismedname)).val(thismednum);
+            try {
+                var thismeddose = paindiary[dateforediting].medications[i].dose;
+                var thismednum = paindiary[dateforediting].medications[i].mednum;
+                $("#medbutton_" + cleanString(thismedname) + "_" + cleanString(thismeddose)).trigger("click");
+                if (!isNaN(thismednum)) {
+                    $("#mednumber_" + cleanString(thismedname)).val(thismednum);
+                }
+            } catch(err) {
+                printdebug("no dose / number details");
             }
         }
 
