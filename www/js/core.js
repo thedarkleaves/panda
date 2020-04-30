@@ -596,6 +596,7 @@ var app = {
             changescreen("paindiary2");
         });
 
+        // #calendar
         $("#calendar input").change(function() {
             var caughtdate = new Date($("#calendar input").val());
             var futurechecker = new Date();
@@ -603,6 +604,7 @@ var app = {
             printdebug("checking date: " + caughtdate);
             // check that a date was selected
             if (caughtdate.getTime()!=caughtdate.getTime()) {
+                printdebug("Invalid date selected.");
                 validdate = false;
             }
             // check the date is not in the future
@@ -627,8 +629,8 @@ var app = {
                         break;
                     }
                 }
-                printdebug("editing " + caughtdate);
-                enterNewPainDiary(todayString(caughtdate));
+                printdebug("editing " + dateSelected);
+                enterNewPainDiary(dateSelected);
             }
         });
 
