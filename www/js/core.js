@@ -756,12 +756,12 @@ function enterNewPainDiary(dateString) {
     $('.1to10').removeClass("toggletrue");
     makePainDiary4();
     makeMedDiary();
-        
+    printdebug('recreated the input pages');
+    
     // preload data into the pain diary entry screens
     if (alreadyentered) {
         printdebug("preloading data");
         // highlight the painscore on paindiary2
-        /*
         painscore = paindiary[dateforediting].painscore;
         $("#painscore" + painscore).toggleClass("toggletrue");
         // pre click the factors (fire click on #paindiary4 button that matches)
@@ -783,7 +783,6 @@ function enterNewPainDiary(dateString) {
                 printdebug("no dose / number details");
             }
         }
-        */
         // jump to screen 2
         changescreen("paindiary2");
     } else {
@@ -841,7 +840,7 @@ function makeMedDiary() {
     for (i=0;i<meds.medication.length;i++) {
         $("#meddiary1").append('<button class="toggle med" id="medbutton_' + cleanString(meds.medication[i].name) + '">' + meds.medication[i].name + '</button>');
         for (j=0;j<meds.medication[i].dose.length;j++) {
-            $("#meddiary1").append('<button class="toggle dose" id="medbutton_' + cleanString(meds.medication[i].name) + '_' + cleanString(meds.medication[i].dose) + '">' + meds.medication[i].dose[j],+'</button> ');
+            $("#meddiary1").append('<button class="toggle dose" id="medbutton_' + cleanString(meds.medication[i].name) + '_' + cleanString(meds.medication[i].dose) + '">' + meds.medication[i].dose[j] + '</button> ');
         }
         $("#meddiary1").append('<input class="mednum" id="mednumber_' + cleanString(meds.medication[i].name) + '" placeholder="how many?" type="number"><br class="endmed">');
     }
