@@ -752,6 +752,7 @@ function enterNewPainDiary(dateString) {
     }
 
     // remake some bits
+    printdebug('recreating the input pages');
     $('.1to10').removeClass("toggletrue");
     makePainDiary4();
     makeMedDiary();
@@ -776,14 +777,11 @@ function enterNewPainDiary(dateString) {
                 var thismeddose = paindiary[dateforediting].medications[i].dose;
                 var thismednum = paindiary[dateforediting].medications[i].mednum;
                 $("#medbutton_" + cleanString(thismedname) + "_" + cleanString(thismeddose)).trigger("click");
-                if (!isNaN(thismednum)) {
-                    $("#mednumber_" + cleanString(thismedname)).val(thismednum);
-                }
+                $("#mednumber_" + cleanString(thismedname)).val(thismednum);
             } catch(err) {
                 printdebug("no dose / number details");
             }
         }
-
         // jump to screen 2
         changescreen("paindiary2");
     } else {
