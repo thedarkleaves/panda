@@ -767,7 +767,7 @@ function enterNewPainDiary(dateString) {
             if (!isNaN(thismednum)) {
                 $("#mednumber_" + cleanString(thismedname)).val(thismednum);
             }
- =       }
+        }
 
         // jump to screen 2
         changescreen("paindiary2");
