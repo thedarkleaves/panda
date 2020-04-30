@@ -761,6 +761,7 @@ function enterNewPainDiary(dateString) {
     if (alreadyentered) {
         printdebug("preloading data");
         // highlight the painscore on paindiary2
+        /*
         painscore = paindiary[dateforediting].painscore;
         $("#painscore" + painscore).toggleClass("toggletrue");
         // pre click the factors (fire click on #paindiary4 button that matches)
@@ -782,6 +783,7 @@ function enterNewPainDiary(dateString) {
                 printdebug("no dose / number details");
             }
         }
+        */
         // jump to screen 2
         changescreen("paindiary2");
     } else {
