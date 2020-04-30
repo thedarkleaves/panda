@@ -632,7 +632,7 @@ var app = {
                         break;
                     }
                 }
-                printdebug("editing " + dateSelected);
+                printdebug("Editing: " + dateSelected);
                 enterNewPainDiary(dateSelected);
             }
         });
