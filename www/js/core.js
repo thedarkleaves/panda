@@ -13,6 +13,7 @@ var providers = [];
 var todaylogged = false;
 var otherinfo = [];
 var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
+var medsused = [];
 var notificationsOn = true;
 var currenteditdate;
 var meds = {
@@ -900,7 +901,7 @@ function makeMedDiary() {
 
     $("#finishmed1").click(function(){
         // collect all logged meds
-        var medsused = [];
+        medsused = [];
         $('.med.toggletrue').each(function() {
             
             thismed = {};
