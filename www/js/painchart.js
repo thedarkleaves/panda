@@ -115,6 +115,8 @@ function initPainChart(numDays,showHours) {
         $("#painbarchart").append('<div id="painchartbars"><div>');
         maxpain = Math.max(...painscores.slice(0,numDays));
         console.log(painscores.slice(0,numDays));
+        $("#painchartbars").append('<span class="barchartbar barchartelement" id="painscoreaxislabel"></span>');
+        $("#painscoreaxislabel").height(((100*painscores[i]/maxpain)-(marginwidth*2))+"%").html("maxpain");
         for (i=0;i<numDays;i++) {
             $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');
             if (painscores[i]==0) {
@@ -126,6 +128,8 @@ function initPainChart(numDays,showHours) {
             }
         }
         $("#painbarchart").append('<div id="painchartbartitles"></div>');
+        // insert a blank placeholder (under the pain score axis)
+        $("#painchartbartitles").append('<span class="barchartbartitle barchartelement placeholder"></span>');
         for (i=0;i<numDays;i++) {
             $("#painchartbartitles").append('<span class="barchartbartitle barchartelement"></span>');
             // skip titles if lots of elements
@@ -161,7 +165,8 @@ function initPainChart(numDays,showHours) {
         for (i=0;i<otherinfooptions.length;i++) {
             $('#factors').append('<div class="factor"><div>');
             $('.factor:last').append('<div class="factordates"></div>');
-            
+            // insert a blank placeholder
+            $('.factordates:last').append('<span class="factorelement placeholder"></span>');
             for (j=0;j<numDays;j++) {
                 $('.factordates:last').append('<span class="factorelement"></span>');
                 try {
@@ -192,6 +197,7 @@ function initPainChart(numDays,showHours) {
         for (i=0;i<meds.medication.length;i++) {
             printdebug("printing medication " + meds.medication[i].name);
             $('#meds').append('<div class="medd"><div class="meddates"></div></div>');
+            $('.meddates:last').append('<span class="medelement placeholder"></span>');
             for (j=0;j<numDays;j++) {
                 $('.meddates:last').append('<span class="medelement"></span>');
                 printdebug("comparing " + painmeds[j] + " with " + meds.medication[i].name);

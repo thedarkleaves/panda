@@ -33,6 +33,10 @@
     text-align: right;
 }
 
+#painscoreaxislabel {
+    font-size: 10px;
+}
+
 .barchartbar {
     background-color: #ec7a77;
     display: inline-block;
@@ -86,4 +90,8 @@
 
 .litup {
     background-color: #ec7a77;
+}
+
+.placeholder {
+    background-color: none;
 }

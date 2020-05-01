@@ -75,12 +75,20 @@ function todayString(dateToFormat) {
     return (today.getFullYear() + "." + monthstring + "." + datestring);
 }
 
+/**
+ * Print a message to the debug area
+ * @param {String} content Message to print
+ */
 function printdebug(content) {
     if (debug) {
         $("#debug").append("<br>"+content);
     }
 }
 
+/**
+ * Initialise the loading screen
+ * @param {int} gridsize 
+ */
 function buildLoader(gridsize) {
     $("#pandaloading").height("100%").width("100%");
     for (i=0;i<gridsize;i++) {
@@ -100,7 +108,9 @@ function buildLoader(gridsize) {
     },20);
 }
 
-
+/**
+ * Show the loading screen (use hideLoading() to hide it)
+ */
 function showLoading() {
     var gridsize=10;
     $("#loadingscreen").show().empty();
@@ -141,11 +151,18 @@ function showLoading() {
     },20);
 }
 
+/**
+ * Hide the loading screen
+ */
 function hideLoading() {
     clearInterval();
     $("#loadingscreen").empty().hide();
 }
 
+/**
+ * Request a re-read of the pain diary from the database
+ * Subsequently calls other functions to update everything in the app
+ */
 function updatepaindiary() {
     db.collection("users").doc(userid).collection("providers").get().then(function(providerlist) {
         printdebug("Loaded provider list");
@@ -183,6 +200,10 @@ function updatepaindiary() {
 
 }
 
+/**
+ * Add a new provider to the database
+ * @param {String} providerid The ID of the provider in the database
+ */
 function addprovider(providerid) {
     $('#providers').empty().append("updating...");
     // look up the provider details
@@ -205,7 +226,9 @@ function addprovider(providerid) {
     });
 }
 
-
+/**
+ * Update providers for this user
+ */
 function updateproviders() {
     printdebug('update providers function running');
     // read the healthcare providers for this user
@@ -248,6 +271,10 @@ function updateproviders() {
     });
 }
 
+/**
+ * Remove a provider for the current user
+ * @param {String} providerid The Provider ID in the database
+ */
 function removeProvider(providerid) {
     $('#providers').empty().append("updating...");
     printdebug('attempting to remove provider ' + providerid);
@@ -704,8 +731,7 @@ function resetNotifications() {
             cordova.plugins.notification.local.schedule({
                 title: 'Update Pain Diary',
                 text: 'You haven\'t logged your pain score today.',
-                icon: 'res://panda.png',
-                smallicon: 'res://notification.png',
+                icon: 'img/panda_bw.png',
                 trigger: { every: 'day' }
             });
         } else {
@@ -713,7 +739,7 @@ function resetNotifications() {
                 title: 'Update Pain Diary',
                 text: 'You still haven\'t logged your pain score today.',
                 icon: 'img/panda_bw.png',
-                trigger:  { in: 1, unit: 'minute' }
+                trigger:  { in: 1, unit: 'hour' }
             });
         }
     }
