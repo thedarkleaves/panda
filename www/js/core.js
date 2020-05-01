@@ -407,7 +407,7 @@ function printpaindiary() {
         changescreen("calendar");
     });
     for (i=paindiary.length-1;i>=0;i--) {
-        $("#paindiarysummary").append('<div class="paindiaryday" id="paindiary_' + paindiary[i].date + '"></div>');
+        $("#paindiarysummary").append('<div class="paindiaryday" id="paindiary_' + cleanString(paindiary[i].date) + '"></div>');
         // print the date
         $(".paindiaryday:last").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
         $(".paindiaryday:last").append('<span class="date_for_db" style="display:none">'+paindiary[i].date+'</span');
@@ -449,8 +449,10 @@ function printpaindiary() {
         });
     }
     // Jump to the date just edited
-    if (currenteditdate != null) {
-        $("html body").scrollTop($("#paindiary_" + currenteditdate).offset().top);
+    try {
+        $("html body").scrollTop($("#paindiary_" + cleanString(currenteditdate)).offset().top);
+    } catch(err) {
+        printdebug("could not scroll to " + currenteditdate);
     }
 }
 

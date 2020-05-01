@@ -1,8 +1,12 @@
 /* TODO: Declare the colours as CSS variables */
 
+:root {
+    --main-background-colour: #000000;
+
+}
 body {
     font-family: 'Montseratt', sans-serif;
-    background-color:#000000;
+    background-color: var(--main-background-colour);
     text-align: center;
     color: #e9d6a8;
     font-size: 20px;
