@@ -14,10 +14,10 @@ hr {
     margin: 1em;
 } 
 
-button, input{
+button, input, textarea {
     background-color: #CCCCCC;
     color: #222222;
-    font-family: arial;
+    font-family: 'Montseratt', sans-serif;
     font-size: 1em;
     border: none;
     border-radius: 0.5em;
@@ -195,6 +195,12 @@ input::placeholder {
 
 .journalentry {
     white-space: pre-wrap;
+}
+
+#journaltext {
+    font-family: 'Montseratt', sans-serif;
+    height: 60%;
+    width: 95%;
 }
 
 /* hides unselected factors in read only mode */

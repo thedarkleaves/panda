@@ -720,7 +720,7 @@ var app = {
         
         // #journal
         $("#journal").append('<span class="question">comments / journal</span>');
-        $("#journal").append('<textarea class="journaltext"></textarea>');
+        $("#journal").append('<textarea id="journaltext"></textarea>');
         $("#journal").append('<button>save to diary</button>');
         $("#journal button").click(function() {
             submitPainDiary();
@@ -802,6 +802,7 @@ function enterNewPainDiary(dateString) {
     $('.1to10').removeClass("toggletrue");
     makePainDiary4();
     makeMedDiary();
+    $("#journalentry").empty();
     printdebug('recreated the input pages');
     
     // preload data into the pain diary entry screens
@@ -811,25 +812,29 @@ function enterNewPainDiary(dateString) {
         painscore = paindiary[dateforediting].painscore;
         $("#painscore" + painscore).toggleClass("toggletrue");
         // pre click the factors (fire click on #paindiary4 button that matches)
-        for (i=0;i<paindiary[dateforediting].otherfactors.length;i++) {
-            var thisfactor = paindiary[dateforediting].otherfactors[i];
-            printdebug("pre-clicking button " + thisfactor);
-            $("#factorbutton_" + cleanString(thisfactor)).trigger("click");
+        if (paindiary[dateforediting].otherfactors != undefined) {
+            for (i=0;i<paindiary[dateforediting].otherfactors.length;i++) {
+                var thisfactor = paindiary[dateforediting].otherfactors[i];
+                printdebug("pre-clicking button " + thisfactor);
+                $("#factorbutton_" + cleanString(thisfactor)).trigger("click");
+            }    
         }
         // preclick the medications
-        for (i=0; i<paindiary[dateforediting].medications.length;i++) {
-            var thismedname = paindiary[dateforediting].medications[i].name;
-            $("#medbutton_" + cleanString(thismedname)).trigger("click");
-            try {
-                var thismeddose = paindiary[dateforediting].medications[i].dose;
-                var thismednum = paindiary[dateforediting].medications[i].mednum;
-                $("#medbutton_" + cleanString(thismedname) + "_" + cleanString(thismeddose)).trigger("click");
-                $("#mednumber_" + cleanString(thismedname)).val(thismednum);
-            } catch(err) {
-                printdebug("no dose / number details");
+        if (paindiary[dateforediting].medications != undefined) {
+            for (i=0; i<paindiary[dateforediting].medications.length;i++) {
+                var thismedname = paindiary[dateforediting].medications[i].name;
+                $("#medbutton_" + cleanString(thismedname)).trigger("click");
+                try {
+                    var thismeddose = paindiary[dateforediting].medications[i].dose;
+                    var thismednum = paindiary[dateforediting].medications[i].mednum;
+                    $("#medbutton_" + cleanString(thismedname) + "_" + cleanString(thismeddose)).trigger("click");
+                    $("#mednumber_" + cleanString(thismedname)).val(thismednum);
+                } catch(err) {
+                    printdebug("no dose / number details");
+                }
             }
         }
-        // jump to screen 2
+            // jump to screen 2
         changescreen("paindiary2");
     } else {
         // reset pain entry screens to blank
