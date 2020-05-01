@@ -720,7 +720,7 @@ var app = {
         
         // #journal
         $("#journal").append('<span class="question">comments / journal</span>');
-        $("#journal").append('<textarea id="journaltext"></textarea>');
+        $("#journal").append('<textarea id="journaltext" rows="10"></textarea>');
         $("#journal").append('<button>save to diary</button>');
         $("#journal button").click(function() {
             submitPainDiary();
@@ -988,8 +988,8 @@ function makeMedDiary() {
 
 
 function submitPainDiary() {
-    showLoading();
-    var journal = $("#journaltext").val();
+    //showLoading();
+    var journal = $.trim($("#journaltext").val());
     db.collection("users").doc(userid).collection("diary").doc(currenteditdate).set({
         "painscore": painscore,
         //"painhours": painhours,
