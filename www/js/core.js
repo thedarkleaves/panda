@@ -183,6 +183,7 @@ function updatepaindiary() {
             thispainday.otherfactors=painday.data().otherfactors;
             addOtherFactors(thispainday.otherfactors);
             thispainday.medications=painday.data().medications;
+            thispainday.journal=painday.data().journal;
             paindiary.push(thispainday);
             printdebug('received paindata ' + thispainday.date);
         });
@@ -406,7 +407,7 @@ function printpaindiary() {
         changescreen("calendar");
     });
     for (i=paindiary.length-1;i>=0;i--) {
-        $("#paindiarysummary").append('<div class="paindiaryday"></div>');
+        $("#paindiarysummary").append('<div class="paindiaryday" id="paindiary_' + paindiary[i].date + '"></div>');
         // print the date
         $(".paindiaryday:last").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
         $(".paindiaryday:last").append('<span class="date_for_db" style="display:none">'+paindiary[i].date+'</span');
@@ -414,13 +415,14 @@ function printpaindiary() {
         $(".paindiaryday:last").append('pain score: <span class="painscore_for_db">' + paindiary[i].painscore + '</span><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         
-        // print the other factors as buttons
+        // print the other factors
         if (paindiary[i].otherfactors != undefined) {
             $(".paindiaryday:last").append('factors:<br> <div class="paindiaryfactorlist"></div>');
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
                 $(".paindiaryfactorlist:last").append(paindiary[i].otherfactors[j] + ' ');
             }
         }
+        // print the medications
         if (paindiary[i].medications != undefined) {
             $(".paindiaryday:last").append("<br>medications:<br>");
             for (j=0;j<paindiary[i].medications.length;j++) {
@@ -430,6 +432,11 @@ function printpaindiary() {
                     $(".paindiaryday:last").append(paindiary[i].medications[j].name + "<br>");    
                 }
             }
+        }
+        // print the journal entry
+        if (paindiary[i].journal != undefined) {
+            $(".paindiary:last").append("<br>journal:<br>");
+            $(".paindiary:last").append('<div class="journalentry">' + paindiary[i].journal + '</div>');
         }
         $(".paindiaryday:last").append("<button>modify this entry</button><hr>");
         $(".paindiaryday button:last").click(function(){
@@ -441,7 +448,10 @@ function printpaindiary() {
             }
         });
     }
-    // TODO: Jump to currenteditdate
+    // Jump to the date just edited
+    if (currenteditdate != null) {
+        $("html body").scrollTop($("#paindiary_" + currenteditdate).offset().top);
+    }
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
@@ -708,6 +718,14 @@ var app = {
         // #paindiary4 deferred until paindiary loaded, needs to be reloaded every entry
         // #meddiary1 as above 
         
+        // #journal
+        $("#journal").append('<span class="question">comments / journal</span>');
+        $("#journal").append('<textarea class="journaltext"></textarea>');
+        $("#journal").append('<button>save to diary</button>');
+        $("#journal button").click(function() {
+            submitPainDiary();
+        });
+
         $("#submitnhi").click(function(){
             var message="Any healthcare providors and research studies you have given permission to will see this information.";
             checkUserReallyWantsToContinue(message,function(){
@@ -761,7 +779,7 @@ function applyotherinfotoggleclick() {
 /**
  * Start a new pain diary entry
  * 
- * @param {*} currenteditdate the date to be entered
+ * @param {*} datesString the date to be entered
  */
 function enterNewPainDiary(dateString) {
     
@@ -957,18 +975,22 @@ function makeMedDiary() {
         }
         medslist = medslist.substr(0,medslist.length-2); // get rid of the last comma
 
-        submitPainDiary();
+        changescreen("journal");
         
     });
 }
 
+
+
 function submitPainDiary() {
     showLoading();
+    var journal = $("#journaltext").val();
     db.collection("users").doc(userid).collection("diary").doc(currenteditdate).set({
         "painscore": painscore,
         //"painhours": painhours,
         "otherfactors": otherinfo,
-        "medications": medsused
+        "medications": medsused,
+        "journal": journal
     })
     .then(function(docRef) {
         printdebug("New pain diary added");

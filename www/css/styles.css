@@ -193,6 +193,10 @@ input::placeholder {
     font-weight: bold;
 }
 
+.journalentry {
+    white-space: pre-wrap;
+}
+
 /* hides unselected factors in read only mode */
 .paindiaryfactorlist button:read-only:not(.toggletrue) {
     display: none;
