@@ -34,8 +34,13 @@
 }
 
 #painscoreaxislabel {
-    font-size: 10px;
+    font-size: 8px;
     background-color: none;
+}
+
+#painscoreaxislabel div {
+    text-align: top;
+    overflow: visible;
 }
 
 .barchartbar {
@@ -94,5 +99,5 @@
 }
 
 .placeholder {
-    background-color: blue;
+    opacity: 0;
 }
