@@ -111,12 +111,17 @@ function initPainChart(numDays,showHours) {
         marginwidth=10/numDays; // was 20
         $("#painchart").empty();
         $("#painchart").append('<div id="painbarchart"></div>');
-        var barwidth=Math.floor((100/numDays))-(2*marginwidth);
+        var barwidth=Math.floor((100/(numDays+1)))-(2*marginwidth);
         $("#painbarchart").append('<div id="painchartbars"><div>');
         maxpain = Math.max(...painscores.slice(0,numDays));
-        console.log(painscores.slice(0,numDays));
+        // create the pain bar axis labels
         $("#painchartbars").append('<span class="barchartbar barchartelement" id="painscoreaxislabel"></span>');
+        for (i=maxpain;i>=0;i--) {
+            $("#painscoreaxislabel").append("<div>"+i+"</div>");
+        }
         $("#painscoreaxislabel").height(((100)-(marginwidth*2))+"%"); 
+        $("#painscoreaxislabel div").height(100/maxpain + "%");
+        // create the pain bars
         for (i=0;i<numDays;i++) {
             $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');
             if (painscores[i]==0) {
