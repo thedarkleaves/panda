@@ -117,11 +117,11 @@ function initPainChart(numDays,showHours) {
         maxpain = Math.max(...painscores.slice(0,numDays));
         // create the pain bar axis labels
         $("#painchartbars").append('<span class="barchartbar barchartelement" id="painscoreaxislabel"></span>');
-        for (i=maxpain;i>=0;i--) {
+        for (i=maxpain;i>0;i--) {
             $("#painscoreaxislabel").append("<div>"+i+"</div>");
         }
         $("#painscoreaxislabel").height(((100)-(marginwidth*2))+"%"); 
-        $("#painscoreaxislabel div").height(100/(maxpain+1) + "%");
+        $("#painscoreaxislabel div").height(100/(maxpain) + "%");
         // create the pain bars
         for (i=0;i<numDays;i++) {
             $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');

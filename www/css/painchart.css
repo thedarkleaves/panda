@@ -1,5 +1,9 @@
 :root {
     --background: #EEEEEE;
+    --border-colour: #1aa0c0;
+    --main-font-colour: #222222;
+    --bar-colour: #ec7a77;
+    --bar-nodata-colour: #DDDDDD;
 }
 
 #painchart {
@@ -10,10 +14,10 @@
     background-color: var(--background);
     border-style: solid;
     border-width: 3px;
-    border-color: #1aa0c0;
+    border-color: var(--border-colour);
     border-radius: 12px;
     position: relative;
-    color: #222222;
+    color: var(--main-font-colour);
 }
 
 #painchart button, #painchart input {
@@ -52,15 +56,19 @@
 #painscoreaxislabel div {
     text-align: top;
     overflow: visible;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
 }
 
 .barchartbar {
-    background-color: #ec7a77;
+    background-color: var(--bar-colour);
     display: inline-block;
+    z-index: 999;
 }
 
 .barchartbar.nodata {
-    background-color: #DDDDDD;
+    background-color: var(--bar-nodata-colour);
 }
 
 .barchartelement {
@@ -100,13 +108,13 @@
     height: 100%;
 }
 .factorelement, .medelement {
-    background-color: #DDDDDD;
+    background-color: var(--background);
     height: 100%;
     display: inline-block;
 }
 
 .litup {
-    background-color: #ec7a77;
+    background-color: var(--bar-colour);
 }
 
 .placeholder {
