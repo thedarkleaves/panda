@@ -116,15 +116,15 @@ function initPainChart(numDays,showHours) {
         maxpain = Math.max(...painscores.slice(0,numDays));
         console.log(painscores.slice(0,numDays));
         $("#painchartbars").append('<span class="barchartbar barchartelement" id="painscoreaxislabel"></span>');
-        $("#painscoreaxislabel").height(((100)-(marginwidth*2))+"%").html(maxpain);
+        $("#painscoreaxislabel").height(((100)-(marginwidth*2))+"%"); 
         for (i=0;i<numDays;i++) {
             $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');
             if (painscores[i]==0) {
-                $(".barchartbar:last").height("1px").hide().fadeIn();
+                $(".barchartbar:last").height("1px");
             } else if (painscores[i]>0) {
-                $(".barchartbar:last").height(((100*painscores[i]/maxpain)-(marginwidth*2))+"%").hide().fadeIn();
+                $(".barchartbar:last").height(((100*painscores[i]/maxpain)-(marginwidth*2))+"%");
             } else { // no data
-                $(".barchartbar:last").height("100%").addClass('nodata').hide().fadeIn();
+                $(".barchartbar:last").height("100%").addClass('nodata');
             }
         }
         $("#painbarchart").append('<div id="painchartbartitles"></div>');
