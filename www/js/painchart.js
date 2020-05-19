@@ -113,6 +113,7 @@ function initPainChart(numDays,showHours) {
         $("#painchart").append('<div id="painbarchart"></div>');
         var barwidth=Math.floor((100/(numDays+1)))-(2*marginwidth);
         $("#painbarchart").append('<div id="painchartbars"><div>');
+        $("#painbarchart").append('<div id="painchartbarstitle">pain scores</div>');
         maxpain = Math.max(...painscores.slice(0,numDays));
         // create the pain bar axis labels
         $("#painchartbars").append('<span class="barchartbar barchartelement" id="painscoreaxislabel"></span>');
@@ -120,7 +121,7 @@ function initPainChart(numDays,showHours) {
             $("#painscoreaxislabel").append("<div>"+i+"</div>");
         }
         $("#painscoreaxislabel").height(((100)-(marginwidth*2))+"%"); 
-        $("#painscoreaxislabel div").height(100/maxpain + "%");
+        $("#painscoreaxislabel div").height(100/(maxpain+1) + "%");
         // create the pain bars
         for (i=0;i<numDays;i++) {
             $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');
@@ -132,6 +133,7 @@ function initPainChart(numDays,showHours) {
                 $(".barchartbar:last").height("100%").addClass('nodata');
             }
         }
+        // create the date titles
         $("#painbarchart").append('<div id="painchartbartitles"></div>');
         // insert a blank placeholder (under the pain score axis)
         $("#painchartbartitles").append('<span class="barchartbartitle barchartelement placeholder"></span>');
