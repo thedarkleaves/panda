@@ -17,6 +17,7 @@ var medsused = [];
 var notificationsOn = true;
 var currenteditdate;
 var backScreen;
+var storage = window.localStorage;
 var meds = {
     "medication": [
         {
@@ -194,7 +195,6 @@ function updatepaindiary() {
             initPainChart(7,0);
             makePainDiary4();
             hideLoading();
-            resetNotifications();
         } catch(err) {
             popupmessage(err.message);
         }
@@ -522,7 +522,7 @@ var app = {
         };
         // initialize firebase
         firebase.initializeApp(firebaseConfig);    
- 
+
         // catch attempted log in
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -750,6 +750,19 @@ var app = {
             });
         });
 
+        // Nofitication Buttons
+        $("#notificationsOnButton").click(function() {
+            storage.setItem("notificationsOn",true);
+            $("#notificationsOnButton").addClass("toggletrue");
+            $("#notificationsOffButton").removeClass("toggletrue");
+        });
+        $("#notificationsOffButton").click(function() {
+            storage.setItem("notificationsOn",false);
+            $("#notificationsOnButton").removeClass("toggletrue");
+            $("#notificationsOffButton").addClass("toggletrue");
+        });
+        resetNotifications();
+
         // TODO: Add option to have no notifications
         printdebug("ready");
     },
@@ -757,7 +770,12 @@ var app = {
 
 function resetNotifications() {
     cordova.plugins.notification.local.clearAll();
+    notificationsOn = storage.getItem(notificationsOn); // Pass a key name to get its value.
+    if (notificationsOn=null) {
+        notificationsOn=true;
+    }
     if (notificationsOn) {
+        $("#notificationsOnButton").addClass("toggletrue");
         if (todaylogged) {
             cordova.plugins.notification.local.schedule({
                 title: 'Update Pain Diary',
@@ -773,6 +791,9 @@ function resetNotifications() {
                 trigger:  { in: 1, unit: 'hour' }
             });
         }
+    } else {
+        // no notifications wanted
+        $("#notificationsOffButton").addClass("toggletrue");
     }
 }
 
