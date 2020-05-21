@@ -16,6 +16,7 @@ var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
 var medsused = [];
 var notificationsOn = true;
 var currenteditdate;
+var backScreen;
 var meds = {
     "medication": [
         {
@@ -486,6 +487,14 @@ function popupmessage(message) {
     });
 }
 
+function pressedBack() {
+    if (backScreen==null) {
+        popupmessage("nothing to go back to.");
+    } else {
+        changescreen(backScreen);
+    }
+}
+
 // application constructor
 var app = {
     initialise: function() {
@@ -498,6 +507,8 @@ var app = {
     },
     // deviceready event handler
     onDeviceReady: function() {
+        document.addEventListener("backbutton",pressedBack,false);
+
         printdebug("initialising firebase");
         // firebase config
         var firebaseConfig = {
