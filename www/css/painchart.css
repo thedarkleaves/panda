@@ -34,11 +34,13 @@
     white-space: nowrap;
     height: 200px;
     text-align: right;
+    background-color: red;
 }
 
 #painchartbartitles {
     white-space: nowrap;
     text-align: right;
+    background-color: green;
 }
 
 #painchartbarstitle {
@@ -59,7 +61,6 @@
     z-index: 1000;
     padding: 0;
     margin: 0;
-    background-color: green;
 }
 
 .barchartbar {
