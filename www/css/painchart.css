@@ -59,6 +59,7 @@
     z-index: 1000;
     padding: 0;
     margin: 0;
+    background-color: green;
 }
 
 .barchartbar {
@@ -108,7 +109,7 @@
     height: 100%;
 }
 .factorelement, .medelement {
-    background-color: var(--background);
+    background-color: var(--bar-nodata-colour);
     height: 100%;
     display: inline-block;
 }
