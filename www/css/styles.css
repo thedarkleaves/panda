@@ -1,5 +1,3 @@
-/* TODO: Declare the colours as CSS variables */
-
 :root {
     --main-background-colour: #000000;
     --next-background-colour: #f6a282;
@@ -7,19 +5,19 @@
     --top-text-colour: #FFFFFF;
     --top-text-shadow: #000000;
     --loadingscreen-background-colour: #FFFFFF;
-    --button-background-colour: #CCCCCC;
-    --button-text-colour: #222222;
+    --button-background-colour: #e9d6a8;
+    --button-text-colour: #ec7a77;
     --fancybits1: #ec7a77;
     --fancybits2: #70c7b8;
     --fancybits3: #1aa0c0;
-    --darktext-colour: #000000;
+    --darktext-colour: #ec7a77;
     --lighttext-colour: #e9d6a8;
 }
 body {
     font-family: 'Montseratt', sans-serif;
     background-color: var(--main-background-colour);
     text-align: center;
-    color: #e9d6a8;
+    color: var(--lighttext-colour);
     font-size: 20px;
 }
 
@@ -175,7 +173,8 @@ input::placeholder {
 }
 
 .toggletrue {
-    background-color:var(--fancybits1);
+    background-color:var(--button-text-colour);
+    color: var(--button-text-colour);
     font-weight: bold;
 }
 
