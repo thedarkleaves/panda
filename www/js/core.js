@@ -770,8 +770,9 @@ var app = {
 
 function resetNotifications() {
     cordova.plugins.notification.local.clearAll();
-    notificationsOn = storage.getItem(notificationsOn); // Pass a key name to get its value.
-    if (notificationsOn==null) {
+    if (storage.getItem(notificationsOn)=="false") {
+        notificationsOn=false;
+    } else {
         notificationsOn=true;
     }
     if (notificationsOn) {
