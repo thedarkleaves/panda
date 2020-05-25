@@ -772,8 +772,8 @@ var app = {
 
 function resetNotifications() {
     cordova.plugins.notification.local.clearAll();
-    printdebug("notifications: " + storage.getItem(notificationsOn));
-    if (storage.getItem(notificationsOn)=="false") {
+    printdebug("notifications: " + storage.getItem("notificationsOn"));
+    if (storage.getItem("notificationsOn")=="false") {
         notificationsOn=false;
     } else {
         notificationsOn=true;
