@@ -140,6 +140,10 @@ input::placeholder {
 .command {
     width:50%;
 }
+
+.commandmini {
+    width: 30%;
+}
 .answer {
     width: 80%;
     font-weight: bold;
