@@ -3,10 +3,13 @@
 :root {
     --main-background-colour: #000000;
     --next-background-colour: #f6a282;
+    --top-background-colour: #222222;
+    --top-text-colour: #FFFFFF;
     --button-background-colour: #CCCCCC;
     --button-text-colour: #222222;
     --fancybits1: #ec7a77;
     --fancybits2: #70c7b8;
+    
 }
 body {
     font-family: 'Montseratt', sans-serif;
@@ -64,7 +67,7 @@ input::placeholder {
 }
 
 #hamburger hr {
-    border: 5px solid #222222;
+    border: 5px solid var(--button-text-colour);
     border-radius: 5px;
     margin: 5px;
 }
@@ -75,10 +78,10 @@ input::placeholder {
     top: 0;
     left: 0;
     border-radius: 0.25em;
-    background-color: #555555;
+    background-color: var(--top-background-colour);
     height: 50px;
     width: 100%;
-    color: #FFFFFF;
+    color: var(--top-text-colour);
     text-shadow: 3px 1px 5px #000000; 
     font-family:'Francois One' sans-serif;
     font-size: 30px;
@@ -197,11 +200,12 @@ input::placeholder {
 .datehead {
     font-weight: bold;
     color: black;
+    font-size: 1.5em;
 }
 
 .diarybit {
     font-weight: bold;
-    color: black;
+    color: var(--fancybits1);
 }
 
 .paindiaryday input {
