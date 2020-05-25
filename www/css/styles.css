@@ -2,9 +2,11 @@
 
 :root {
     --main-background-colour: #000000;
+    --next-background-colour: #f6a282;
     --button-background-colour: #CCCCCC;
     --button-text-colour: #222222;
     --fancybits1: #ec7a77;
+    --fancybits2: #70c7b8;
 }
 body {
     font-family: 'Montseratt', sans-serif;
@@ -31,11 +33,11 @@ button, input, textarea {
     margin: 0.1em;
 }
 input::placeholder {
-    color: #70c7b8;
+    color: var(--fancybits2);
 }
 
 .screen {
-    background-color: #f6a282;
+    background-color: var(--next-background-colour);
     position: absolute;
     top: 0px;
     left: 0px;
@@ -55,7 +57,7 @@ input::placeholder {
     top: 0;
     left: 0;
     border-radius: 0.5em;
-    background-color: #CCCCCC;
+    background-color: var(--button-background-colour);
     height: 50px;
     width: 50px;
     display: none;
@@ -190,6 +192,16 @@ input::placeholder {
     height: 50%;
     width: 100%;
     overflow: scroll;
+}
+
+.datehead {
+    font-weight: bold;
+    color: black;
+}
+
+.diarybit {
+    font-weight: bold;
+    color: black;
 }
 
 .paindiaryday input {

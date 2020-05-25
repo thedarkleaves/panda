@@ -417,22 +417,22 @@ function printpaindiary() {
     for (i=paindiary.length-1;i>=0;i--) {
         $("#paindiarysummary").append('<div class="paindiaryday" id="paindiary_' + cleanString(paindiary[i].date) + '"></div>');
         // print the date
-        $(".paindiaryday:last").append("<span><b>"+formatdate(paindiary[i].date)+"</b><br></span>");
+        $(".paindiaryday:last").append('<span class="datehead">'+formatdate(paindiary[i].date)+'</span><br>');
         $(".paindiaryday:last").append('<span class="date_for_db" style="display:none">'+paindiary[i].date+'</span');
         // print the pain score
-        $(".paindiaryday:last").append('pain score: <span class="painscore_for_db">' + paindiary[i].painscore + '</span><br>');
+        $(".paindiaryday:last").append('<span class="diarybit">pain score:</span> <span class="painscore_for_db">' + paindiary[i].painscore + '</span><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         
         // print the other factors
         if (paindiary[i].otherfactors != undefined) {
-            $(".paindiaryday:last").append('factors:<br> <div class="paindiaryfactorlist"></div>');
+            $(".paindiaryday:last").append('<span class="diarybit">factors:</span><br> <div class="paindiaryfactorlist"></div>');
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
                 $(".paindiaryfactorlist:last").append(paindiary[i].otherfactors[j] + ' ');
             }
         }
         // print the medications
         if (paindiary[i].medications != undefined) {
-            $(".paindiaryday:last").append("<br>medications:<br>");
+            $(".paindiaryday:last").append('<br><span class="diarybit">medications:</span><br>');
             for (j=0;j<paindiary[i].medications.length;j++) {
                 if ((paindiary[i].medications[j].dose != undefined) && (paindiary[i].medications[j].mednum != undefined)) {
                     $(".paindiaryday:last").append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + "<br>");
@@ -442,8 +442,8 @@ function printpaindiary() {
             }
         }
         // print the journal entry
-        if (paindiary[i].journal != undefined) {
-            $(".paindiaryday:last").append("<br>journal:<br>");
+        if ((paindiary[i].journal != undefined) && (paindiary[i].journal != "")) {
+            $(".paindiaryday:last").append('<br><span class="diarybit">journal:</span><br>');
             $(".paindiaryday:last").append('<div class="journalentry">' + paindiary[i].journal + '</div>');
         }
         $(".paindiaryday:last").append("<button>modify this entry</button><hr>");
