@@ -386,6 +386,10 @@ function addOtherFactors(newOtherFactors) {
     }
 }
 
+/**
+ * Change screens
+ * @param {String} screenname The ID of the screen name to change to
+ */
 function changescreen(screenname) {
     $(".screen").fadeOut(screenspeed/2);
     window.scrollTo(0,0);
@@ -398,9 +402,12 @@ function changescreen(screenname) {
     if (screenname=="paindiary3") {
         $("#painhoursquestion").append("for how many hours was your pain more 'than " + painscore + " out of 10?");
     }
+    // TODO: Change the back-button screen
 }
 
-// print the pain diary
+/**
+ *  Print the pain diary
+ */
 function printpaindiary() {
     // reset the inputs
     $("#paindiarysummary").empty().append("<button>add missing day</button><hr>");
@@ -436,8 +443,8 @@ function printpaindiary() {
         }
         // print the journal entry
         if (paindiary[i].journal != undefined) {
-            $(".paindiary:last").append("<br>journal:<br>");
-            $(".paindiary:last").append('<div class="journalentry">' + paindiary[i].journal + '</div>');
+            $(".paindiaryday:last").append("<br>journal:<br>");
+            $(".paindiaryday:last").append('<div class="journalentry">' + paindiary[i].journal + '</div>');
         }
         $(".paindiaryday:last").append("<button>modify this entry</button><hr>");
         $(".paindiaryday button:last").click(function(){
