@@ -752,14 +752,16 @@ var app = {
 
         // Nofitication Buttons
         $("#notificationsOnButton").click(function() {
-            storage.setItem("notificationsOn",true);
+            storage.setItem("notificationsOn","true");
             $("#notificationsOnButton").addClass("toggletrue");
             $("#notificationsOffButton").removeClass("toggletrue");
+            resetNotifications();
         });
         $("#notificationsOffButton").click(function() {
-            storage.setItem("notificationsOn",false);
+            storage.setItem("notificationsOn","false");
             $("#notificationsOnButton").removeClass("toggletrue");
             $("#notificationsOffButton").addClass("toggletrue");
+            resetNotifications();
         });
         resetNotifications();
 
@@ -770,6 +772,7 @@ var app = {
 
 function resetNotifications() {
     cordova.plugins.notification.local.clearAll();
+    printdebug("notifications: " + storage.getItem(notificationsOn));
     if (storage.getItem(notificationsOn)=="false") {
         notificationsOn=false;
     } else {
