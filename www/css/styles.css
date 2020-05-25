@@ -5,11 +5,15 @@
     --next-background-colour: #f6a282;
     --top-background-colour: #222222;
     --top-text-colour: #FFFFFF;
+    --top-text-shadow: #000000;
+    --loadingscreen-background-colour: #FFFFFF;
     --button-background-colour: #CCCCCC;
     --button-text-colour: #222222;
     --fancybits1: #ec7a77;
     --fancybits2: #70c7b8;
-    
+    --fancybits3: #1aa0c0;
+    --darktext-colour: #000000;
+    --lighttext-colour: #e9d6a8;
 }
 body {
     font-family: 'Montseratt', sans-serif;
@@ -82,7 +86,7 @@ input::placeholder {
     height: 50px;
     width: 100%;
     color: var(--top-text-colour);
-    text-shadow: 3px 1px 5px #000000; 
+    text-shadow: 3px 1px 5px var(--top-text-shadow); 
     font-family:'Francois One' sans-serif;
     font-size: 30px;
 }
@@ -106,8 +110,7 @@ input::placeholder {
     left: 0;
     display: none;
     z-index: 10000;
-    background-color: white;
-    color: black;
+    background-color: var(--loadingscreen-background-colour);
     text-align: center;
 }
 
@@ -163,7 +166,7 @@ input::placeholder {
 .question {
     display: block;
     padding: 0.5em;
-    color: #1aa0c0;
+    color: var(--fancybits3);
     font-size: 1.5em;
 }
 
@@ -172,7 +175,7 @@ input::placeholder {
 }
 
 .toggletrue {
-    background-color: #ec7a77;
+    background-color:var(--fancybits1);
     font-weight: bold;
 }
 
@@ -199,7 +202,7 @@ input::placeholder {
 
 .datehead {
     font-weight: bold;
-    color: black;
+    color: var(--darktext-colour);
     font-size: 1.5em;
 }
 
@@ -214,8 +217,8 @@ input::placeholder {
 }
 
 .paindiaryday input:read-only {
-    background-color: #f6a282; 
-    color: #e9d6a8;
+    background-color: var(--next-background-colour); 
+    color: var(--light-text-colour);
     font-weight: bold;
 }
 
