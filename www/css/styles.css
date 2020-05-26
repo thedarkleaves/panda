@@ -1,38 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Piedra&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Piedra&display=swap');
 
 :root {
+
     --main-background-colour: #000000;
-    --next-background-colour: #f6a282;
     --top-background-colour: #222222;
     --top-text-colour: #FFFFFF;
     --top-text-shadow: #000000;
-    --loadingscreen-background-colour: #FFFFFF;
-    --button-background-colour: #e9d6a8;
-    --button-text-colour: #ec7a77;
-    --fancybits1: #ec7a77;
-    --fancybits2: #70c7b8;
-    --fancybits3: #1aa0c0;
-    --darktext-colour: #ec7a77;
-    --lighttext-colour: #e9d6a8;
+    --body-background-colour: #f6a282;
+    --text-colour1: #1aa0c0; /* headings */
+    --text-colour2: #ec7a77; /* normal text */
+    --text-colour3: #e9d6a8; /* subheadings, etc. */
+    --bits-colour1: #70c7b8; /* buttons, lines, borders, etc. */
 }
 
 body {
     font-family: 'Montseratt', sans-serif;
     background-color: var(--main-background-colour);
     text-align: center;
-    color: var(--lighttext-colour);
+    color: var(--text-colour2);
     font-size: 20px;
 }
 
 hr {
-    border: 5px solid var(--fancybits1);
+    border: 5px solid var(--bits-colour1);
     border-radius: 1em;
     margin: 1em;
 } 
 
 button, input, textarea {
-    background-color: var(--button-background-colour);
-    color: var(--button-text-colour);
+    background-color: var(--bits-colour1);
+    color: var(--text-colour2);
     font-family: 'Montseratt', sans-serif;
     font-size: 1em;
     border: none;
@@ -41,11 +38,11 @@ button, input, textarea {
     margin: 0.1em;
 }
 input::placeholder {
-    color: var(--fancybits2);
+    color: var(--bits-colour1);
 }
 
 .screen {
-    background-color: var(--next-background-colour);
+    background-color: var(--body-background-colour);
     position: absolute;
     top: 0px;
     left: 0px;
@@ -65,14 +62,14 @@ input::placeholder {
     top: 0;
     left: 0;
     border-radius: 0.5em;
-    background-color: var(--button-background-colour);
+    background-color: var(--bits-colour1);
     height: 50px;
     width: 50px;
     display: none;
 }
 
 #hamburger hr {
-    border: 5px solid var(--button-text-colour);
+    border: 5px solid var(--text-colour3);
     border-radius: 5px;
     margin: 5px;
 }
@@ -111,7 +108,7 @@ input::placeholder {
     left: 0;
     display: none;
     z-index: 10000;
-    background-color: var(--loadingscreen-background-colour);
+    background-color: var(--main-background-colour);
     text-align: center;
 }
 
@@ -167,7 +164,7 @@ input::placeholder {
 .question {
     display: block;
     padding: 0.5em;
-    color: var(--fancybits3);
+    color: var(--textcolour3);
     font-size: 1.5em;
 }
 
@@ -176,8 +173,8 @@ input::placeholder {
 }
 
 .toggletrue {
-    background-color:var(--button-text-colour);
-    color: var(--button-background-colour);
+    background-color:var(--textcolour2);
+    color: var(--bits-colour1);
     font-weight: bold;
 }
 
@@ -204,24 +201,18 @@ input::placeholder {
 
 .datehead {
     font-weight: bold;
-    color: var(--darktext-colour);
+    color: var(--text-colour1);
     font-size: 1.5em;
 }
 
 .diarybit {
     font-weight: bold;
-    color: var(--fancybits1);
+    color: var(--text-colour2);
 }
 
 .paindiaryday input {
     width: 20%;
     display: inline-block;
-}
-
-.paindiaryday input:read-only {
-    background-color: var(--next-background-colour); 
-    color: var(--light-text-colour);
-    font-weight: bold;
 }
 
 .journalentry {
