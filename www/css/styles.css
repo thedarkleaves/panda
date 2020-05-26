@@ -23,7 +23,7 @@ body {
 }
 
 hr {
-    border: 5px solid var(--bits-colour2);
+    border: 3px solid var(--bits-colour2);
     border-radius: 1em;
     margin: 1em;
 } 
@@ -40,6 +40,10 @@ button, input, textarea {
 }
 input::placeholder {
     color: var(--text-colour2);
+}
+
+.littlebutton {
+    font-size: 0.75em;
 }
 
 .screen {
@@ -70,9 +74,9 @@ input::placeholder {
 }
 
 #hamburger hr {
-    border: 5px solid var(--text-colour1);
-    border-radius: 5px;
-    margin: 5px;
+    border: 3px solid var(--text-colour1);
+    border-radius: 3px;
+    margin: 6px;
 }
 
 #topbar {
@@ -203,6 +207,11 @@ input::placeholder {
 .datehead {
     font-weight: bold;
     color: var(--text-colour1);
+    text-align: left;
+}
+
+.painscorehead {
+    text-align: right;
 }
 
 .diarybit {
@@ -211,6 +220,7 @@ input::placeholder {
 
 .paindiaryday {
     line-height: 1.5em;
+
 }
 
 .paindiaryday input {
