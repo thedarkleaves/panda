@@ -208,14 +208,20 @@ input::placeholder {
     font-weight: bold;
     color: var(--text-colour1);
     text-align: left;
+    width: 50%;
 }
 
 .painscorehead {
     text-align: right;
+    width: 50%;
 }
 
 .diarybit {
     color: var(--bits-colour2);
+}
+
+.paindiaryfactors, .paindiarymeds {
+    width: 50%;
 }
 
 .paindiaryday {
