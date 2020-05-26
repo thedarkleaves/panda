@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Piedra&display=swap');
+
 :root {
     --main-background-colour: #000000;
     --next-background-colour: #f6a282;
@@ -13,6 +15,7 @@
     --darktext-colour: #ec7a77;
     --lighttext-colour: #e9d6a8;
 }
+
 body {
     font-family: 'Montseratt', sans-serif;
     background-color: var(--main-background-colour);
@@ -85,7 +88,7 @@ input::placeholder {
     width: 100%;
     color: var(--top-text-colour);
     text-shadow: 3px 1px 5px var(--top-text-shadow); 
-    font-family:'Francois One' sans-serif;
+    font-family:'Piedra', cursive;
     font-size: 30px;
 }
 
@@ -174,7 +177,7 @@ input::placeholder {
 
 .toggletrue {
     background-color:var(--button-text-colour);
-    color: var(--button-text-colour);
+    color: var(--button-background-colour);
     font-weight: bold;
 }
 
@@ -229,6 +232,10 @@ input::placeholder {
     font-family: 'Montseratt', sans-serif;
     height: 60%;
     width: 95%;
+}
+
+.pandaloader_box {
+    border-radius: 3px;
 }
 
 /* hides unselected factors in read only mode */

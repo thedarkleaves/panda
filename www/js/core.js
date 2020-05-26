@@ -126,16 +126,17 @@ function showLoading() {
     $(".pandaloader_row").height(sizeofeach + "%");
     $(".pandaloader_box").height("100%").width(sizeofeach + "%").css("display","inline-block");
     $(".pandaloader_box").on("click",function() {
-        $(this).css('background-color',"red");
+        var crosscolour = window.getComputedStyle(document.documentElement).getPropertyValue("--fancybits1");
+        $(this).css('background-color',crosscolour);
         var thisguy = $(this).attr('id');
         thisguy = thisguy.split("_row")[1];
         var row = thisguy.split("_col")[0];
         var col = thisguy.split("_col")[1];
         for (i=row;i>=0;i--) {
-            $("#pandaloader_row" + i + "_col" + col).css("background-color","red");
+            $("#pandaloader_row" + i + "_col" + col).css("background-color",crosscolour);
         }
         for (i=row;i<gridsize;i++) {
-            $("#pandaloader_row" + i + "_col" + col).css("background-color","red");    
+            $("#pandaloader_row" + i + "_col" + col).css("background-color",crosscolour);    
         }
         for (i=col;i>=0;i--) {
             $("#pandaloader_row" + row + "_col" + i).css("background-color","red");
