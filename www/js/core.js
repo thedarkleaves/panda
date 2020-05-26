@@ -139,10 +139,10 @@ function showLoading() {
             $("#pandaloader_row" + i + "_col" + col).css("background-color",crosscolour);    
         }
         for (i=col;i>=0;i--) {
-            $("#pandaloader_row" + row + "_col" + i).css("background-color","red");
+            $("#pandaloader_row" + row + "_col" + i).css("background-color",crosscolour);
         }
         for (i=col;i<gridsize;i++) {
-            $("#pandaloader_row" + row + "_col" + i).css("background-color","red");    
+            $("#pandaloader_row" + row + "_col" + i).css("background-color",crosscolour);    
         }
         
     });
@@ -339,7 +339,7 @@ function removeStudy(studyid) {
     printdebug('attempting to remove study ' + studyid);
     db.collection("users").doc(userid).collection("studies").doc(studyid).delete().then(function() {
         updatestudies();
-        $('#studies').append('Sudy Removed. <button>undo</button><br>');
+        $('#studies').append('Study Removed. <button>undo</button><br>');
         $('#studies button').last().click(function() {
             addstudy(studyid);
         });

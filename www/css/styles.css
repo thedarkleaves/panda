@@ -10,8 +10,8 @@
     --body-background-colour: #f6a282;
     --text-colour1: #1aa0c0; /* headings */
     --text-colour2: #ec7a77; /* normal text */
-    --text-colour3: #e9d6a8; /* subheadings, etc. */
-    --bits-colour1: #70c7b8; /* buttons, lines, borders, etc. */
+    --bits-colour1: #e9d6a8; /* buttons and text input */
+    --bits-colour2: #70c7b8; /* lines, borders, etc. (also used as third text colour) */
 }
 
 body {
@@ -23,14 +23,14 @@ body {
 }
 
 hr {
-    border: 5px solid var(--bits-colour1);
+    border: 5px solid var(--bits-colour2);
     border-radius: 1em;
     margin: 1em;
 } 
 
 button, input, textarea {
     background-color: var(--bits-colour1);
-    color: var(--text-colour2);
+    color: var(--text-colour1);
     font-family: 'Montserrat', sans-serif;
     font-size: 1em;
     border: none;
@@ -39,7 +39,7 @@ button, input, textarea {
     margin: 0.1em;
 }
 input::placeholder {
-    color: var(--bits-colour1);
+    color: var(--text-colour2);
 }
 
 .screen {
@@ -165,7 +165,7 @@ input::placeholder {
 .question {
     display: block;
     padding: 0.5em;
-    color: var(--textcolour3);
+    color: var(--textcolour1);
     font-size: 1.5em;
 }
 
@@ -174,7 +174,7 @@ input::placeholder {
 }
 
 .toggletrue {
-    background-color:var(--textcolour2);
+    background-color:var(--text-colour1);
     color: var(--bits-colour1);
     font-weight: bold;
 }
@@ -203,12 +203,11 @@ input::placeholder {
 .datehead {
     font-weight: bold;
     color: var(--text-colour1);
-    font-size: 1.5em;
 }
 
 .diarybit {
     font-weight: bold;
-    color: var(--text-colour2);
+    color: var(--bits-colour2);
 }
 
 .paindiaryday input {
