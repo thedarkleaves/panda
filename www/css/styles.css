@@ -70,7 +70,7 @@ input::placeholder {
 }
 
 #hamburger hr {
-    border: 5px solid var(--text-colour3);
+    border: 5px solid var(--text-colour1);
     border-radius: 5px;
     margin: 5px;
 }
@@ -206,8 +206,11 @@ input::placeholder {
 }
 
 .diarybit {
-    font-weight: bold;
     color: var(--bits-colour2);
+}
+
+.paindiaryday {
+    line-height: 1.5em;
 }
 
 .paindiaryday input {

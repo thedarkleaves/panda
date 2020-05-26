@@ -174,18 +174,23 @@ function initPainChart(numDays,showHours) {
             $('.factor:last').append('<div class="factordates"></div>');
             // insert a blank placeholder
             $('.factordates:last').append('<span class="factorelement placeholder"></span>');
+            var itsempty = true;
             for (j=0;j<numDays;j++) {
                 $('.factordates:last').append('<span class="factorelement"></span>');
                 try {
                     if (painfactors[j].includes(otherinfooptions[i])) {
                         $('.factorelement:last').addClass('litup');
+                        itsempty = false;
                     }
                 } catch(err) {
                     // painfactors[j] not defined
                 } 
             }
-            $('.factor:last').append('<div class="factorname">'+otherinfooptions[i]+'</div>');
-            
+            if (itsempty) {
+                $('.factor:last').remove();
+            } else {
+                $('.factor:last').append('<div class="factorname">'+otherinfooptions[i]+'</div>');
+            }
         }
         $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
         
@@ -205,18 +210,24 @@ function initPainChart(numDays,showHours) {
             printdebug("printing medication " + meds.medication[i].name);
             $('#meds').append('<div class="medd"><div class="meddates"></div></div>');
             $('.meddates:last').append('<span class="medelement placeholder"></span>');
+            itsempty = true;
             for (j=0;j<numDays;j++) {
                 $('.meddates:last').append('<span class="medelement"></span>');
                 printdebug("comparing " + painmeds[j] + " with " + meds.medication[i].name);
                 try {
                     if (painmeds[j].includes(meds.medication[i].name)) {
                         $('.medelement:last').addClass('litup');
+                        itsempty=false;
                     }
                 } catch(err) {
                     // painmeds[j] not defined or meds[i] undefined
                 }
             }
-            $('.medd:last').append('<div class="medname">' + meds.medication[i].name + '</div>');
+            if (itsempty) {
+                $('#medd:last').remove();
+            } else {
+                $('.medd:last').append('<div class="medname">' + meds.medication[i].name + '</div>');
+            }
         }
         
         $(".medelement").width(barwidth+"%").css("margin",marginwidth+"%");
