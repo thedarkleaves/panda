@@ -126,7 +126,7 @@ function showLoading() {
     $(".pandaloader_row").height(sizeofeach + "%");
     $(".pandaloader_box").height("100%").width(sizeofeach + "%").css("display","inline-block");
     $(".pandaloader_box").on("click",function() {
-        var crosscolour = window.getComputedStyle(document.documentElement).getPropertyValue("--fancybits1");
+        var crosscolour = window.getComputedStyle(document.documentElement).getPropertyValue("--bits-colour1");
         $(this).css('background-color',crosscolour);
         var thisguy = $(this).attr('id');
         thisguy = thisguy.split("_row")[1];
@@ -424,7 +424,7 @@ function printpaindiary() {
         $(".paindiaryday:last").append('<span class="painscorehead"><span class="diarybit">pain score:</span> <span class="painscore_for_db">' + paindiary[i].painscore + '</span></span><br>');
         //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
         
-        $(".paindiaryday:last").append('<span class="paindiaryfactors"></span><span class="paindiarymeds"></span>');
+        $(".paindiaryday:last").append('<span class="paindiaryfactors"></span><span class="paindiarymeds"></span><br>');
         
         // print the other factors
         if (paindiary[i].otherfactors != undefined) {
@@ -449,7 +449,7 @@ function printpaindiary() {
             $(".paindiaryday:last").append('<br><span class="diarybit">journal:</span><br>');
             $(".paindiaryday:last").append('<div class="journalentry">' + paindiary[i].journal + '</div>');
         }
-        $(".paindiaryday:last").append('<button class="littlebutton">modify this entry</button><hr>');
+        $(".paindiaryday:last").append('<button class="littlebutton">edit</button><hr>');
         $(".paindiaryday button:last").click(function(){
             // modify the current pain diary entry
             try {

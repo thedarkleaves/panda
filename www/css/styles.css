@@ -24,7 +24,7 @@ body {
 
 hr {
     border: 3px solid var(--bits-colour2);
-    border-radius: 1em;
+    border-radius: 3px;
     margin: 1em;
 } 
 
@@ -76,7 +76,7 @@ input::placeholder {
 #hamburger hr {
     border: 3px solid var(--text-colour1);
     border-radius: 3px;
-    margin: 6px;
+    margin: 7px;
 }
 
 #topbar {
@@ -205,6 +205,7 @@ input::placeholder {
 }
 
 .datehead {
+    display: inline-block;
     font-weight: bold;
     color: var(--text-colour1);
     text-align: left;
@@ -212,6 +213,7 @@ input::placeholder {
 }
 
 .painscorehead {
+    display: inline-block;
     text-align: right;
     width: 50%;
 }
@@ -221,6 +223,7 @@ input::placeholder {
 }
 
 .paindiaryfactors, .paindiarymeds {
+    display: inline-block;
     width: 50%;
 }
 
