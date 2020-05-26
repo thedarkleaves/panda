@@ -428,7 +428,7 @@ function printpaindiary() {
         if (paindiary[i].otherfactors != undefined) {
             $(".paindiaryday:last").append('<span class="diarybit">factors:</span><br> <div class="paindiaryfactorlist"></div>');
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
-                $(".paindiaryfactorlist:last").append(paindiary[i].otherfactors[j] + ' ');
+                $(".paindiaryfactorlist:last").append(paindiary[i].otherfactors[j] + '<br>');
             }
         }
         // print the medications

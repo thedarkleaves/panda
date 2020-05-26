@@ -4,14 +4,14 @@
 :root {
 
     --main-background-colour: #000000;
-    --top-background-colour: #222222;
-    --top-text-colour: #FFFFFF;
-    --top-text-shadow: #000000;
-    --body-background-colour: #f6a282;
-    --text-colour1: #1aa0c0; /* headings */
-    --text-colour2: #ec7a77; /* normal text */
-    --bits-colour1: #e9d6a8; /* buttons and text input */
-    --bits-colour2: #70c7b8; /* lines, borders, etc. (also used as third text colour) */
+    --top-background-colour: #424B54;
+    --top-text-colour: #FDFDFF;
+    --top-text-shadow: #463F3a;
+    --body-background-colour: #c5baaf;
+    --text-colour1: #424b54; /* headings */
+    --text-colour2: #463f3a; /* normal text */
+    --bits-colour1: #c98986; /* buttons and text input */
+    --bits-colour2: #fdfdff; /* lines, borders, etc. (also used as third text colour) */
 }
 
 body {

@@ -224,7 +224,7 @@ function initPainChart(numDays,showHours) {
                 }
             }
             if (itsempty) {
-                $('#medd:last').remove();
+                $('.medd:last').remove();
             } else {
                 $('.medd:last').append('<div class="medname">' + meds.medication[i].name + '</div>');
             }
