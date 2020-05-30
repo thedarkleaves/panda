@@ -427,25 +427,25 @@ function printpaindiary() {
         $(".paindiaryday:last").append('<span class="paindiaryfactors"></span><span class="paindiarymeds"></span><br>');
         
         // print the other factors
-        if (paindiary[i].otherfactors != undefined) {
+        if ((paindiary[i].otherfactors!=undefined) && (paindiary[i].otherfactors.length>0)) {
             $(".paindiaryfactors:last").append('<span class="diarybit">factors:</span><br> <div class="paindiaryfactorlist"></div>');
             for (j=0;j<paindiary[i].otherfactors.length;j++) {
                 $(".paindiaryfactorlist:last").append(paindiary[i].otherfactors[j] + '<br>');
             }
         }
         // print the medications
-        if (paindiary[i].medications != undefined) {
+        if ((paindiary[i].medications!=undefined) && (paindiary[i].medications.length>0)) {
             $(".paindiarymeds:last").append('<br><span class="diarybit">medications:</span><br>');
             for (j=0;j<paindiary[i].medications.length;j++) {
                 if ((paindiary[i].medications[j].dose != undefined) && (paindiary[i].medications[j].mednum != undefined)) {
-                    $(".paindiarymeds:last").append(paindiary[i].medications[j].name + " " + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + "<br>");
+                    $(".paindiarymeds:last").append(paindiary[i].medications[j].name + " <sub>" + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + "</sub><br>");
                 } else {
                     $(".paindiarymeds:last").append(paindiary[i].medications[j].name + "<br>");    
                 }
             }
         }
         // print the journal entry
-        if ((paindiary[i].journal != undefined) && (paindiary[i].journal != "")) {
+        if ((paindiary[i].journal!=undefined) && (paindiary[i].journal != "")) {
             $(".paindiaryday:last").append('<br><span class="diarybit">journal:</span><br>');
             $(".paindiaryday:last").append('<div class="journalentry">' + paindiary[i].journal + '</div>');
         }
