@@ -205,21 +205,25 @@ input::placeholder {
 }
 
 .datehead {
-    display: inline-block;
+    display: block;
     font-weight: bold;
     color: var(--text-colour1);
     text-align: left;
-    width: 50%;
+    width: 100%;
+    margin-left: 15px;
 }
 
 .painscorehead {
-    display: inline-block;
-    text-align: right;
-    width: 50%;
+    display: block;
+    text-align: left;
+    margin-left: 15px;
+    width: 100%;
 }
 
 .diarybit {
     color: var(--bits-colour2);
+    text-align: left;
+    margin-left: 15px;
 }
 
 .paindiaryfactors, .paindiarymeds {
@@ -239,6 +243,8 @@ input::placeholder {
 
 .journalentry {
     white-space: pre-wrap;
+    text-align: left;
+    margin-left: 15px;
 }
 
 #journaltext {
