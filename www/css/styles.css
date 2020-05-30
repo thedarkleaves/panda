@@ -137,11 +137,13 @@ input::placeholder {
     text-align: center;
     padding-top: 30%;
     z-index: 5002;
+    opacity: 100%;
+    color: var(--bits-colour2);
 }
 
 .confirmboxback {
     background-color: #000000;
-    opacity: 80%;
+    opacity: 90%;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -263,6 +265,6 @@ input::placeholder {
 }
 
 .helpbutton {
-    font-size: 75%;
+    font-size: 0.75em;
     font-weight: bold;
 }

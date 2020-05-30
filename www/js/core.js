@@ -791,7 +791,7 @@ var app = {
             "the research study. To enrol in a research study you will need to know the unique " +
             "code for that study (provided by the researchers).");
         });
-        $("#helpbutton_providors").click(function(){
+        $("#helpbutton_providers").click(function(){
             popupmessage("Allow a healthcare providor to have access to your pain diary. " +
             "The providor will have access to the information you provide above and your pain diary." +
             "You will need to know the healthcare providor's unique code to be able to add them. " +
