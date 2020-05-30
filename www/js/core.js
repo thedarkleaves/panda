@@ -775,7 +775,30 @@ var app = {
         });
         resetNotifications();
 
-        // TODO: Add option to have no notifications
+        // set up the help buttons
+        $("#helpbutton_notifications").click(function() {
+            popupmessage("Turn on or off a daily reminder to add your pain diary entry.");
+        });
+        $("#helpbutton_nhi").click(function() {
+            popupmessage("Supply your health system identification number for healthcare" +
+            "providors and studies to be able to identify you and link your health system." +
+            "This information is stored in an encrypted database and is not accessible to " +
+            "anyone outside of those you choose to give access to below.");
+        });
+        $("#helpbutton_research").click(function(){
+            popupmessage("Enrol in a research study. This will allow the information you " +
+            "have entered above, as well as your pain diary information to be visible to " +
+            "the research study. To enrol in a research study you will need to know the unique " +
+            "code for that study (provided by the researchers).");
+        });
+        $("#helpbutton_providors").click(function(){
+            popupmessage("Allow a healthcare providor to have access to your pain diary. " +
+            "The providor will have access to the information you provide above and your pain diary." +
+            "You will need to know the healthcare providor's unique code to be able to add them. " +
+            "You can remove access to any providor at any time.");
+        });
+
+
         printdebug("ready");
     },
 };

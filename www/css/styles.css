@@ -261,3 +261,8 @@ input::placeholder {
 .paindiaryfactorlist button:read-only:not(.toggletrue) {
     display: none;
 }
+
+.helpbutton {
+    font-size: 75%;
+    font-weight: bold;
+}
