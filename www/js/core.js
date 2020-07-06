@@ -466,6 +466,15 @@ function printpaindiary() {
     } catch(err) {
         printdebug("could not scroll to " + currenteditdate);
     }
+
+    // Update the calendar
+    var today = new Date();
+    printCalendar("#calendar","month",today,makeCalendarContent,clickCalendarContent);
+    $(".circle").each(function() {
+        var circleSize = $(this).html() * 10;
+        $(this).html("&nbsp;");
+        $(this).css("height",circleSize + "%").css("width",circleSize + "%");
+    });
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
@@ -732,27 +741,22 @@ var app = {
                 }
             }
             */
+           return "";
         }
 
         function clickCalendarContent(dateClicked) {
             var today = new Date();
-            if (!dateClicked>today) {
-                var dateSelected = todayString(dateClicked);
-                printdebug("Editing: " + dateSelected);
-                enterNewPainDiary(dateSelected);
-            } else {
+            if (dateClicked>today) {
                 // clicked a date in the future
                 printdebug("Clicked a date in the future...");
+            } else {
+                var dateSelected = todayString(dateClicked);
+                printdebug("Editing: " + dateSelected);
+                enterNewPainDiary(dateSelected);                
             }
         }
         
-        var today = new Date();
-        printCalendar("#calendar","month",today,makeCalendarContent,clickCalendarContent);
-        $(".circle").each(function() {
-            var circleSize = $(this).html() * 10;
-            $(this).html("&nbsp;");
-            $(this).css("height",circleSize + "%").css("width",circleSize + "%");
-        });
+        
 
         $("#todaypainno").click(function(){
             // Log no pain today
