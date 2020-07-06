@@ -173,8 +173,8 @@ function makeCalendarContent(dateToLookup) {
         var founddate = false;
         // use a global calendar_iterator so we don't start at the beginning each time
         
-        for (i=0;i<paindiary.length;i++) {
-            
+        for (x=0;x<paindiary.length;x++) {
+            // use x instead of i
             printdebug("calendar scanning " + paindiary[calendar_iterator].date);
             if (paindiary[calendar_iterator].date == dateSelected) {
                 dateforediting = calendar_iterator;
