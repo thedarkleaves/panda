@@ -172,7 +172,6 @@ function makeCalendarContent(dateToLookup) {
         var dateforediting;
         var founddate = false;
         // use a global calendar_iterator so we don't start at the beginning each time
-        /*
         for (i=0;i<paindiary.length;i++) {
             
             printdebug("calendar scanning " + paindiary[calendar_iterator].date);
@@ -180,14 +179,13 @@ function makeCalendarContent(dateToLookup) {
                 dateforediting = calendar_iterator;
                 founddate = true;
                 break;
+            } else {
+                calendar_iterator++;
+                if (calendar_iterator>=paindiary.length) {
+                    calendar_iterator = 0;
+                }
             }
-            calendar_iterator++;
-            if (calendar_iterator>=paindiary.length) {
-                calendar_iterator = 0;
-            }
-            
         }
-        */
         if (founddate) {
             var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
             return thisCircle;
