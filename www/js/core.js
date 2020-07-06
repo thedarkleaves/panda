@@ -703,6 +703,7 @@ var app = {
 
         // #calendar_screen
         function makeCalendarContent(dateToLookup) {
+            /*
             today = new Date();
             if (dateToLookup>today) {
                 return "";
@@ -730,6 +731,7 @@ var app = {
                     return "";
                 }
             }
+            */
         }
 
         function clickCalendarContent(dateClicked) {
