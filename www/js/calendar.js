@@ -1,5 +1,5 @@
 var daynames = ["S","M","T","W","T","F","S"];
-var startMonday = false;
+var startMonday = true;
 
 /**
  * Print a calendar with a specific date highlighted
