@@ -20,7 +20,7 @@ body {
 }
 
 .calendar.daybox.future {
-    background-color: #CCCCCC;
+    background-color: var(--bits-colour2);
 }
 
 .calendar.dayboxdate {
@@ -49,11 +49,11 @@ body {
 }
 
 .calendar.highlighted {
-    background: green;
+    background: var(--text-colour2);
 }
 
 .circle {
-    background: red;
+    background: var(--bits-colour1);
     border-radius: 50%;
     position: absolute;
     top: 50%;

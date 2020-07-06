@@ -18,6 +18,7 @@ var notificationsOn = true;
 var currenteditdate;
 var backScreen;
 var storage = window.localStorage;
+var calendar_iterator = 0;
 var meds = {
     "medication": [
         {
@@ -700,19 +701,46 @@ var app = {
             }
         });
 
-        // #calenar_screen
+        // #calendar_screen
         function makeCalendarContent(dateToLookup) {
             today = new Date();
             if (dateToLookup>today) {
                 return "";
             } else {
-                var thisCircle = '<div class="circle">' + Math.round(Math.random()*10) + '</div>';
-                return thisCircle;
+                var dateSelected = todayString(dateToLookup);
+                var dateforediting;
+                var founddate = false;
+                // use a global calendar_iterator so we don't start at the beginning each time
+                for (i=0;i<paindiary.length;i++) {
+                    if (paindiary[calendar_iterator].date == dateSelected) {
+                        dateforediting = calendar_iterator;
+                        founddate = true;
+                        break;
+                    }
+                    calendar_iterator++;
+                    if (calendar_iterator>=paindiary.length) {
+                        calendar_iterator = 0;
+                    }
+                }
+                if (founddate) {
+                    var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
+                    return thisCircle;
+                } else {
+                    return "";
+                }
             }
         }
 
-        function clickCalendarContent(crud) {
-            alert(crud);
+        function clickCalendarContent(dateClicked) {
+            var today = new Date();
+            if (!dateClicked>today) {
+                var dateSelected = todayString(dateClicked);
+                printdebug("Editing: " + dateSelected);
+                enterNewPainDiary(dateSelected);
+            } else {
+                // clicked a date in the future
+                printdebug("Clicked a date in the future...");
+            }
         }
         
         var today = new Date();

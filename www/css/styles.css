@@ -268,3 +268,7 @@ input::placeholder {
     font-size: 0.75em;
     font-weight: bold;
 }
+
+#calendar_screen {
+    text-align: center;
+}
