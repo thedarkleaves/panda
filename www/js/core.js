@@ -164,7 +164,6 @@ function hideLoading() {
 }
 
 function makeCalendarContent(dateToLookup) {
-    /*
     today = new Date();
     if (dateToLookup>today) {
         return "";
@@ -192,8 +191,6 @@ function makeCalendarContent(dateToLookup) {
             return "";
         }
     }
-    */
-   return "";
 }
 
 
