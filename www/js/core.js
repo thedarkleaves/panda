@@ -413,7 +413,7 @@ function printpaindiary() {
     // reset the inputs
     $("#paindiarysummary").empty().append("<button>add missing day</button><hr>");
     $("#paindiarysummary button").click(function() {
-        changescreen("calendar");
+        changescreen("diary_calendar");
     });
     for (i=paindiary.length-1;i>=0;i--) {
         $("#paindiarysummary").append('<div class="paindiaryday" id="paindiary_' + cleanString(paindiary[i].date) + '"></div>');
@@ -643,7 +643,9 @@ var app = {
                 console.error('Sign Out Error', error);
             });
         });
-        
+        $("#calendar_button").click(function(){
+            changescreen("calendar_screen");
+        });
         $("#paindiary_button").click(function(){
             printpaindiary();
             changescreen("paindiarysummary");
@@ -660,9 +662,9 @@ var app = {
             changescreen("paindiary2");
         });
 
-        // #calendar
-        $("#calendar input").change(function() {
-            var caughtdate = new Date($("#calendar input").val());
+        // #diary_calendar
+        $("#diary_calendar input").change(function() {
+            var caughtdate = new Date($("#diary_calendar input").val());
             var futurechecker = new Date();
             var validdate = true;
             printdebug("checking date: " + caughtdate);
@@ -696,6 +698,29 @@ var app = {
                 printdebug("Editing: " + dateSelected);
                 enterNewPainDiary(dateSelected);
             }
+        });
+
+        // #calenar_screen
+        function makeCalendarContent(dateToLookup) {
+            today = new Date();
+            if (dateToLookup>today) {
+                return "";
+            } else {
+                var thisCircle = '<div class="circle">' + Math.round(Math.random()*10) + '</div>';
+                return thisCircle;
+            }
+        }
+
+        function clickCalendarContent(crud) {
+            alert(crud);
+        }
+        
+        var today = new Date();
+        printCalendar("#calendar","month",today,makeCalendarContent,clickCalendarContent);
+        $(".circle").each(function() {
+            var circleSize = $(this).html() * 10;
+            $(this).html("&nbsp;");
+            $(this).css("height",circleSize + "%").css("width",circleSize + "%");
         });
 
         $("#todaypainno").click(function(){

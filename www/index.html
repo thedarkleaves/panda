@@ -19,6 +19,7 @@ Open source at this stage
 <!-- load panda stylesheets -->
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 <link rel="stylesheet" type="text/css" href="css/painchart.css">
+<link rel="stylesheet" type="text/css" href="css/calendar.css">
  
 <!-- load firebase stylesheets -->
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
@@ -36,6 +37,7 @@ Open source at this stage
 
 <div class="screen" id="controls">
     <button id="home_button">timeline</button>
+    <button id="calendar_button">calendar</button>
     <button id="paindiary_button">pain diary</button>
     <button id="settings_button">settings</button>
     <button id="signout">sign out</button>
@@ -55,10 +57,15 @@ Open source at this stage
     <input type="date" id="addpaindiarydateselector">
 </div>
 
-<div class="screen" id="calendar">
+<div class="screen" id="diary_calendar">
     <span class="question">select a date:</span><br>
     <input type="date">
 </div>
+
+<div class="screen" id="calendar_screen">
+    <div id="calendar_controls"></div>
+    <div id="calendar"></div>
+</div>        
 
 <div class="screen" id="paindiary1">
     <span class="question">did you have any pain on this day?</span>
@@ -118,12 +125,14 @@ Open source at this stage
 <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
 <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 
+
 <!-- load javascript plugins -->
 <script src="js/SimpleCrypto.min.js"></script>
 
 <!-- load panda scripts --> 
 <script src="js/core.js"></script>
 <script src="js/painchart.js"></script>
+<script src="js/calendar.js"></script> 
 
 <!-- initialise cordova -->
 <script type="text/javascript">
