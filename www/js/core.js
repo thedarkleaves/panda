@@ -731,7 +731,7 @@ var app = {
                         return "";
                     }
                 }
-            } catch (err) {
+            } catch(err) {
                 printdebug(err.message);
             }
         }
