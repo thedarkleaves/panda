@@ -164,7 +164,7 @@ function hideLoading() {
 }
 
 function makeCalendarContent(dateToLookup) {
-    today = new Date();
+    var today = new Date();
     if (dateToLookup>today) {
         return "";
     } else {
@@ -173,7 +173,7 @@ function makeCalendarContent(dateToLookup) {
         var founddate = false;
         // use a global calendar_iterator so we don't start at the beginning each time
         
-        /*for (i=0;i<paindiary.length;i++) {
+        for (i=0;i<paindiary.length;i++) {
             
             printdebug("calendar scanning " + paindiary[calendar_iterator].date);
             if (paindiary[calendar_iterator].date == dateSelected) {
@@ -186,15 +186,8 @@ function makeCalendarContent(dateToLookup) {
                     calendar_iterator = 0;
                 }
             }
-        }*/
+        }
         try {
-            for (i=0; i<paindiary.length;i++) {
-                if (paindiary[i].date==dateSelected) {
-                    founddate=true;
-                    dateforediting = i;
-                    break;
-                }
-            }
             if (founddate) {
                 var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
                 return thisCircle;
