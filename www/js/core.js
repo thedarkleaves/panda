@@ -163,6 +163,52 @@ function hideLoading() {
     $("#loadingscreen").empty().hide();
 }
 
+function makeCalendarContent(dateToLookup) {
+    /*
+    today = new Date();
+    if (dateToLookup>today) {
+        return "";
+    } else {
+        var dateSelected = todayString(dateToLookup);
+        var dateforediting;
+        var founddate = false;
+        // use a global calendar_iterator so we don't start at the beginning each time
+        for (i=0;i<paindiary.length;i++) {
+            printdebug("calendar scanning " + paindiary[calendar_iterator].date);
+            if (paindiary[calendar_iterator].date == dateSelected) {
+                dateforediting = calendar_iterator;
+                founddate = true;
+                break;
+            }
+            calendar_iterator++;
+            if (calendar_iterator>=paindiary.length) {
+                calendar_iterator = 0;
+            }
+        }
+        if (founddate) {
+            var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
+            return thisCircle;
+        } else {
+            return "";
+        }
+    }
+    */
+   return "";
+}
+
+
+function clickCalendarContent(dateClicked) {
+    var today = new Date();
+    if (dateClicked>today) {
+        // clicked a date in the future
+        printdebug("Clicked a date in the future...");
+    } else {
+        var dateSelected = todayString(dateClicked);
+        printdebug("Editing: " + dateSelected);
+        enterNewPainDiary(dateSelected);                
+    }
+}
+
 /**
  * Request a re-read of the pain diary from the database
  * Subsequently calls other functions to update everything in the app
@@ -710,53 +756,6 @@ var app = {
             }
         });
 
-        // #calendar_screen
-        function makeCalendarContent(dateToLookup) {
-            /*
-            today = new Date();
-            if (dateToLookup>today) {
-                return "";
-            } else {
-                var dateSelected = todayString(dateToLookup);
-                var dateforediting;
-                var founddate = false;
-                // use a global calendar_iterator so we don't start at the beginning each time
-                for (i=0;i<paindiary.length;i++) {
-                    printdebug("calendar scanning " + paindiary[calendar_iterator].date);
-                    if (paindiary[calendar_iterator].date == dateSelected) {
-                        dateforediting = calendar_iterator;
-                        founddate = true;
-                        break;
-                    }
-                    calendar_iterator++;
-                    if (calendar_iterator>=paindiary.length) {
-                        calendar_iterator = 0;
-                    }
-                }
-                if (founddate) {
-                    var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
-                    return thisCircle;
-                } else {
-                    return "";
-                }
-            }
-            */
-           return "";
-        }
-
-        function clickCalendarContent(dateClicked) {
-            var today = new Date();
-            if (dateClicked>today) {
-                // clicked a date in the future
-                printdebug("Clicked a date in the future...");
-            } else {
-                var dateSelected = todayString(dateClicked);
-                printdebug("Editing: " + dateSelected);
-                enterNewPainDiary(dateSelected);                
-            }
-        }
-        
-        
 
         $("#todaypainno").click(function(){
             // Log no pain today
