@@ -187,18 +187,22 @@ function makeCalendarContent(dateToLookup) {
                 }
             }
         }*/
-        for (i=0; i<paindiary.length;i++) {
-            if (paindiary[i].date==dateSelected) {
-                founddate=true;
-                dateforediting = i;
-                break;
+        try {
+            for (i=0; i<paindiary.length;i++) {
+                if (paindiary[i].date==dateSelected) {
+                    founddate=true;
+                    dateforediting = i;
+                    break;
+                }
             }
-        }
-        if (founddate) {
-            var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
-            return thisCircle;
-        } else {
-            return "";
+            if (founddate) {
+                var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
+                return thisCircle;
+            } else {
+                return "";
+            } 
+        } catch(err) {
+            printdebug("calendar fail: " + err.message);
         }
     }
 }
