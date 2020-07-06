@@ -703,36 +703,32 @@ var app = {
 
         // #calendar_screen
         function makeCalendarContent(dateToLookup) {
-            try {
-                today = new Date();
-                if (dateToLookup>today) {
-                    return "";
-                } else {
-                    var dateSelected = todayString(dateToLookup);
-                    var dateforediting;
-                    var founddate = false;
-                    // use a global calendar_iterator so we don't start at the beginning each time
-                    for (i=0;i<paindiary.length;i++) {
-                        printdebug("calendar scanning " + paindiary[calendar_iterator].date);
-                        if (paindiary[calendar_iterator].date == dateSelected) {
-                            dateforediting = calendar_iterator;
-                            founddate = true;
-                            break;
-                        }
-                        calendar_iterator++;
-                        if (calendar_iterator>=paindiary.length) {
-                            calendar_iterator = 0;
-                        }
+            today = new Date();
+            if (dateToLookup>today) {
+                return "";
+            } else {
+                var dateSelected = todayString(dateToLookup);
+                var dateforediting;
+                var founddate = false;
+                // use a global calendar_iterator so we don't start at the beginning each time
+                for (i=0;i<paindiary.length;i++) {
+                    printdebug("calendar scanning " + paindiary[calendar_iterator].date);
+                    if (paindiary[calendar_iterator].date == dateSelected) {
+                        dateforediting = calendar_iterator;
+                        founddate = true;
+                        break;
                     }
-                    if (founddate) {
-                        var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
-                        return thisCircle;
-                    } else {
-                        return "";
+                    calendar_iterator++;
+                    if (calendar_iterator>=paindiary.length) {
+                        calendar_iterator = 0;
                     }
                 }
-            } catch(err) {
-                printdebug(err.message);
+                if (founddate) {
+                    var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
+                    return thisCircle;
+                } else {
+                    return "";
+                }
             }
         }
 
