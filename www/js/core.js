@@ -1007,6 +1007,7 @@ function enterNewPainDiary(dateString) {
     } else {
         // reset pain entry screens to blank
         // load screen 1
+        $("#paindiary1 .question").prepend(dateString + "<br>");
         changescreen("paindiary1");
     }
     
