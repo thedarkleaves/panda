@@ -225,13 +225,12 @@ input::placeholder {
 .diarybit {
     color: var(--bits-colour2);
     text-align: left;
-    vertical-align: top;
-    margin-left: 15px;
 }
 
 .paindiaryfactors, .paindiarymeds {
+    margin-left: 15px;
     text-align: left;
-    vertical-align: top;;
+    vertical-align: top;
     display: inline-block;
     width: 50%;
 }
