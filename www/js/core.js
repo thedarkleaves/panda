@@ -529,6 +529,7 @@ function printpaindiary() {
  * Print the calendar with controls
  */
 function updateCalendar(calendarDate) {
+    $("#calendar").empty();
     printCalendar("#calendar","month",calendarDate,makeCalendarContent,clickCalendarContent);
     $(".circle").each(function() {
         var circleSize = $(this).html() * 10;
@@ -540,6 +541,24 @@ function updateCalendar(calendarDate) {
     $("#calendarControls").append('<span id="calendar_backmonth">prev</span> | ');
     $("#calendarControls").append('<span id="calendar_labelmonth">' + calendarDate.toLocaleString('default', { month: 'long', year: 'numeric' }) + '</span>');
     $("#calendarControls").append(' | <span id="calendar_forwardmonth">next</span>');
+    // make the buttons work 
+    $("#calendar_backmonth").click(function() {
+        calendarDate.setMonth(calendarDate.setMonth()-1);
+        updateCalendar(calendarDate);
+    });
+    // hide the next button if we're at the current month
+    var today = new Date();
+    
+    if (today.getFullYear() == calendarDate.getFullYear() && today.getMonth() == calendarDate.getMonth()) {
+        $("#calendar_forwardmonth").hide();
+    } else {
+        $("#calendar_forwardmonth").show();
+        $("#calendar_forwardmonth").click(function() {
+            calendarDate.setMonth(calendarDate.setMonth()+1);
+            updateCalendar(calendarDate);
+        });
+    }
+    
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {

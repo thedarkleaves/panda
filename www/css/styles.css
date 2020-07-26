@@ -272,3 +272,8 @@ input::placeholder {
 #calendar_screen {
     text-align: center;
 }
+
+#calendar_forwardmonth, #calendar_backmonth {
+    font-weight: bold;
+    color: var(--text-colour1);
+}
