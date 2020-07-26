@@ -468,7 +468,7 @@ function printpaindiary() {
         changescreen("diary_calendar");
     });
     for (i=paindiary.length-1;i>=0;i--) {
-        printOnePainDay(paindiaryindex);
+        printOnePainDay(i);
     }
     // Jump to the date just edited
     try {
