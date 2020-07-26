@@ -175,7 +175,7 @@ function makeCalendarContent(dateToLookup) {
         
         for (x=0;x<paindiary.length;x++) {
             // use x instead of i
-            printdebug("calendar scanning " + paindiary[calendar_iterator].date);
+            // printdebug("calendar scanning " + paindiary[calendar_iterator].date);
             if (paindiary[calendar_iterator].date == dateSelected) {
                 dateforediting = calendar_iterator;
                 founddate = true;
@@ -558,7 +558,6 @@ function updateCalendar(calendarDate) {
             updateCalendar(calendarDate);
         });
     }
-    
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
