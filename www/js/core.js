@@ -1046,7 +1046,7 @@ function enterNewPainDiary(dateString) {
     } else {
         // reset pain entry screens to blank
         // load screen 1
-        $("#paindiary1 .question").prepend(dateString + "<br>");
+        $("#paindiary1 .question").empty().append(formatdate(dateString) + "<br>did you have any pain on this day?");
         changescreen("paindiary1");
     }
     

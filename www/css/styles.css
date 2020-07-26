@@ -228,7 +228,6 @@ input::placeholder {
 }
 
 .paindiaryfactors, .paindiarymeds {
-    margin-left: 15px;
     text-align: left;
     vertical-align: top;
     display: inline-block;
