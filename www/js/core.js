@@ -961,7 +961,7 @@ function resetNotifications() {
                 title: 'Update Pain Diary',
                 text: 'You still haven\'t logged your pain score today.',
                 icon: 'img/panda_bw.png',
-                trigger:  { in: 1, unit: 'hour' }
+                trigger:  { in: 3, unit: 'hour' }
             });
         }
     } else {
