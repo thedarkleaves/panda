@@ -192,7 +192,8 @@ function makeCalendarContent(dateToLookup) {
                 var thisCircle = '<div class="circle">' + paindiary[dateforediting].painscore + '</div>';
                 return thisCircle;
             } else {
-                return "";
+                var thisBlankDate = '<div class="blankdate">?</div>';
+                return thisBlankDate;
             } 
         } catch(err) {
             printdebug("calendar fail: " + err.message);
@@ -524,7 +525,7 @@ function printOnePainDay(paindiaryindex,elementToPrintTo) {
     }
     // print the medications
     if ((paindiary[paindiaryindex].medications!=undefined) && (paindiary[paindiaryindex].medications.length>0)) {
-        $(elementToPrintTo + " .paindiarymeds:last").append('<br><span class="diarybit">medications:</span><br>');
+        $(elementToPrintTo + " .paindiarymeds:last").append('<span class="diarybit">medications:</span><br>');
         for (j=0;j<paindiary[paindiaryindex].medications.length;j++) {
             if ((paindiary[paindiaryindex].medications[j].dose != undefined) && (paindiary[paindiaryindex].medications[j].mednum != undefined)) {
                 $(elementToPrintTo + " .paindiarymeds:last").append(paindiary[paindiaryindex].medications[j].name + " <sub>" + paindiary[paindiaryindex].medications[j].dose + " x " + paindiary[paindiaryindex].medications[j].mednum + "</sub><br>");
@@ -583,7 +584,7 @@ function updateCalendar(calendarDate) {
             updateCalendar(calendarDate);
         });
     }
-    $("#calendar").append('<div id="under_calendar"></div>');
+    $("#calendar").append('<hr><div id="under_calendar"></div>');
     // print the clicked date's info
     var dataexistsforthisdate = false;
     var indexforthisdate;
