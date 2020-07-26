@@ -950,14 +950,13 @@ function resetNotifications() {
     }
     if (notificationsOn) {
         $("#notificationsOnButton").addClass("toggletrue");
-        if (todaylogged) {
-            cordova.plugins.notification.local.schedule({
-                title: 'Update Pain Diary',
-                text: 'You haven\'t logged your pain score today.',
-                icon: 'img/panda_bw.png',
-                trigger: { every: 'day' }
-            });
-        } else {
+        cordova.plugins.notification.local.schedule({
+            title: 'Update Pain Diary',
+            text: 'You haven\'t logged your pain score today.',
+            icon: 'img/panda_bw.png',
+            trigger: { every: 'day' }
+        });
+        if (!todaylogged) {
             cordova.plugins.notification.local.schedule({
                 title: 'Update Pain Diary',
                 text: 'You still haven\'t logged your pain score today.',
@@ -1211,6 +1210,7 @@ function submitPainDiary() {
         updatepaindiary();
         changescreen("paindiarysummary");
         todaylogged=true;
+        resetNotifications();
     })
     .catch(function(error) {
         printdebug("Error adding pain diary: ", error);
