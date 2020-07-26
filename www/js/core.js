@@ -211,6 +211,7 @@ function clickCalendarContent(dateClicked) {
         printdebug("Editing: " + dateSelected);
         enterNewPainDiary(dateSelected);                
     }
+    $("#under_calendar").append();
 }
 
 /**
@@ -467,48 +468,7 @@ function printpaindiary() {
         changescreen("diary_calendar");
     });
     for (i=paindiary.length-1;i>=0;i--) {
-        $("#paindiarysummary").append('<div class="paindiaryday" id="paindiary_' + cleanString(paindiary[i].date) + '"></div>');
-        // print the date
-        $(".paindiaryday:last").append('<span class="datehead">'+formatdate(paindiary[i].date)+'</span>');
-        $(".paindiaryday:last").append('<span class="date_for_db" style="display:none">'+paindiary[i].date+'</span');
-        // print the pain score
-        $(".paindiaryday:last").append('<span class="painscorehead"><span class="diarybit">pain score:</span> <span class="painscore_for_db">' + paindiary[i].painscore + '</span></span><br>');
-        //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
-        
-        $(".paindiaryday:last").append('<span class="paindiaryfactors"></span><span class="paindiarymeds"></span><br>');
-        
-        // print the other factors
-        if ((paindiary[i].otherfactors!=undefined) && (paindiary[i].otherfactors.length>0)) {
-            $(".paindiaryfactors:last").append('<span class="diarybit">factors:</span><br> <div class="paindiaryfactorlist"></div>');
-            for (j=0;j<paindiary[i].otherfactors.length;j++) {
-                $(".paindiaryfactorlist:last").append(paindiary[i].otherfactors[j] + '<br>');
-            }
-        }
-        // print the medications
-        if ((paindiary[i].medications!=undefined) && (paindiary[i].medications.length>0)) {
-            $(".paindiarymeds:last").append('<br><span class="diarybit">medications:</span><br>');
-            for (j=0;j<paindiary[i].medications.length;j++) {
-                if ((paindiary[i].medications[j].dose != undefined) && (paindiary[i].medications[j].mednum != undefined)) {
-                    $(".paindiarymeds:last").append(paindiary[i].medications[j].name + " <sub>" + paindiary[i].medications[j].dose + " x " + paindiary[i].medications[j].mednum + "</sub><br>");
-                } else {
-                    $(".paindiarymeds:last").append(paindiary[i].medications[j].name + "<br>");    
-                }
-            }
-        }
-        // print the journal entry
-        if ((paindiary[i].journal!=undefined) && (paindiary[i].journal != "")) {
-            $(".paindiaryday:last").append('<br><span class="diarybit">journal:</span><br>');
-            $(".paindiaryday:last").append('<div class="journalentry">' + paindiary[i].journal + '</div>');
-        }
-        $(".paindiaryday:last").append('<button class="littlebutton">edit</button><hr>');
-        $(".paindiaryday button:last").click(function(){
-            // modify the current pain diary entry
-            try {
-                enterNewPainDiary($(this).parent().find(".date_for_db:last").html());
-            } catch(err) {
-                popupmessage(err.message);
-            }
-        });
+        printOnePainDay(paindiaryindex);
     }
     // Jump to the date just edited
     try {
@@ -521,6 +481,55 @@ function printpaindiary() {
     var today = new Date();
     updateCalendar(today);
 
+}
+
+/**
+ * Print a single day's data
+ * @param {} paindiaryindex The index of the painrdiary array 
+ */
+function printOnePainDay(paindiaryindex) {
+    $("#paindiarysummary").append('<div class="paindiaryday" id="paindiary_' + cleanString(paindiary[paindiaryindex].date) + '"></div>');
+    // print the date
+    $(".paindiaryday:last").append('<span class="datehead">'+formatdate(paindiary[paindiaryindex].date)+'</span>');
+    $(".paindiaryday:last").append('<span class="date_for_db" style="display:none">'+paindiary[paindiaryindex].date+'</span');
+    // print the pain score
+    $(".paindiaryday:last").append('<span class="painscorehead"><span class="diarybit">pain score:</span> <span class="painscore_for_db">' + paindiary[paindiaryindex].painscore + '</span></span><br>');
+    //$("#paindiarysummary").last().append("pain hours: " + paindiary[i].painhours+"<br>");
+    
+    $(".paindiaryday:last").append('<span class="paindiaryfactors"></span><span class="paindiarymeds"></span><br>');
+    
+    // print the other factors
+    if ((paindiary[paindiaryindex].otherfactors!=undefined) && (paindiary[paindiaryindex].otherfactors.length>0)) {
+        $(".paindiaryfactors:last").append('<span class="diarybit">factors:</span><br> <div class="paindiaryfactorlist"></div>');
+        for (j=0;j<paindiary[paindiaryindex].otherfactors.length;j++) {
+            $(".paindiaryfactorlist:last").append(paindiary[paindiaryindex].otherfactors[j] + '<br>');
+        }
+    }
+    // print the medications
+    if ((paindiary[paindiaryindex].medications!=undefined) && (paindiary[paindiaryindex].medications.length>0)) {
+        $(".paindiarymeds:last").append('<br><span class="diarybit">medications:</span><br>');
+        for (j=0;j<paindiary[paindiaryindex].medications.length;j++) {
+            if ((paindiary[paindiaryindex].medications[j].dose != undefined) && (paindiary[paindiaryindex].medications[j].mednum != undefined)) {
+                $(".paindiarymeds:last").append(paindiary[paindiaryindex].medications[j].name + " <sub>" + paindiary[paindiaryindex].medications[j].dose + " x " + paindiary[paindiaryindex].medications[j].mednum + "</sub><br>");
+            } else {
+                $(".paindiarymeds:last").append(paindiary[paindiaryindex].medications[j].name + "<br>");    
+            }
+        }
+    }
+    // print the journal entry
+    if ((paindiary[paindiaryindex].journal!=undefined) && (paindiary[paindiaryindex].journal != "")) {
+        $(".paindiaryday:last").append('<br><span class="diarybit">journal:</span><br>');
+        $(".paindiaryday:last").append('<div class="journalentry">' + paindiary[paindiaryindex].journal + '</div>');
+    }
+    $(".paindiaryday:last").append('<button class="littlebutton">edit</button><hr>');
+    $(".paindiaryday button:last").click(function(){
+        // modify the current pain diary entry
+        try {
+            enterNewPainDiary($(this).parent().find(".date_for_db:last").html());
+        } catch(err) {
+            popupmessage(err.message);
+        }
+    });
 }
 
 /**
@@ -548,7 +557,6 @@ function updateCalendar(calendarDate) {
     });
     // hide the next button if we're at the current month
     var today = new Date();
-    
     if (today.getFullYear() == calendarDate.getFullYear() && today.getMonth() == calendarDate.getMonth()) {
         $("#calendar_forwardmonth").hide();
     } else {
@@ -558,6 +566,8 @@ function updateCalendar(calendarDate) {
             updateCalendar(calendarDate);
         });
     }
+    $("#calendar").append('<div id="under_calendar"></div>');
+    
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
