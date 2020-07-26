@@ -585,8 +585,19 @@ function updateCalendar(calendarDate) {
     }
     $("#calendar").append('<div id="under_calendar"></div>');
     // print the clicked date's info
-    printOnePainDay(calendarDate,"#under_calendar");
-
+    var dataexistsforthisdate = false;
+    var indexforthisdate;
+    for (i=0;i<paindiary.length;i++) {
+        var searchDate = todayString(calendarDate);
+        if (paindiary[i].date == searchDate) {
+            dataexistsforthisdate = true;
+            indexforthisdate = i;
+            break;
+        }
+    }
+    if (dataexistsforthisdate) {
+        printOnePainDay(indexforthisdate,"#under_calendar");
+    }
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
