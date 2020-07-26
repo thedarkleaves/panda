@@ -543,7 +543,7 @@ function updateCalendar(calendarDate) {
     $("#calendarControls").append(' | <span id="calendar_forwardmonth">next</span>');
     // make the buttons work 
     $("#calendar_backmonth").click(function() {
-        calendarDate.setMonth(calendarDate.setMonth()-1);
+        calendarDate.setMonth(calendarDate.getMonth()-1);
         updateCalendar(calendarDate);
     });
     // hide the next button if we're at the current month
@@ -554,7 +554,7 @@ function updateCalendar(calendarDate) {
     } else {
         $("#calendar_forwardmonth").show();
         $("#calendar_forwardmonth").click(function() {
-            calendarDate.setMonth(calendarDate.setMonth()+1);
+            calendarDate.setMonth(calendarDate.getMonth()+1);
             updateCalendar(calendarDate);
         });
     }
