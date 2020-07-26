@@ -197,6 +197,7 @@ function makeCalendarContent(dateToLookup) {
         } catch(err) {
             printdebug("calendar fail: " + err.message);
         }
+
     }
 }
 
@@ -209,9 +210,25 @@ function clickCalendarContent(dateClicked) {
     } else {
         var dateSelected = todayString(dateClicked);
         printdebug("Editing: " + dateSelected);
-        enterNewPainDiary(dateSelected);                
+        // find the date
+        var founddate = false;
+        for (x=0;x<paindiary.length;x++) {
+            // use x instead of i
+            if (paindiary[x].date == dateSelected) {
+                dateforediting = x;
+                founddate = true;
+                break;
+            }
+        }
+        if (founddate) {
+            // highlight the clicked date
+            updateCalendar(dateClicked);            
+        } else {
+            // clicked a date with no data
+            enterNewPainDiary(dateSelected);                
+        }
     }
-    $("#under_calendar").append();
+  
 }
 
 /**
@@ -567,7 +584,9 @@ function updateCalendar(calendarDate) {
         });
     }
     $("#calendar").append('<div id="under_calendar"></div>');
-    
+    // print the clicked date's info
+    printOnePainDay(calendarDate,"#under_calendar");
+
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
