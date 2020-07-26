@@ -225,10 +225,13 @@ input::placeholder {
 .diarybit {
     color: var(--bits-colour2);
     text-align: left;
+    vertical-align: top;
     margin-left: 15px;
 }
 
 .paindiaryfactors, .paindiarymeds {
+    text-align: left;
+    vertical-align: top;;
     display: inline-block;
     width: 50%;
 }
@@ -253,6 +256,10 @@ input::placeholder {
     font-family: 'Montserrat', sans-serif;
     height: 60%;
     width: 95%;
+}
+
+sub {
+    font-size: 0.5em;
 }
 
 .pandaloader_box {
