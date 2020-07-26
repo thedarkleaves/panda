@@ -519,12 +519,27 @@ function printpaindiary() {
 
     // Update the calendar
     var today = new Date();
-    printCalendar("#calendar","month",today,makeCalendarContent,clickCalendarContent);
+    updateCalendar(today);
+
+}
+
+/**
+ * Update Calendar
+ * 
+ * Print the calendar with controls
+ */
+function updateCalendar(calendarDate) {
+    printCalendar("#calendar","month",calendarDate,makeCalendarContent,clickCalendarContent);
     $(".circle").each(function() {
         var circleSize = $(this).html() * 10;
         $(this).html("&nbsp;");
         $(this).css("height",circleSize + "%").css("width",circleSize + "%");
     });
+
+    $("#calendar").prepend('<div id="calendarControls"></div>');
+    $("#calendarControls").append('<span id="calendar_backmonth">prev</span> | ');
+    $("#calendarControls").append('<span id="calendar_labelmonth">' + calendarDate.toLocaleString('default', { month: 'long', year: 'numeric' }) + '</span>');
+    $("#calendarControls").append(' | <span id="calendar_forwardmonth">next</span>');
 }
 
 function checkUserReallyWantsToContinue(message,functioniftrue) {
