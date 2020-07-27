@@ -1,7 +1,7 @@
-var yesSum = 1;
-var yesCount = 2;
-var noSum = 3;
-var noCount = 4;
+var yesSum = 0;
+var yesCount = 1;
+var noSum = 2;
+var noCount = 3;
 var allPainScores = []
 var painMean = 0;
 var painSD = 0;
@@ -78,8 +78,6 @@ function printInsights(elementToPrintTo) {
         // calculate the standard error for this factor No
         var noSE = painSD / Math.sqrt(factorsInsightsMatrix[i][noSum]);
         var noMean = factorsInsightsMatrix[i][noSum] / factorsInsightsMatrix[i][noCount];
-
-        $("#importantInsights").append("YES m/SE: " + yesMean + " " + yesSE + " | NO m/SE: " + noMean + " " + noSE);
 
         if (yesMean>noMean) {
             // pain is higher when the factor is yes
