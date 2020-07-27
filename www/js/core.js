@@ -787,6 +787,10 @@ var app = {
         $("#home_button").click(function(){
             changescreen("home");
         });
+        $("#insights_button").click(function() {
+            changescreen("insights");
+            printInsights("#insights");
+        });
         $("#settings_button").click(function(){
             changescreen("settings");
         });
