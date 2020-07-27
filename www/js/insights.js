@@ -58,10 +58,10 @@ function printInsights(elementToPrintTo) {
     }
     $(elementToPrintTo).empty().append("Running statistics...<br>");
     // work out the mean and standard devation of the pain scores
-    painMean = (painmean / allPainScores.length);
+    painMean = (painMean / allPainScores.length);
     painSD = 0;
     for (i=0;i<allPainScores.length;i++) {
-        painSD+=(allPainScores[i] - painMean)^2;
+        painSD+=Math.pow((allPainScores[i] - painMean),2);
     }
     painSD = Math.sqrt(painSD / allPainScores.length); 
 
