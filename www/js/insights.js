@@ -50,6 +50,7 @@ function printInsights(elementToPrintTo) {
             if (currentFactorYes) {
                 factorsInsightsMatrix[j][yesSum]+=parseInt(paindiary[i].painscore,10);
                 factorsInsightsMatrix[j][yesCount]++;
+                printdebug(otherinfooptions[j] + ': ' + factorsInsightsMatrix[j][yesCount] + ' | ' + factorsInsightsMatrix[j][yesSum]);
             } else {
                 factorsInsightsMatrix[j][noSum]+=parseInt(paindiary[i].painscore,10);
                 factorsInsightsMatrix[j][noCount]++;
