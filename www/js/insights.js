@@ -81,7 +81,7 @@ function printInsights(elementToPrintTo) {
 
         if (yesMean>noMean) {
             // pain is higher when the factor is yes
-            if ((yesMean-yesSeE) > (noMean+noSE)) {
+            if ((yesMean-1.96*yesSeE) > (noMean+1.96*noSE)) {
                 $("#importantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was significantly higher.</div>');
                 $("#importantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
             } else {
@@ -90,7 +90,7 @@ function printInsights(elementToPrintTo) {
             }
         } else if (noMean>yesMean) {
             // pain is higher when the factor is no
-            if ((noMean-noSE) > (yesMean+yesSE)) {
+            if ((noMean-1.96*noSE) > (yesMean+1.96*yesSE)) {
                 $("#importantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was significantly lower.</div>');
                 $("#importantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
             } else {
