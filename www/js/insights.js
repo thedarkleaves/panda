@@ -64,9 +64,10 @@ function printInsights(elementToPrintTo) {
     painSD = 0;
     for (i=0;i<allPainScores.length;i++) {
         painSD+=Math.pow((allPainScores[i] - painMean),2);
-    }
+    } // painSD now is the sum of the squared differences
     painSD = Math.sqrt(painSD / allPainScores.length); 
-
+    $("#importantInsights").append("<br>SD: " + painSD);
+    
     // process the matrix to figure out if each factor is significant
     for (i=0;i<otherinfooptions.length;i++) {
         // calculate the standard error for this factor Yes
