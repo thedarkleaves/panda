@@ -67,7 +67,7 @@ body {
 }
 
 .blankdate {
-    color: var(--bits-colour1);
+    color: var(--bits-colour2);
     font-size: 0.5em;
     position: absolute;
     top: 50%;

@@ -565,9 +565,9 @@ function updateCalendar(calendarDate) {
     });
 
     $("#calendar").prepend('<div id="calendarControls"></div>');
-    $("#calendarControls").append('<span id="calendar_backmonth">prev</span> | ');
+    $("#calendarControls").append('<button id="calendar_backmonth">prev</button> | ');
     $("#calendarControls").append('<span id="calendar_labelmonth">' + calendarDate.toLocaleString('default', { month: 'long', year: 'numeric' }) + '</span>');
-    $("#calendarControls").append(' | <span id="calendar_forwardmonth">next</span>');
+    $("#calendarControls").append(' | <button id="calendar_forwardmonth">next</button>');
     // make the buttons work 
     $("#calendar_backmonth").click(function() {
         calendarDate.setMonth(calendarDate.getMonth()-1);
