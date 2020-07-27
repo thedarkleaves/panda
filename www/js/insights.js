@@ -14,7 +14,7 @@ function printInsights(elementToPrintTo) {
     // create a n*4 matrix (where n is the number of factors)
     var factorsInsightsMatrix = [];
     for (i=0;i<otherinfooptions.length;i++) {
-        factorsInsightsMatrix[i] = new Array(4);
+        factorsInsightsMatrix[i] = [0,0,0,0];
     }
     
     // reset painscore list to caluclate the mean and SD
