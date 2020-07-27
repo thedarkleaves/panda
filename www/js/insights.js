@@ -75,7 +75,7 @@ function printInsights(elementToPrintTo) {
 
         if (yesMean>noMean) {
             // pain is higher when the factor is yes
-            if ((yesMean-yesSeE > (noMean+noSE)) {
+            if ((yesMean-yesSeE) > (noMean+noSE)) {
                 $("#importantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was significantly higher.</div>');
                 $("#importantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
             } else {
