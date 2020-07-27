@@ -56,9 +56,11 @@ function printInsights(elementToPrintTo) {
             }
         }
     }
-    $(elementToPrintTo).empty().append("Running statistics...<br>");
+    $(elementToPrintTo).empty();
+    $(elementToPrintTo).append('<div id="importantInsights"></div><div id="lessImportantInsights"></div>');
     // work out the mean and standard devation of the pain scores
     painMean = (painMean / allPainScores.length);
+    $("#importantInsights").append("Average pain score: " + painMean);
     painSD = 0;
     for (i=0;i<allPainScores.length;i++) {
         painSD+=Math.pow((allPainScores[i] - painMean),2);
@@ -66,8 +68,6 @@ function printInsights(elementToPrintTo) {
     painSD = Math.sqrt(painSD / allPainScores.length); 
 
     // process the matrix to figure out if each factor is significant
-    $(elementToPrintTo).empty();
-    $(elementToPrintTo).append('<div id="importantInsights"></div><div id="lessImportantInsights"></div>');
     for (i=0;i<otherinfooptions.length;i++) {
         // calculate the standard error for this factor Yes
         var yesSE = painSD / Math.sqrt(factorsInsightsMatrix[i][yesSum]);
