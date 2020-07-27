@@ -9,7 +9,7 @@ var painSD = 0;
 function printInsights(elementToPrintTo) {
 
     // TODO: Validation, probably fail if n<10? need to think about it a bit
-    $(elementToPrintTo).empty().append("Crunching the numbers...<br>Please wait...");
+    $(elementToPrintTo).empty().append("Crunching the numbers...<br>");
     
     // create a n*4 matrix (where n is the number of factors)
     var factorsInsightsMatrix = [];
@@ -21,14 +21,19 @@ function printInsights(elementToPrintTo) {
     allPainScores = [];
     painMean = 0;
     
+    $(elementToPrintTo).empty().append("Creating pain matrix...<br>");
+    $(elementToPrintTo).empty().append('<div id="insightsloadingtemp"></div>');
+    
     // fill the matrix
     for (i=0;i<paindiary.length;i++) {
         // add the pain score to the global painscore list and update the global mean
         allPainScores.push(parseInt(paindiary[i].painscore));
         painMean+=parseInt(paindiary[i].painscore,10);
+        $("#insightsloadingtemp").empty().append(paindiary[i].date + '<div id="insightsloadingtemp1"></div>');
 
         // for each factor check if this day has it listed or not
         for (j=0;j<otherinfooptions.length;j++) {
+            $("#insightsloadingtemp1").empty().append(otherinfooptions[j] + '<br>');
             var currentFactorYes = false;
             // check if the date has factors listed
             if ((paindiary[i].otherfactors!=undefined) && (paindiary[i].otherfactors.length>0)) {
@@ -40,6 +45,7 @@ function printInsights(elementToPrintTo) {
                     }
                 }
             }
+            $("#insightsloadingtemp1").empty().append('Updating matrix');
             // update the matrix
             if (currentFactorYes) {
                 factorsInsightsMatrix[j][yesSum]+=parseInt(paindiary[i].painscore,10);
@@ -50,7 +56,7 @@ function printInsights(elementToPrintTo) {
             }
         }
     }
-    
+    $(elementToPrintTo).empty().append("Running statistics...<br>");
     // work out the mean and standard devation of the pain scores
     painMean = (painmean / allPainScores.length);
     painSD = 0;
