@@ -61,14 +61,41 @@ function printInsights(elementToPrintTo) {
     $(elementToPrintTo).append('<div id="importantInsights"></div><div id="lessImportantInsights"></div>');
     // work out the mean and standard devation of the pain scores
     painMean = (painMean / allPainScores.length);
-    $("#importantInsights").append("Average pain score: " + painMean);
+    $("#importantInsights").append("Average pain score: " + painMean.toFixed(1));
     painSD = 0;
     for (i=0;i<allPainScores.length;i++) {
         painSD+=Math.pow((allPainScores[i] - painMean),2);
     } // painSD now is the sum of the squared differences
     painSD = Math.sqrt(painSD / allPainScores.length); 
-    $("#importantInsights").append("<br>SD: " + painSD);
     
+    $("#importantInsights").append('<div class"question">Important Insights</div>');
+    $("#lessImportantInsights").append('<div class="question">Insights that might not be important</div>');
+    
+    /** Work out the confidence intervals based on t-tables with Bonferroni corrections
+     * 
+     * for n stats confidence interval is (1-0.05/n)
+     * for 1 stat 95: 1.96
+     * for 2 stats 97.5 (round to 98: 2.326)
+     * for 3 stats 98.3 (round to 98: 2.326)
+     * for 4 stats 98.8 (round to 99: 2.576)
+     * for 5 stats 99.0: 2.576
+     * for 10 stats 99.5 (round to 99.8): 3.090
+     * for 25 stats 99.8: 3.090
+     * for 50 stats 99.9: 3.291
+     */
+    var confidenceStat;
+    if (otherinfooptions.length<=1) {
+        confidenceStat = 1.96;
+    } else if (otherinfooptions.length<=3) {
+        confidenceStat = 2.326; 
+    } else if (otherinfooptions.length<=5) {
+        confidenceStat = 2.576;
+    } else if (otherinfooptions.length<=50) {
+        confidenceStat = 3.090;
+    } else {
+        confidenceStat = 3.291
+    }
+
     // process the matrix to figure out if each factor is significant
     for (i=0;i<otherinfooptions.length;i++) {
         // calculate the standard error for this factor Yes
@@ -81,7 +108,7 @@ function printInsights(elementToPrintTo) {
     
         if (yesMean>noMean) {
             // pain is higher when the factor is yes
-            if ((yesMean-1.96*yesSE) > (noMean+1.96*noSE)) {
+            if ((yesMean-confidenceStat*yesSE) > (noMean+confidenceStat*noSE)) {
                 $("#importantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was significantly higher.</div>');
                 $("#importantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
             } else {
@@ -90,7 +117,7 @@ function printInsights(elementToPrintTo) {
             }
         } else if (noMean>yesMean) {
             // pain is higher when the factor is no
-            if ((noMean-1.96*noSE) > (yesMean+1.96*yesSE)) {
+            if ((noMean-confidenceStat*noSE) > (yesMean+confidenceStat*yesSE)) {
                 $("#importantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was significantly lower.</div>');
                 $("#importantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
             } else {
