@@ -74,16 +74,14 @@ function printInsights(elementToPrintTo) {
         // calculate the standard error for this factor Yes
         var yesSE = painSD / Math.sqrt(factorsInsightsMatrix[i][yesSum]);
         var yesMean = factorsInsightsMatrix[i][yesSum] / factorsInsightsMatrix[i][yesCount];
-        $("#importantInsights").append("Yes Mean: " + yesMean);
-
+    
         // calculate the standard error for this factor No
         var noSE = painSD / Math.sqrt(factorsInsightsMatrix[i][noSum]);
         var noMean = factorsInsightsMatrix[i][noSum] / factorsInsightsMatrix[i][noCount];
-        $("#importantInsights").append("No Mean: " + noMean);
-
+    
         if (yesMean>noMean) {
             // pain is higher when the factor is yes
-            if ((yesMean-1.96*yesSeE) > (noMean+1.96*noSE)) {
+            if ((yesMean-1.96*yesSE) > (noMean+1.96*noSE)) {
                 $("#importantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was significantly higher.</div>');
                 $("#importantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
             } else {
