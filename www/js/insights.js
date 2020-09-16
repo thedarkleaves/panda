@@ -109,6 +109,7 @@ function printInsights(elementToPrintTo) {
             var noSE = painSD / Math.sqrt(factorsInsightsMatrix[i][noSum]);
             var noMean = factorsInsightsMatrix[i][noSum] / factorsInsightsMatrix[i][noCount];
         
+            
             if (yesMean>noMean) {
                 // pain is higher when the factor is yes
                 if ((yesMean-confidenceStat*yesSE) > (noMean+confidenceStat*noSE)) {
