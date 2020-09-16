@@ -64,7 +64,7 @@ function printInsights(elementToPrintTo) {
         $(elementToPrintTo).append('<div id="importantInsights"></div><div id="lessImportantInsights"></div>');
         // work out the mean and standard devation of the pain scores
         painMean = (painMean / allPainScores.length);
-        $("#importantInsights").append("Average pain score: " + painMean.toFixed(1));
+        $("#importantInsights").append('<div class="insight">Average pain score: ' + painMean.toFixed(1) + '</div>');
         painSD = 0;
         for (i=0;i<allPainScores.length;i++) {
             painSD+=Math.pow((allPainScores[i] - painMean),2);
@@ -109,7 +109,7 @@ function printInsights(elementToPrintTo) {
             var noSE = painSD / Math.sqrt(factorsInsightsMatrix[i][noSum]);
             var noMean = factorsInsightsMatrix[i][noSum] / factorsInsightsMatrix[i][noCount];
         
-            
+
             if (yesMean>noMean) {
                 // pain is higher when the factor is yes
                 if ((yesMean-confidenceStat*yesSE) > (noMean+confidenceStat*noSE)) {
