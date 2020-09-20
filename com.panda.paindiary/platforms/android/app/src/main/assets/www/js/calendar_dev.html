@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>calendar testing</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="calendar.js"></script> 
+        <link rel="stylesheet" type="text/css" href="../css/calendar.css">
+
+    </head>
+    <body>
+        
+        <div id="calendar"></div>
+        <script language="javascript">
+            function makeContent(dateToLookup) {
+                today = new Date();
+                if (dateToLookup>today) {
+                    return "";
+                } else {
+                    var thisCircle = '<div class="circle">' + Math.round(Math.random()*10) + '</div>';
+                    return thisCircle;
+                }
+            }
+
+            function clickContent(crud) {
+                alert(crud);
+            }
+            
+            var today = new Date();
+            printCalendar("#calendar","month",today,makeContent,clickContent);
+            $(".circle").each(function() {
+                var circleSize = $(this).html() * 10;
+                $(this).html("&nbsp;");
+                $(this).css("height",circleSize + "%").css("width",circleSize + "%");
+            });
+        </script>
+    </body>
+</html>
