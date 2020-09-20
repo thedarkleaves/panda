@@ -1,0 +1,25 @@
+{
+  "name": "panda",
+  "version": "0.1.0",
+  "description": "PANDA Pain and Anaglesia Diary App",
+  "main": "www/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thedarkleaves/panda.git"
+  },
+  "keywords": [
+    "pain",
+    "diary",
+    "pain",
+    "diary"
+  ],
+  "author": "Thedar Kleaves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thedarkleaves/panda/issues"
+  },
+  "homepage": "https://github.com/thedarkleaves/panda#readme"
+}
