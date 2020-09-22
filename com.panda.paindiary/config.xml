@@ -39,7 +39,7 @@
 
     <!-- TODO: add versions to all of these -->
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="cordova-universal-links-plugin-fix" />
+    <plugin name="cordova-universal-links-plugin-fixed" />
     <plugin name="cordova-plugin-buildinfo" />
     <plugin name="cordova-plugin-browsertab" spec="0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" />

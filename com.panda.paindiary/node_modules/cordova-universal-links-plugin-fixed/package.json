@@ -1,0 +1,79 @@
+{
+  "_from": "cordova-universal-links-plugin-fixed",
+  "_id": "cordova-universal-links-plugin-fixed@1.2.1",
+  "_inBundle": false,
+  "_integrity": "sha512-kJ4/oAk4wUEDFRzCbFMOB4zV/jeFAaCT6cTOrfxeNWI8wgpL44D7BLdhNzeirggmHdGkjSQom3MHec0jBMmtRg==",
+  "_location": "/cordova-universal-links-plugin-fixed",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-universal-links-plugin-fixed",
+    "name": "cordova-universal-links-plugin-fixed",
+    "escapedName": "cordova-universal-links-plugin-fixed",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-universal-links-plugin-fixed/-/cordova-universal-links-plugin-fixed-1.2.1.tgz",
+  "_shasum": "42d37a4ba45e9329d6a01f9d18af308d24add7f5",
+  "_spec": "cordova-universal-links-plugin-fixed",
+  "_where": "C:\\Users\\SimonM\\Documents\\code\\panda\\panda_bitrise\\panda\\com.panda.paindiary",
+  "author": {
+    "name": "Nikolay Demyankov for Nordnet Bank AB"
+  },
+  "bugs": {
+    "url": "https://github.com/nordnet/cordova-universal-links-plugin/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-universal-links-plugin-fixed",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "dependencies": {
+    "mkpath": ">=1.0.0",
+    "node-version-compare": ">=1.0.1",
+    "plist": ">=1.2.0",
+    "rimraf": ">=2.4",
+    "xml2js": ">=0.4"
+  },
+  "deprecated": false,
+  "description": "Cordova plugin to add in your application support for Universal Links (iOS 9) and Deep Links (Android). Basically, open application through the link in the browser.",
+  "engines": [
+    {
+      "name": "cordova-ios",
+      "version": ">=3.8"
+    },
+    {
+      "name": "cordova-android",
+      "version": ">=4"
+    }
+  ],
+  "homepage": "https://github.com/nordnet/cordova-universal-links-plugin#readme",
+  "keywords": [
+    "cordova",
+    "links",
+    "universal",
+    "deep links",
+    "universal links",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "ios",
+    "android"
+  ],
+  "license": "MIT",
+  "name": "cordova-universal-links-plugin-fixed",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nordnet/cordova-universal-links-plugin.git"
+  },
+  "version": "1.2.1"
+}

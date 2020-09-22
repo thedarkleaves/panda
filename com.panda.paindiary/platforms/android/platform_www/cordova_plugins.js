@@ -67,9 +67,9 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-universal-links-plugin.universalLinks",
-      "file": "plugins/cordova-universal-links-plugin/www/universal_links.js",
-      "pluginId": "cordova-universal-links-plugin",
+      "id": "cordova-universal-links-plugin-fixed.universalLinks",
+      "file": "plugins/cordova-universal-links-plugin-fixed/www/universal_links.js",
+      "pluginId": "cordova-universal-links-plugin-fixed",
       "clobbers": [
         "universalLinks"
       ]
@@ -83,6 +83,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-inappbrowser": "4.0.0",
     "cordova-plugin-local-notification": "0.9.0-beta.2",
     "cordova-plugin-whitelist": "1.3.4",
-    "cordova-universal-links-plugin": "1.2.1"
+    "cordova-universal-links-plugin-fixed": "1.2.1"
   };
 });

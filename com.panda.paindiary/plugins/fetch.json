@@ -63,10 +63,10 @@
     "is_top_level": false,
     "variables": {}
   },
-  "cordova-universal-links-plugin": {
+  "cordova-universal-links-plugin-fixed": {
     "source": {
       "type": "registry",
-      "id": "cordova-universal-links-plugin-fix"
+      "id": "cordova-universal-links-plugin-fixed"
     },
     "is_top_level": true,
     "variables": {}
