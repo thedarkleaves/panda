@@ -1,14 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
   module.exports = [
     {
-      "id": "cordova-universal-links-plugin.universalLinks",
-      "file": "plugins/cordova-universal-links-plugin/www/universal_links.js",
-      "pluginId": "cordova-universal-links-plugin",
-      "clobbers": [
-        "universalLinks"
-      ]
-    },
-    {
       "id": "cordova-plugin-buildinfo.BuildInfo",
       "file": "plugins/cordova-plugin-buildinfo/www/buildinfo.js",
       "pluginId": "cordova-plugin-buildinfo",
@@ -77,7 +69,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
   ];
   module.exports.metadata = {
     "cordova-plugin-whitelist": "1.3.4",
-    "cordova-universal-links-plugin": "1.2.1",
     "cordova-plugin-buildinfo": "4.0.0",
     "cordova-plugin-browsertab": "0.2.0",
     "cordova-plugin-inappbrowser": "4.0.0",

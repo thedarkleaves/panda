@@ -10,9 +10,6 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.ouchbeta.android"
     },
-    "cordova-universal-links-plugin": {
-      "PACKAGE_NAME": "com.ouchbeta.android"
-    },
     "cordova-plugin-buildinfo": {
       "PACKAGE_NAME": "com.ouchbeta.android"
     },

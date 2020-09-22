@@ -7,14 +7,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-universal-links-plugin": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-universal-links-plugin-fix@^1.2.1"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-buildinfo": {
     "source": {
       "type": "registry",

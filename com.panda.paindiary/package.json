@@ -33,8 +33,7 @@
       "cordova-plugin-buildinfo": {},
       "cordova-plugin-browsertab": {},
       "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-local-notification": {},
-      "cordova-universal-links-plugin": {}
+      "cordova-plugin-local-notification": {}
     }
   }
 }
