@@ -7,13 +7,10 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
+    "cordova-plugin-browsertab": {
       "PACKAGE_NAME": "com.ouchbeta.android"
     },
     "cordova-plugin-buildinfo": {
-      "PACKAGE_NAME": "com.ouchbeta.android"
-    },
-    "cordova-plugin-browsertab": {
       "PACKAGE_NAME": "com.ouchbeta.android"
     },
     "cordova-plugin-inappbrowser": {
@@ -21,13 +18,16 @@
     },
     "cordova-plugin-local-notification": {
       "PACKAGE_NAME": "com.ouchbeta.android"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.ouchbeta.android"
     }
   },
   "dependent_plugins": {
-    "cordova-plugin-device": {
+    "cordova-plugin-badge": {
       "PACKAGE_NAME": "com.ouchbeta.android"
     },
-    "cordova-plugin-badge": {
+    "cordova-plugin-device": {
       "PACKAGE_NAME": "com.ouchbeta.android"
     }
   }

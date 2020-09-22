@@ -1,11 +1,11 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
   module.exports = [
     {
-      "id": "cordova-plugin-buildinfo.BuildInfo",
-      "file": "plugins/cordova-plugin-buildinfo/www/buildinfo.js",
-      "pluginId": "cordova-plugin-buildinfo",
+      "id": "cordova-plugin-badge.Badge",
+      "file": "plugins/cordova-plugin-badge/www/badge.js",
+      "pluginId": "cordova-plugin-badge",
       "clobbers": [
-        "BuildInfo"
+        "cordova.plugins.notification.badge"
       ]
     },
     {
@@ -17,11 +17,11 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-inappbrowser.inappbrowser",
-      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-      "pluginId": "cordova-plugin-inappbrowser",
+      "id": "cordova-plugin-buildinfo.BuildInfo",
+      "file": "plugins/cordova-plugin-buildinfo/www/buildinfo.js",
+      "pluginId": "cordova-plugin-buildinfo",
       "clobbers": [
-        "cordova.InAppBrowser.open"
+        "BuildInfo"
       ]
     },
     {
@@ -33,11 +33,11 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-badge.Badge",
-      "file": "plugins/cordova-plugin-badge/www/badge.js",
-      "pluginId": "cordova-plugin-badge",
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
       "clobbers": [
-        "cordova.plugins.notification.badge"
+        "cordova.InAppBrowser.open"
       ]
     },
     {
@@ -68,12 +68,12 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     }
   ];
   module.exports.metadata = {
-    "cordova-plugin-whitelist": "1.3.4",
-    "cordova-plugin-buildinfo": "4.0.0",
-    "cordova-plugin-browsertab": "0.2.0",
-    "cordova-plugin-inappbrowser": "4.0.0",
-    "cordova-plugin-device": "2.0.3",
     "cordova-plugin-badge": "0.8.8",
-    "cordova-plugin-local-notification": "0.9.0-beta.2"
+    "cordova-plugin-browsertab": "0.2.0",
+    "cordova-plugin-buildinfo": "4.0.0",
+    "cordova-plugin-device": "2.0.3",
+    "cordova-plugin-inappbrowser": "4.0.0",
+    "cordova-plugin-local-notification": "0.9.0-beta.2",
+    "cordova-plugin-whitelist": "1.3.4"
   };
 });
