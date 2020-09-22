@@ -38,7 +38,7 @@
 
     <!-- TODO: add versions to all of these -->
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <!--<plugin name="cordova-universal-links-plugin-fix" />-->
+    <plugin name="cordova-universal-links-plugin-fix" />
     <plugin name="cordova-plugin-buildinfo" />
     <plugin name="cordova-plugin-browsertab" spec="0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" />
@@ -68,9 +68,11 @@
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
-    <platform name="ios">
+    <!--
+        <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    -->
 </widget>
 
