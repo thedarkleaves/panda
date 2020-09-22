@@ -58,4 +58,8 @@
     <preference name="AndroidLaunchMode" value="singleTask" />
     <preference name="android-targetSdkVersion" value="28" />
     <preference name="android-minSdkVersion" value="22" />
+    <feature name="UniversalLinks">
+        <param name="android-package" value="com.nordnetab.cordova.ul.UniversalLinksPlugin" />
+        <param name="onload" value="true" />
+    </feature>
 </widget>

@@ -39,21 +39,11 @@
 
     <!-- TODO: add versions to all of these -->
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <!--<plugin name="cordova-universal-links-plugin-fix" />-->
+    <plugin name="cordova-universal-links-plugin-fix" />
     <plugin name="cordova-plugin-buildinfo" />
     <plugin name="cordova-plugin-browsertab" spec="0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" />
     <plugin name="cordova-plugin-local-notification" />
-    
-    <!-- not needed - probably delete
-    <plugin name="cordova-support-google-services" spec="1.3.2" />
-    <plugin name="engage-firebase-cordova" spec="9.0.0" />
-    <plugin name="cordova-plugin-firebase" spec="https://github.com/KingWebsites/pgb-plugin-firebase.git">
-        <variable name="APP_GOOGLE_API_ID" value="1:380054382603:android:52c5c456dd7d6416" />
-        <variable name="APP_GOOGLE_API_KEY" value="AIzaSyAnj7PINJSyw5HuwTV-_9RBaNpnAJzGlLQ" />
-    </plugin>
-    <plugin name="phonegap-plugin-push" spec="2.0.0" />
-    -->
     
     <!-- white list -->
     <access origin="*" />
