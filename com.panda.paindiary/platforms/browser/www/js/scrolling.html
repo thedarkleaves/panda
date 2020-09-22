@@ -1,0 +1,29 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+.bigbox {
+    height: 300px;
+    width: 300px;
+    background-color: green;
+    margin: 10px;
+}
+</style>
+
+</head>
+<body>
+<div id="boxholder"></div>
+
+<script language="javascript">
+
+for (i=0; i<10; i++) {
+    $("#boxholder").append('<div id="box' + i + '" class="bigbox">' + i + '</div>');
+}
+
+$("#box1").click(function() {
+    $("html body").scrollTop($("#box7").offset().top);
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+    "medication": [
+        {
+            "name":"paracetamol",
+            "type":"simple",
+            "dose": ["500mg"]
+        },
+        {
+            "name":"ibuprofen",
+            "type":"anti-inflammatory",
+            "dose":["200mg"]
+        },
+        {
+            "name":"codeine",
+            "type":"opioid",
+            "dose":["30mg","60mg"]
+        },
+        {
+            "name":"tramadol",
+            "type":"opioid",
+            "dose":["50mg"]
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+body {
+    font-family: calibri;
+    font-size: 20px;
+}
+.calendar_row {
+    display: table-row;
+}
+
+.calendar.topbox {
+    display: table-cell;
+    padding: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.calendar.daybox {
+    display: table-cell;
+    text-align: left;
+    position: relative;
+}
+
+.calendar.daybox.future {
+    background-color: var(--text-colour2);
+    border-radius: 3px;
+    opacity: 0.75;
+    color: var(--bits-colour2);
+}
+
+.calendar.dayboxdate {
+    text-align: left;
+    vertical-align: super;
+    font-size: 0.75em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5010;
+}
+
+.calendar.dayboxcontent {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.invisibledatestoragething {
+    display: none;
+}
+
+.calendar.highlighted {
+    background: var(--bits-colour2);
+    color: var(--bits-color2);
+    border-radius: 3px;
+}
+
+.circle {
+    background: var(--bits-colour1);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.blankdate {
+    color: var(--bits-colour2);
+    font-size: 0.5em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

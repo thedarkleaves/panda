@@ -1,0 +1,17 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "PANDA Pain Diary",
+  "short_name": "PANDA Pain Diary",
+  "version": "com.ouchbeta.android",
+  "description": "A pain diary.",
+  "author": "Thedar Kleaves",
+  "icons": [
+    {
+      "src": "res/panda_bw.png",
+      "type": "image/png",
+      "sizes": "undefinedxundefined"
+    }
+  ],
+  "start_url": "index.html"
+}
