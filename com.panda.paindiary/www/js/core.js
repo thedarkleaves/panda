@@ -1,5 +1,5 @@
 // global variables
-var debug = false;
+var debug = true;
 var screenspeed=1000;
 var painscore;
 var painhours;
@@ -19,7 +19,8 @@ var currenteditdate;
 var backScreen;
 var storage = window.localStorage;
 var calendar_iterator = 0;
-var meds = {
+var meds = new Array();
+var defaultmeds = {
     "medication": [
         {
             "name":"paracetamol",
@@ -84,7 +85,8 @@ function todayString(dateToFormat) {
  */
 function printdebug(content) {
     if (debug) {
-        $("#debug").append("<br>"+content);
+        //$("#debug").append("<br>"+content);
+        console.log(content);
     }
 }
 
@@ -271,6 +273,35 @@ function updatepaindiary() {
         }
     });
 
+}
+
+/**
+ * Update the medications
+ */
+function updatemeds() {
+    db.collection("users").doc(userid).collection("meds").get().then(function(dbmedlist) {
+        dbmedlist.forEach(function(dbmed) {
+            var thismed = new Array(2);
+            thismed[0] = dbmed.id;
+            thismed[1] = [];
+            var medindex = (meds.push(thismed)-1);
+            updatemeddoses(medindex);
+        });
+        initPainChart(7,0);
+    });
+    // keep a local copy of these as the wanted list
+    // TODO: create a local copy of the "unwanted" meds - meds used in the diary that are no longer in the database, so these are included in the graphs and edit modes
+}
+
+function updatemeddoses(medindex) {
+    db.collection("users").doc(userid).collection("meds").doc(meds[medindex][0]).collection("dose").get().then(function(dbdoselist) {
+        thismeddoses = [];
+        dbdoselist.forEach(function(dbmeddose) {
+            thismeddoses.push(dbmeddose.id);
+        });
+        meds[medindex][1] = thismeddoses;
+        printdebug("loaded db med: " + meds[medindex]);
+    });
 }
 
 /**
@@ -693,10 +724,10 @@ var app = {
                             username=encryptor.decrypt(currentuser.data().name);
                             printdebug("logged in as :" + username);
                             $("#nhi").val(encryptor.decrypt(currentuser.data().NHI));
-                            $("#researchid").val(currentuser.data().studyid);
                             updatepaindiary();
                             updateproviders();
                             updatestudies();
+                            updatemeds();
                         } else {
                             // add the user to the database
                             console.log("new user");
@@ -704,7 +735,6 @@ var app = {
                                 name: encyptor.encrypt(user.displayName),
                                 uid: user.uid,
                                 NHI:null,
-                                studyid:null
                             })
                             .then(function(docRef) {
                                 printdebug("New user added: ", user.displayName);
@@ -713,6 +743,20 @@ var app = {
                                 printdebug("Error adding new user: ", error);
                             });
                             userid=user.uid;
+                            // add default meds
+                            for (i=0;i<defaultmeds.medication.length;i++) {
+                                db.collection("users").doc(user.uid).collection("meds").doc(defaultmeds.medication[i].name).set({    
+                                    name: defaultmeds.medication[i].name,
+                                    dose: defaultmeds.medication[i].dose
+                                })
+                                .then(function(docref) {
+                                    printdebug("Default meds added to database.");
+                                })
+                                .catch(function(error) {
+                                    printdebug("Error adding default meds.");
+                                });
+                            }
+                            
                         }
                     }).catch(function(error) {
                         printdebug("Error loading users:", error);
@@ -940,6 +984,7 @@ var app = {
         });
 
 
+
         printdebug("ready");
     },
 };
@@ -1146,13 +1191,14 @@ function applymedtoggleclick () {
 function makeMedDiary() {
     // med diary 1
     $("#meddiary1").html('<span class="question">which medications did you use?</span><br>');
-    for (i=0;i<meds.medication.length;i++) {
-        $("#meddiary1").append('<button class="toggle med" id="medbutton_' + cleanString(meds.medication[i].name) + '">' + meds.medication[i].name + '</button>');
-        for (j=0;j<meds.medication[i].dose.length;j++) {
-            $("#meddiary1").append('<button class="toggle dose" id="medbutton_' + cleanString(meds.medication[i].name) + '_' + cleanString(meds.medication[i].dose) + '">' + meds.medication[i].dose[j] + '</button> ');
+    for (i=0;i<meds.length;i++) {
+        $("#meddiary1").append('<button class="toggle med" id="medbutton_' + cleanString(meds[i][0]) + '">' + meds[i][0] + '</button>');
+        for (j=0;j<meds[i][1].length;j++) {
+            $("#meddiary1").append('<button class="toggle dose" id="medbutton_' + cleanString(meds[i][0]) + '_' + cleanString(meds[i][1][j]) + '">' + meds[i][1][j] + '</button> ');
         }
-        $("#meddiary1").append('<input class="mednum" id="mednumber_' + cleanString(meds.medication[i].name) + '" placeholder="how many?" type="number"><br class="endmed">');
+        $("#meddiary1").append('<input class="mednum" id="mednumber_' + cleanString(meds[i][0]) + '" placeholder="how many?" type="number"><br class="endmed">');
     }
+    $("#meddiary1").append('<br><button class="command" id="changemeds">manage medications</button>');
     $("#meddiary1").append('<hr><button class="command" id="finishmed1">next</button>');
 
     $(".toggle.dose").hide();
@@ -1165,7 +1211,7 @@ function makeMedDiary() {
         medsused = [];
         $('.med.toggletrue').each(function() {
             
-            thismed = {};
+            var thismed = {};
             thismed.name = $(this).text();
             // check if a dose was selected
             var dosebutton = $(this).next();

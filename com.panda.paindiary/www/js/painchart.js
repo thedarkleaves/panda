@@ -206,8 +206,8 @@ function initPainChart(numDays,showHours) {
                 $("#meds button").html("hide medications");
             }
         });
-        for (i=0;i<meds.medication.length;i++) {
-            printdebug("printing medication " + meds.medication[i].name);
+        for (i=0;i<meds.length;i++) {
+            printdebug("printing medication " + meds[i][0]);
             $('#meds').append('<div class="medd"><div class="meddates"></div></div>');
             $('.meddates:last').append('<span class="medelement placeholder"></span>');
             itsempty = true;
@@ -215,7 +215,7 @@ function initPainChart(numDays,showHours) {
                 $('.meddates:last').append('<span class="medelement"></span>');
                 // printdebug("comparing " + painmeds[j] + " with " + meds.medication[i].name);
                 try {
-                    if (painmeds[j].includes(meds.medication[i].name)) {
+                    if (painmeds[j].includes(meds[i][0])) {
                         $('.medelement:last').addClass('litup');
                         itsempty=false;
                     }
@@ -226,7 +226,7 @@ function initPainChart(numDays,showHours) {
             if (itsempty) {
                 $('.medd:last').remove();
             } else {
-                $('.medd:last').append('<div class="medname">' + meds.medication[i].name + '</div>');
+                $('.medd:last').append('<div class="medname">' + meds[i][0] + '</div>');
             }
         }
         

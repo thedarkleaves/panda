@@ -27,6 +27,9 @@ function printInsights(elementToPrintTo) {
         $(elementToPrintTo).empty().append("Creating pain matrix...<br>");
         $(elementToPrintTo).empty().append('<div id="insightsloadingtemp"></div>');
         
+        // TODO: Create option to only include last x amount of time
+        // TODO: Compare current month with last month
+        
         // fill the matrix
         for (i=0;i<paindiary.length;i++) {
             // add the pain score to the global painscore list and update the global mean
@@ -71,8 +74,13 @@ function printInsights(elementToPrintTo) {
         } // painSD now is the sum of the squared differences
         painSD = Math.sqrt(painSD / allPainScores.length); 
         
-        $("#importantInsights").append('<div class="question">Important Insights</div>');
-        $("#lessImportantInsights").append('<div class="question">Insights that might not be important</div>');
+        $("#importantInsights").append('<div class="question">Key Insights <button class="helpbutton" id="helpbutton_insights">?</button></div>');
+        $("#lessImportantInsights").append('<div class="question">Inights to Consider</div>');
+        $("#helpbutton_insights").click(function(){
+            popupmessage("'Key Insights' are statistically significant insights, and therefore " +
+            "there is a 95% chance these are not due to chance (technical info: significant at p<0.05 with bonferroni correction.)" +
+            "\n'Insights to ponder' are not statistically significant, therefore might be due to chance.");
+        });
         
         /** Work out the confidence intervals based on t-tables with Bonferroni corrections
          * 
@@ -133,6 +141,6 @@ function printInsights(elementToPrintTo) {
                 $("#lessImportantInsights").append('<div class="insight">Days were the same whether <b>' + otherinfooptions[i] + '</b> was marked or not.</div>');
                 $("#lessImportantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
             }
-        }    
+        }
     }
 }
