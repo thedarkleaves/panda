@@ -1,5 +1,5 @@
 // global variables
-var debug = true;
+var debug = false;
 var screenspeed=1000;
 var painscore;
 var painhours;

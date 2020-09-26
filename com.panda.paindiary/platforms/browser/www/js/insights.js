@@ -71,7 +71,7 @@ function printInsights(elementToPrintTo) {
         } // painSD now is the sum of the squared differences
         painSD = Math.sqrt(painSD / allPainScores.length); 
         
-        $("#importantInsights").append('<div class"question">Important Insights</div>');
+        $("#importantInsights").append('<div class="question">Important Insights</div>');
         $("#lessImportantInsights").append('<div class="question">Insights that might not be important</div>');
         
         /** Work out the confidence intervals based on t-tables with Bonferroni corrections
