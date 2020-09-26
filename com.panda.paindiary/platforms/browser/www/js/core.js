@@ -1,5 +1,5 @@
 // global variables
-var debug = false;
+var debug = true;
 var screenspeed=1000;
 var painscore;
 var painhours;
@@ -84,7 +84,8 @@ function todayString(dateToFormat) {
  */
 function printdebug(content) {
     if (debug) {
-        $("#debug").append("<br>"+content);
+        console.log(content);
+        //$("#debug").append("<br>"+content);
     }
 }
 

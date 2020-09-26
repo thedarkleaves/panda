@@ -2,6 +2,7 @@ var listofdays = []; // list of all dates from today, length=numDays
 var painscores = []; // list of painscores for listofdays
 var painfactors = []; // list of pain factors for listofdays
 var painmeds = []; // list of meds for listofdays
+var pagewidth = window.innerWidth;
 
 var marginwidth = 1; // in percent
 
@@ -15,20 +16,30 @@ function initPainChart(numDays,showHours) {
     painmeds = [];
 
     printdebug("Intialising pain chart");
-    if (!(numDays>0)) {
-        printdebug("Invalid Number of days for Chart");
+    //if (isNan(numDays)) {
+    //    printdebug("Invalid Number of days for Chart");
+    
+    if (false) {
+        // do nothing
     } else {
+        printdebug("Creating Pain Chart");
         // generate the dates
         var thisday = todayString();
         var day = thisday.split('.')[2];
         var month = thisday.split('.')[1];
         var year = thisday.split('.')[0];
-        for (i=0;i<numDays;i++) {
+        
+        var graphdays = 0;
+        var graphpaindays = 1;
+
+        while (graphpaindays<paindiary.length) {
+            printdebug("graph day : " + graphdays + "(found " + graphpaindays + " of " + paindiary.length + ")");
             if (month<10) { month = "0" + parseInt(month,10); }
             if (day<10) { day = "0" + parseInt(day,10); }
             thisday = year + "." + month + "." + day;
 
             listofdays.push(thisday);
+            graphdays++;
             // check for pain data for this date
             var foundpaindata = false;
             for (j=0;j<paindiary.length;j++) {
@@ -51,6 +62,7 @@ function initPainChart(numDays,showHours) {
                     painmeds.push(todaysmeds);
                     printdebug(thisday + ' found: ' + painscores[painscores.length-1] + painfactors[painfactors.length-1] + painmeds[painmeds.length-1]);
                     foundpaindata = true;
+                    graphpaindays++;
                     break;
                 }
             }
@@ -82,7 +94,10 @@ function initPainChart(numDays,showHours) {
                     year--;
                 }
             }
-            
+            // break if we only want a certain number of days
+            if (numDays>0 && (graphdays >= numDays)) break;
+            // break if we're in an endless loop (i.e. greater than 10 years)
+            if (graphdays > 365*10) break;
         }
         dates = listofdays;
 
@@ -105,25 +120,25 @@ function initPainChart(numDays,showHours) {
         */
 
         // generate the GUI
-        if (numDays<1) {
-            numDays = 1;
-        }
-        marginwidth=10/numDays; // was 20
+        marginwidth = (pagewidth/graphdays)*0.05;
+        if (marginwidth<2) marginwidth=2;
         $("#painchart").empty();
         $("#painchart").append('<div id="painbarchart"></div>');
-        var barwidth=Math.floor((100/(numDays+1)))-(2*marginwidth);
+        var barwidth = Math.floor((pagewidth/(graphdays+1)))-(2*marginwidth);
+        if (barwidth<8) barwidth=8;
         $("#painbarchart").append('<div id="painchartbarstitle">pain scores</div>');
         $("#painbarchart").append('<div id="painchartbars"><div>');
-        maxpain = Math.max(...painscores.slice(0,numDays));
+        maxpain = Math.max(...painscores.slice(0,graphdays));
         // create the pain bar axis labels
         $("#painchartbars").append('<span class="barchartbar barchartelement" id="painscoreaxislabel"></span>');
         for (i=maxpain;i>0;i--) {
             $("#painscoreaxislabel").append("<div>"+i+"</div>");
+            $("#painscoreaxislabel div:last").css("top",(200-i*(200/maxpain)));     
         }
-        $("#painscoreaxislabel").height(((100)-(marginwidth*2))+"%"); 
+        //$("#painscoreaxislabel").height(((100)-(marginwidth*2))+"%"); 
         $("#painscoreaxislabel div").height(100/(maxpain) + "%");
         // create the pain bars
-        for (i=0;i<numDays;i++) {
+        for (i=0;i<graphdays;i++) {
             $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');
             if (painscores[i]==0) {
                 $(".barchartbar:last").height("1px");
@@ -137,13 +152,13 @@ function initPainChart(numDays,showHours) {
         $("#painbarchart").append('<div id="painchartbartitles"></div>');
         // insert a blank placeholder (under the pain score axis)
         $("#painchartbartitles").append('<span class="barchartbartitle barchartelement placeholder"></span>');
-        for (i=0;i<numDays;i++) {
+        for (i=0;i<graphdays;i++) {
             $("#painchartbartitles").append('<span class="barchartbartitle barchartelement"></span>');
             // skip titles if lots of elements
-            if (numDays<10) {
+            if (graphdays<10) {
                 // every element
                 $(".barchartbartitle:last").append(formatdate(dates[i]));
-            } else if (numDays<21) {
+            } else if (graphdays<21) {
                 // every third element
                 if ((i%3)==0) {
                     $(".barchartbartitle:last").append(formatdate(dates[i]));
@@ -155,7 +170,7 @@ function initPainChart(numDays,showHours) {
                 }
             }
         }
-        $(".barchartelement").width(barwidth+"%").css("margin",marginwidth+"%");
+        $(".barchartelement").width(barwidth).css("margin",marginwidth);
         
         
         // list the factors
@@ -175,7 +190,7 @@ function initPainChart(numDays,showHours) {
             // insert a blank placeholder
             $('.factordates:last').append('<span class="factorelement placeholder"></span>');
             var itsempty = true;
-            for (j=0;j<numDays;j++) {
+            for (j=0;j<graphdays;j++) {
                 $('.factordates:last').append('<span class="factorelement"></span>');
                 try {
                     if (painfactors[j].includes(otherinfooptions[i])) {
@@ -192,7 +207,7 @@ function initPainChart(numDays,showHours) {
                 $('.factor:last').append('<div class="factorname">'+otherinfooptions[i]+'</div>');
             }
         }
-        $(".factorelement").width(barwidth+"%").css("margin",marginwidth+"%");
+        $(".factorelement").width(barwidth).css("margin",marginwidth);
         
 
         // list the medications
@@ -211,7 +226,7 @@ function initPainChart(numDays,showHours) {
             $('#meds').append('<div class="medd"><div class="meddates"></div></div>');
             $('.meddates:last').append('<span class="medelement placeholder"></span>');
             itsempty = true;
-            for (j=0;j<numDays;j++) {
+            for (j=0;j<graphdays;j++) {
                 $('.meddates:last').append('<span class="medelement"></span>');
                 // printdebug("comparing " + painmeds[j] + " with " + meds.medication[i].name);
                 try {
@@ -230,7 +245,7 @@ function initPainChart(numDays,showHours) {
             }
         }
         
-        $(".medelement").width(barwidth+"%").css("margin",marginwidth+"%");
+        $(".medelement").width(barwidth).css("margin",marginwidth);
 
 
 
@@ -245,11 +260,8 @@ function initPainChart(numDays,showHours) {
         $("#painchartcontrols").append("<button>3 months</button").children().last().click(function() {
             initPainChart(90,showHours);
         });
-        $("#painchartcontrols").append("<button>+</button").children().last().click(function() {
-            initPainChart(numDays+5,showHours);
-        });
-        $("#painchartcontrols").append("<button>-</button").children().last().click(function() {
-            initPainChart(numDays-5,showHours);
+        $("#painchartcontrols").append("<button>all time</button").children().last().click(function() {
+            initPainChart(-1,showHours);
         });
     }
 }
