@@ -85,8 +85,8 @@ function todayString(dateToFormat) {
  */
 function printdebug(content) {
     if (debug) {
-        //$("#debug").append("<br>"+content);
         console.log(content);
+        //$("#debug").append("<br>"+content);
     }
 }
 
