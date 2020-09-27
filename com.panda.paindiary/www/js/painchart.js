@@ -33,7 +33,7 @@ function initPainChart(numDays,showHours) {
         var graphpaindays = 1;
 
         while (graphpaindays<paindiary.length) {
-            printdebug("graph day : " + graphdays + "(found " + graphpaindays + " of " + paindiary.length + ")");
+            //printdebug("graph day : " + graphdays + "(found " + graphpaindays + " of " + paindiary.length + ")");
             if (month<10) { month = "0" + parseInt(month,10); }
             if (day<10) { day = "0" + parseInt(day,10); }
             thisday = year + "." + month + "." + day;
@@ -60,7 +60,7 @@ function initPainChart(numDays,showHours) {
                         // no meds found
                     }
                     painmeds.push(todaysmeds);
-                    printdebug(thisday + ' found: ' + painscores[painscores.length-1] + painfactors[painfactors.length-1] + painmeds[painmeds.length-1]);
+                    //printdebug(thisday + ' found: ' + painscores[painscores.length-1] + painfactors[painfactors.length-1] + painmeds[painmeds.length-1]);
                     foundpaindata = true;
                     graphpaindays++;
                     break;

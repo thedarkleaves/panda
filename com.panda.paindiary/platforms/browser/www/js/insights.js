@@ -28,6 +28,8 @@ function printInsights(elementToPrintTo) {
         $(elementToPrintTo).empty().append('<div id="insightsloadingtemp"></div>');
         
         // TODO: Create option to only include last x amount of time
+        // TODO: Compare current month with last month
+        
         // fill the matrix
         for (i=0;i<paindiary.length;i++) {
             // add the pain score to the global painscore list and update the global mean
@@ -76,8 +78,8 @@ function printInsights(elementToPrintTo) {
         $("#lessImportantInsights").append('<div class="question">Inights to Consider</div>');
         $("#helpbutton_insights").click(function(){
             popupmessage("'Key Insights' are statistically significant insights, and therefore " +
-            "there is a 95% chance these are not due to chance (technical info: significant at p<0.05 with bonferroni correction." +
-            "'Insights to ponder' are not statistically significant, therefore might be due to chance.");
+            "there is a 95% chance these are not due to chance (technical info: significant at p<0.05 with bonferroni correction.)" +
+            "\n'Insights to ponder' are not statistically significant, therefore might be due to chance.");
         });
         
         /** Work out the confidence intervals based on t-tables with Bonferroni corrections
@@ -139,6 +141,6 @@ function printInsights(elementToPrintTo) {
                 $("#lessImportantInsights").append('<div class="insight">Days were the same whether <b>' + otherinfooptions[i] + '</b> was marked or not.</div>');
                 $("#lessImportantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
             }
-        }    
+        }
     }
 }

@@ -20,7 +20,8 @@ var backScreen;
 var storage = window.localStorage;
 var calendar_iterator = 0;
 var lastfewscreens = []
-var meds = {
+var meds = [];
+var defaultmeds = {
     "medication": [
         {
             "name":"paracetamol",

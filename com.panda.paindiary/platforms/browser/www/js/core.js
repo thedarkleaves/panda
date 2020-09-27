@@ -19,7 +19,8 @@ var currenteditdate;
 var backScreen;
 var storage = window.localStorage;
 var calendar_iterator = 0;
-var meds = new Array();
+var lastfewscreens = []
+var meds = [];
 var defaultmeds = {
     "medication": [
         {
@@ -504,7 +505,7 @@ function changescreen(screenname) {
     if (screenname=="paindiary3") {
         $("#painhoursquestion").append("for how many hours was your pain more 'than " + painscore + " out of 10?");
     }
-    // TODO: Change the back-button screen
+    lastfewscreens.push(screenname);
 }
 
 /**
@@ -514,7 +515,7 @@ function printpaindiary() {
     // reset the inputs
     $("#paindiarysummary").empty().append("<button>add missing day</button><hr>");
     $("#paindiarysummary button").click(function() {
-        changescreen("diary_calendar");
+        changescreen("calendar_screen");
     });
     for (i=paindiary.length-1;i>=0;i--) {
         printOnePainDay(i,"#paindiarysummary");
@@ -663,10 +664,17 @@ function popupmessage(message) {
 }
 
 function pressedBack() {
-    if (backScreen==null) {
+    if (lastfewscreens.length=0) {
         popupmessage("nothing to go back to.");
     } else {
-        changescreen(backScreen);
+        backScreen = lastfewscreens.pop();
+        if (backScreen=="journal") {
+            popupmessage("can't go back to the journal page."); // TODO: fix this
+        } else if (backScreen=="controls") {
+            pressedBack();
+        } else {
+            changescreen(backScreen);
+        }
     }
 }
 
@@ -982,11 +990,7 @@ var app = {
             "You will need to know the healthcare providor's unique code to be able to add them. " +
             "You can remove access to any providor at any time.");
         });
-        $("#helpbutton_insights").click(function(){
-            popupmessage("'Key Insights' are statistically significant insights, and therefore " +
-            "there is a 95% chance these are not due to chance (technical info: significant at p<0.05 with bonferroni correction." +
-            "'Insights to ponder' are not statistically significant, therefore might be due to chance.");
-        });
+
 
 
         printdebug("ready");
@@ -1250,6 +1254,8 @@ function makeMedDiary() {
 
 
 function submitPainDiary() {
+    // clear the back history so the user can't go back to the editing pages
+    lastfewscreens = [];
     //showLoading();
     var journal = $.trim($("#journaltext").val());
     db.collection("users").doc(userid).collection("diary").doc(currenteditdate).set({
