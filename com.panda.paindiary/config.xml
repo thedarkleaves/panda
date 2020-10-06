@@ -9,7 +9,7 @@
     <author email="thedar.kleaves@zohomail.com.au" href="http://appreciatethesauce.blogspot.com">
         Thedar Kleaves
     </author>
-    <icon src="res/panda_bw.png" />
+    <icon src="res/appstore.png" />
 
     <!-- specific preferences -->
     <preference name="AndroidLaunchMode" value="singleTask" />
