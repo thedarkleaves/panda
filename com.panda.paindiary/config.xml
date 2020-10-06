@@ -12,7 +12,6 @@
     <icon src="res/panda_bw.png" />
 
     <!-- specific preferences -->
-    <preference name="phonegap-version" value="cli-8.1.1" />
     <preference name="AndroidLaunchMode" value="singleTask" />
     <preference name="android-targetSdkVersion" value="28" />
     <preference name="android-minSdkVersion" value="22" />
