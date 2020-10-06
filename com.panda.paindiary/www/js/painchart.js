@@ -9,6 +9,11 @@ var marginwidth = 1; // in percent
 // numdays - number of days to show
 // showHours - not used, probably to be removed
 function initPainChart(numDays,showHours) {
+
+    // show loading screen // TODO: FIX THIS!!
+    $("#painchart").empty();
+    $("#painchart").append("generating pain chart: 0% <br>"); 
+
     // reset everything
     listofdays = [];
     painscores = [];
@@ -94,6 +99,15 @@ function initPainChart(numDays,showHours) {
                     year--;
                 }
             }
+            // print the progress
+            var progress;
+            if (numDays>0) {
+                progress = Math.floor(graphdays / numDays);
+            } else {
+                progress = Math.floor(graphpaindays / paindiary.length);
+            }
+            $("#painchart").empty().append("generating pain chart: " + progress + "% <br>");    
+    
             // break if we only want a certain number of days
             if (numDays>0 && (graphdays >= numDays)) break;
             // break if we're in an endless loop (i.e. greater than 10 years)

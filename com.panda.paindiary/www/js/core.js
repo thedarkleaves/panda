@@ -280,18 +280,33 @@ function updatepaindiary() {
  * Update the medications
  */
 function updatemeds() {
+    // load the medications from the database
     db.collection("users").doc(userid).collection("meds").get().then(function(dbmedlist) {
         dbmedlist.forEach(function(dbmed) {
-            var thismed = new Array(2);
-            thismed[0] = dbmed.id;
-            thismed[1] = [];
+            var thismed = new Array(3);
+            thismed[0] = dbmed.id; // medication name
+            thismed[1] = []; // medication doses array
+            thismed[2] = true; // medication wanted (i.e. user wants to see it as an option)
             var medindex = (meds.push(thismed)-1);
             updatemeddoses(medindex);
         });
+
+        // now add any other medications from the diary that aren't "wanted"
+        $("#unwantedmeds").empty().append("<hr>Other medications that you've used in the past:<br>");
+        for (i=0;i<paindiary.length;i++) {
+            if ((paindiary[i].medications!=undefined) && (paindiary[i].medications.length>0)) {
+                for (j=0;j<paindiary[i].medications.length;j++) {
+                    if ((paindiary[i].medications[j].dose != undefined)) {
+                        addmed(paindiary[i].medications[j].name,paindiary[i].medications[j].dose);
+                    } else {
+                        addmed(paindiary[i].medications[j].name);
+                    }
+                }
+            }
+        }
         initPainChart(7,0);
     });
-    // keep a local copy of these as the wanted list
-    // TODO: create a local copy of the "unwanted" meds - meds used in the diary that are no longer in the database, so these are included in the graphs and edit modes
+
 }
 
 function updatemeddoses(medindex) {
@@ -301,8 +316,47 @@ function updatemeddoses(medindex) {
             thismeddoses.push(dbmeddose.id);
         });
         meds[medindex][1] = thismeddoses;
+        $("#wantedmeds").append(meds[medindex][0] + "<br>"); // TODO - list doses
         printdebug("loaded db med: " + meds[medindex]);
     });
+}
+
+/**
+ * add a medication from the diary that's not "wanted" (i.e. listed in the DB meds list that the user wants to see)
+ * (automatically sorts out duplicates, and only adds a new dose if needed)
+ */
+function addmed(medName,dose) {
+    // check if the medication is already listed
+    var alreadylisted = false;
+    for (var i=0;i<meds.length;i++) {
+        if (meds[i][0] == medName) {
+            // the med is already in the list
+            alreadylisted = true;
+            // check if the current dose is in the list, add it if not
+            if (!(dose===undefined)) {
+                /*
+                for (j=0;j<meds[i][1].length;j++) {
+                    if (!(meds[i][1][j]==dose)) {
+                        meds[i][1].push(dose);
+                        break;
+                    }
+                }
+                */
+            }
+            break;
+        } 
+    }
+    // if the medication is not in the list, add it
+    if (!alreadylisted) {
+        printdebug("adding 'unwanted' med " + medName);
+        var thismed = new Array(3);
+        thismed[0] = medName; // medication name
+        thismed[1] = []; // medication doses array
+        thismed[1].push(dose);
+        thismed[2] = false; // medication wanted (i.e. user wants to see it as an option)
+        meds.push(thismed);
+        $("#unwantedmeds").append(medName + "<br>");
+    }
 }
 
 /**
@@ -843,6 +897,9 @@ var app = {
             changescreen("insights");
             printInsights("#insights");
         });
+        $("#managemeds_button").click(function() {
+            changescreen("managemeds");
+        });
         $("#settings_button").click(function(){
             changescreen("settings");
         });
@@ -953,6 +1010,10 @@ var app = {
             });
         });
 
+        // #managemeds
+        $("#managemeds").append('<span class="question">medications</span>');
+        $("#managemeds").append('<div class="answer"><div id="wantedmeds"></div><div id="unwantedmeds"></div></div>');
+                
         // Nofitication Buttons
         $("#notificationsOnButton").click(function() {
             storage.setItem("notificationsOn","true");
@@ -1207,6 +1268,10 @@ function makeMedDiary() {
         $("#meddiary1").append('<input class="mednum" id="mednumber_' + cleanString(meds[i][0]) + '" placeholder="how many?" type="number"><br class="endmed">');
     }
     $("#meddiary1").append('<br><button class="command" id="changemeds">manage medications</button>');
+    $("#changemeds").click(function() {
+        
+        changescreen("managemeds");
+    });
     $("#meddiary1").append('<hr><button class="command" id="finishmed1">next</button>');
 
     $(".toggle.dose").hide();
