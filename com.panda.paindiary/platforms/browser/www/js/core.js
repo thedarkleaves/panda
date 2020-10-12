@@ -281,7 +281,9 @@ function updatepaindiary() {
  */
 function updatemeds() {
     // load the medications from the database
+    meds = [];
     db.collection("users").doc(userid).collection("meds").get().then(function(dbmedlist) {
+        $("#wantedmeds").empty();
         dbmedlist.forEach(function(dbmed) {
             var thismed = new Array(3);
             thismed[0] = dbmed.id; // medication name
@@ -290,12 +292,13 @@ function updatemeds() {
             var medindex = (meds.push(thismed)-1);
             updatemeddoses(medindex);
         });
-
+    
         // now add any other medications from the diary that aren't "wanted"
         $("#unwantedmeds").empty().append("<hr>Other medications that you've used in the past:<br>");
-        for (i=0;i<paindiary.length;i++) {
+        for (var i=0;i<paindiary.length;i++) {
+            printdebug("searching paindiary for meds..." + i);
             if ((paindiary[i].medications!=undefined) && (paindiary[i].medications.length>0)) {
-                for (j=0;j<paindiary[i].medications.length;j++) {
+                for (var j=0;j<paindiary[i].medications.length;j++) {
                     if ((paindiary[i].medications[j].dose != undefined)) {
                         addmed(paindiary[i].medications[j].name,paindiary[i].medications[j].dose);
                     } else {
@@ -316,7 +319,49 @@ function updatemeddoses(medindex) {
             thismeddoses.push(dbmeddose.id);
         });
         meds[medindex][1] = thismeddoses;
-        $("#wantedmeds").append(meds[medindex][0] + "<br>"); // TODO - list doses
+        $("#wantedmeds").append('<div class="managesinglemed">' + meds[medindex][0] + 
+            '<button class="managedoses">manage doses</button><button class="killmed" id="'+ meds[medindex][0] + '">remove</button></div>');
+        $(".managedoses:last").click(function() {
+            $(this).unbind('click').click(function() {
+                $(this).parent().children('.dosemanager').toggle();
+            });
+            $(this).parent().append('<div class="dosemanager"></div>');
+            for (var i=0;i<meds[medindex][1].length;i++) {
+                $(this).parent().children('.dosemanager').append('<div>' + meds[medindex][1][i] + 
+                    '<button class="killdose" id="' + meds[medindex][0] + '_._' + meds[medindex][1][i] + '">remove</button></div>');
+                $('.killdose:last').click(function() {
+                    var gonerdose = $(this).attr('id').split("_._");
+                    db.collection("users").doc(userid).collection("meds").doc(gonerdose[0]).collection("dose").doc(gonerdose[1]).delete().then(function() {
+                        printdebug("dose removed");
+                    });
+                    $(this).parent().remove();
+                });
+            }
+            $(this).parent().children('.dosemanager').append('<div><input type="text" class="newdoseinput" size=5></input><button class="adddose">add dose</button><hr class="secondaryhr"></div>');
+            $('.adddose:last').click(function() {
+                var newdose = cleanString($(this).parent().children('.newdoseinput').val());
+                if (newdose=="") {
+                    popupmessage("Please enter a dose.");
+                } else {
+                    db.collection("users").doc(userid).collection("meds").doc(meds[medindex][0]).collection("dose").doc(newdose).set({
+                        id: newdose
+                    }).then(function() {
+                        $('.newdoseinput').val('');
+                        printdebug('dose added');
+                        updatemeds();
+                    });
+                }
+            });
+        });
+        $(".killmed:last").click(function() {
+            var gonermed = $(this).attr('id');
+            checkUserReallyWantsToContinue('Are you sure you want to remove ' + gonermed + '?',function() {
+                db.collection("users").doc(userid).collection("meds").doc(gonermed).delete().then(function() {
+                    printdebug("medication removed");
+                    updatemeds();
+                });
+            });
+        });
         printdebug("loaded db med: " + meds[medindex]);
     });
 }
@@ -334,14 +379,16 @@ function addmed(medName,dose) {
             alreadylisted = true;
             // check if the current dose is in the list, add it if not
             if (!(dose===undefined)) {
-                /*
-                for (j=0;j<meds[i][1].length;j++) {
-                    if (!(meds[i][1][j]==dose)) {
-                        meds[i][1].push(dose);
+                var dosealreadylisted = false;
+                for (var j=0;j<meds[i][1].length;j++) {
+                    if (meds[i][1][j]==dose) {
+                        dosealreadylisted = true;
                         break;
                     }
                 }
-                */
+                if (!dosealreadylisted) {
+                    meds[i][1].push(dose);
+                }
             }
             break;
         } 
@@ -352,7 +399,9 @@ function addmed(medName,dose) {
         var thismed = new Array(3);
         thismed[0] = medName; // medication name
         thismed[1] = []; // medication doses array
-        thismed[1].push(dose);
+        if (!(dose===undefined)) {
+            thismed[1].push(dose);
+        }
         thismed[2] = false; // medication wanted (i.e. user wants to see it as an option)
         meds.push(thismed);
         $("#unwantedmeds").append(medName + "<br>");
@@ -1176,7 +1225,11 @@ function enterNewPainDiary(dateString) {
  * @returns A string with only alphanumeric characters
  */
 function cleanString(dirtyString) {
-    return dirtyString.toString().toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
+    try {
+        return dirtyString.toString().toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
+    } catch {
+        return "";
+    }
 }
  
 
@@ -1261,8 +1314,10 @@ function makeMedDiary() {
     // med diary 1
     $("#meddiary1").html('<span class="question">which medications did you use?</span><br>');
     for (i=0;i<meds.length;i++) {
+        // create each medication
         $("#meddiary1").append('<button class="toggle med" id="medbutton_' + cleanString(meds[i][0]) + '">' + meds[i][0] + '</button>');
         for (j=0;j<meds[i][1].length;j++) {
+            // create each dose button
             $("#meddiary1").append('<button class="toggle dose" id="medbutton_' + cleanString(meds[i][0]) + '_' + cleanString(meds[i][1][j]) + '">' + meds[i][1][j] + '</button> ');
         }
         $("#meddiary1").append('<input class="mednum" id="mednumber_' + cleanString(meds[i][0]) + '" placeholder="how many?" type="number"><br class="endmed">');

@@ -28,6 +28,10 @@ hr {
     margin: 1em;
 } 
 
+hr.secondaryhr {
+    border: 3px solid var(--text-colour1);
+}
+
 button, input, textarea {
     background-color: var(--bits-colour1);
     color: var(--text-colour1);
