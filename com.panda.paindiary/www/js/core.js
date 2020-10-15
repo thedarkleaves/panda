@@ -25,22 +25,18 @@ var defaultmeds = {
     "medication": [
         {
             "name":"paracetamol",
-            "type":"simple",
             "dose": ["500mg"]
         },
         {
             "name":"ibuprofen",
-            "type":"anti-inflammatory",
             "dose":["200mg"]
         },
         {
             "name":"codeine",
-            "type":"opioid",
             "dose":["30mg","60mg"]
         },
         {
             "name":"tramadol",
-            "type":"opioid",
             "dose":["50mg"]
         }
     ]
@@ -1031,7 +1027,9 @@ var app = {
             .catch(function(error) {
                 console.error("Error adding pain diary: ", error);
             });
-            todaylogged=true;
+            if (currenteditdate==todayString()) {
+                todaylogged=true;
+            }
             updatepaindiary();
             changescreen("home");
         });
@@ -1417,7 +1415,9 @@ function submitPainDiary() {
         printdebug("New pain diary added");
         updatepaindiary();
         changescreen("paindiarysummary");
-        todaylogged=true;
+        if (currenteditdate==todayString()) {
+            todaylogged=true;
+        }
         resetNotifications();
     })
     .catch(function(error) {

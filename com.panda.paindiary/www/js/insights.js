@@ -23,6 +23,15 @@ function printInsights(elementToPrintTo) {
         // reset painscore list to caluclate the mean and SD
         allPainScores = [];
         painMean = 0;
+        painMeanThisWeek = 0;
+        painMeanThisMonth = 0;
+        
+        // calculate 7 and 30 days ago
+        var today = todayString();
+        var weekago = addDays(today,-7);
+        var twoweeksago = addDays(today,-14);
+        var monthago = addDays(today,-30);
+        var twomonthsago = addDays(today,-60);
         
         $(elementToPrintTo).empty().append("Creating pain matrix...<br>");
         $(elementToPrintTo).empty().append('<div id="insightsloadingtemp"></div>');
@@ -143,4 +152,64 @@ function printInsights(elementToPrintTo) {
             }
         }
     }
+}
+
+/**
+ * Add numDays to dateString (negative values for backwards)
+ *
+ * @param {String} dateString in format yyyy.mm.dd
+ * @param {Int} numDays number of days to subtract (negative values ok)
+ */
+function addDays(dateString, numDays) {
+    try {
+        var breakdown = dateString.split(".");
+        var year = parseInt(breakdown[0]);
+        var month = parseInt(breakdown[1]);
+        var day = parseInt(breakdown[2]);
+    } catch {
+        printdebug("Invalid DateString: " + dateString);
+        return "invalid dateString";
+    }
+    day += numDays;
+    if (day<1) {
+        month--;
+        if (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) {
+            day+=31;
+        } else if (month==2) {
+            if (year%4==0) {
+                day+=29;
+            } else {
+                day+=28;
+            }
+        } else {
+            day+=30;
+        }
+    } else if (day>28) {
+        if ((month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) && day>31) {
+            day -= 31;
+            month++;
+        } else if ((month==2) && (year%4==0) && day>29) {
+            day-= 29;
+            month++;
+        } else if ((month==2) && day>28) {
+            day-=28;
+            month++;
+        } else if (day>30) {
+            day-=30;
+            month++;
+        }
+    }
+    if (month<1) {
+        month = 12;
+        year--;
+    } else if (month>12) {
+        month=1;
+        year++;
+    }
+    // pad with zeros
+    if (month<10) { month = "0" + month; }
+    if (day<10) { day = "0" + day; }
+    
+    return year + "." + month + "." + day;
+
 }
