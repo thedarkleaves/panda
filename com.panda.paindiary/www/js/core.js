@@ -281,8 +281,10 @@ function updatepaindiary() {
  */
 function updatemeds() {
     // load the medications from the database
-    meds = [];Y
+    printdebug("Loading medications from database");
+    meds = [];
     db.collection("users").doc(userid).collection("meds").get().then(function(dbmedlist) {
+        printdebug("Medications loaded successfully");
         $("#wantedmeds").empty();
         dbmedlist.forEach(function(dbmed) {
             var thismed = new Array(3);
@@ -294,9 +296,9 @@ function updatemeds() {
         });
     
         // now add any other medications from the diary that aren't "wanted"
+        printdebug("Searching Pain Diary for additional medications...");
         $("#unwantedmeds").empty().append("<hr>Other medications that you've used in the past:<br>");
         for (var i=0;i<paindiary.length;i++) {
-            printdebug("searching paindiary for meds..." + i);
             if ((paindiary[i].medications!=undefined) && (paindiary[i].medications.length>0)) {
                 for (var j=0;j<paindiary[i].medications.length;j++) {
                     if ((paindiary[i].medications[j].dose != undefined)) {
@@ -313,6 +315,7 @@ function updatemeds() {
 }
 
 function updatemeddoses(medindex) {
+    printdebug("Loading doses for " + meds[medindex][0]);
     db.collection("users").doc(userid).collection("meds").doc(meds[medindex][0]).collection("dose").get().then(function(dbdoselist) {
         thismeddoses = [];
         dbdoselist.forEach(function(dbmeddose) {
@@ -404,8 +407,28 @@ function addmed(medName,dose) {
         }
         thismed[2] = false; // medication wanted (i.e. user wants to see it as an option)
         meds.push(thismed);
-        $("#unwantedmeds").append(medName + "<br>");
+        $("#unwantedmeds").append(medName + '<button id="addbackmed_' + medName + '">add to list</button><br>');
+        $("#unwantedmeds button:last").click(function(){ 
+            var addbackmed = $(this).attr('id').split("addbackmed_")[1];
+            addDBMed(addbackmed);
+        });
     }
+}
+
+/**
+ * Add a medication to the database
+ * @param {String} medName Name of the medication
+ */
+function addDBMed(medName) {
+    printdebug("Adding " + medName + " to database");
+    $("#newDBmed").val("");
+    db.collection("users").doc(userid).collection("meds").doc(medName).set({
+        "id": medName
+    }).then(function(docref) {
+        updatemeds();
+    }).catch(function(error){
+        printdebug('error adding medication ' + medName + " to DB: " + error);
+    });
 }
 
 /**
@@ -1062,6 +1085,11 @@ var app = {
         // #managemeds
         $("#managemeds").append('<span class="question">medications</span>');
         $("#managemeds").append('<div class="answer"><div id="wantedmeds"></div><div id="unwantedmeds"></div></div>');
+        $("#unwantedmeds").before('<input type="text" id="newDBmed" size="30"><button id="addNewDBmed">add medication</button>');
+        $("#addNewDBmed").click(function() {
+            addDBMed($("#newDBmed").val());
+        });
+        
                 
         // Nofitication Buttons
         $("#notificationsOnButton").click(function() {
