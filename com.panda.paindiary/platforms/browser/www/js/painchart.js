@@ -11,7 +11,7 @@ var marginwidth = 1; // in percent
 function initPainChart(numDays,showHours) {
 
     // show loading screen // TODO: FIX THIS!!
-    $("#painchart").empty().toggle();
+    $("#painchart").empty();
     $("#painchart").append("generating pain chart: 0% <br>"); 
 
     // reset everything

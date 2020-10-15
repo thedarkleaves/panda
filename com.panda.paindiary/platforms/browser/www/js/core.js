@@ -281,7 +281,7 @@ function updatepaindiary() {
  */
 function updatemeds() {
     // load the medications from the database
-    meds = [];
+    meds = [];Y
     db.collection("users").doc(userid).collection("meds").get().then(function(dbmedlist) {
         $("#wantedmeds").empty();
         dbmedlist.forEach(function(dbmed) {
