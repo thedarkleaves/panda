@@ -10,7 +10,7 @@ var painLastMonth = [];
 var painMean = 0;
 var painSD = 0;
 
-function printInsights(elementToPrintTo) {
+function printInsights(elementToPrintTo, daysToInclude) {
 
     // Validation, only run if n>=7 
     if (paindiary.length<7) {
@@ -38,17 +38,22 @@ function printInsights(elementToPrintTo) {
         var twoweeksago = addDays(today,-14);
         var monthago = addDays(today,-30);
         var twomonthsago = addDays(today,-60);
+        var earliestdate = "00.00.0000";
         
+        // check if we're restricting
+        if (daysToInclude!=undefined && !isNaN(daysToInclude)) {
+            earliestdate = addDays(today,(0-daysToInclude));
+        }
+
         $(elementToPrintTo).empty().append("Creating pain matrix...<br>");
         $(elementToPrintTo).empty().append('<div id="insightsloadingtemp"></div>');
-        
-        // TODO: Create option to only include last x amount of time
-        // TODO: Compare current month with last month
         
         // fill the matrix
         for (i=0;i<paindiary.length;i++) {
             // add the pain score to the global painscore list 
-            allPainScores.push(parseInt(paindiary[i].painscore));
+            if (paindiary[i].date>earliestdate) {
+                allPainScores.push(parseInt(paindiary[i].painscore));
+            }
             // add pain scores from this week and last to the lists
             if (paindiary[i].date>weekago) {
                 painThisWeek.push(parseInt(paindiary[i].painscore));
@@ -95,7 +100,11 @@ function printInsights(elementToPrintTo) {
         // work out the mean and standard devation of the pain scores
         painMean = average(allPainScores);
         
+        $("#importantInsights").append('<div class="question">summary</div>');
         $("#importantInsights").append('<div class="insight">average pain score: ' + painMean.toFixed(1) + '</div>');
+        if (earliestdate != "00.00.0000") {
+            $("#importantInsights").append('<div class="insight">(only including last ' + daysToInclude + ' days)</div>');  
+        }
         
         // if at least 2 days entered in the last week show average
         if (painThisWeek.length>2) {
@@ -119,14 +128,26 @@ function printInsights(elementToPrintTo) {
             }
         }
 
+        // give option to recalculate with certain number of days
+        $("#importantInsights").append('<hr><div class="insight">only include <input id="wantedInsightNumber"></input> days <button>go</button></div>');
+        $('#importantInsights button').last().click(function() {
+            var wantedNumber = $("#wantedInsightNumber").val();
+            if (wantedNumber!=undefined && !isNaN(wantedNumber)) {
+                printInsights(elementToPrintTo,Math.round(wantedNumber));
+            } else {
+                popupmessage("please enter a valid number of days.");
+            }
+        });
+        
+
         painSD = 0;
         for (i=0;i<allPainScores.length;i++) {
             painSD+=Math.pow((allPainScores[i] - painMean),2);
         } // painSD now is the sum of the squared differences
         painSD = Math.sqrt(painSD / allPainScores.length); 
         
-        $("#importantInsights").append('<div class="question">key insights <button class="helpbutton" id="helpbutton_insights">?</button></div>');
-        $("#lessImportantInsights").append('<div class="question">insights to consider</div>');
+        $("#importantInsights").append('<hr><div class="question">key insights <button class="helpbutton" id="helpbutton_insights">?</button></div>');
+        $("#lessImportantInsights").append('<hr><div class="question">insights to consider</div>');
         $("#helpbutton_insights").click(function(){
             popupmessage("'Key Insights' are statistically significant insights, and therefore " +
             "there is a 95% chance these are not due to chance (technical info: significant at p<0.05 with bonferroni correction.)" +
