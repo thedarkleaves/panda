@@ -3,6 +3,10 @@ var yesCount = 1;
 var noSum = 2;
 var noCount = 3;
 var allPainScores = []
+var painThisWeek = [];
+var painLastWeek = [];
+var painThisMonth = [];
+var painLastMonth = [];
 var painMean = 0;
 var painSD = 0;
 
@@ -23,8 +27,10 @@ function printInsights(elementToPrintTo) {
         // reset painscore list to caluclate the mean and SD
         allPainScores = [];
         painMean = 0;
-        painMeanThisWeek = 0;
-        painMeanThisMonth = 0;
+        painThisWeek = [];
+        painLastWeek = [];
+        painThisMonth = [];
+        painLastMonth = [];
         
         // calculate 7 and 30 days ago
         var today = todayString();
@@ -41,9 +47,21 @@ function printInsights(elementToPrintTo) {
         
         // fill the matrix
         for (i=0;i<paindiary.length;i++) {
-            // add the pain score to the global painscore list and update the global mean
+            // add the pain score to the global painscore list 
             allPainScores.push(parseInt(paindiary[i].painscore));
-            painMean+=parseInt(paindiary[i].painscore,10);
+            // add pain scores from this week and last to the lists
+            if (paindiary[i].date>weekago) {
+                painThisWeek.push(parseInt(paindiary[i].painscore));
+            } else if (paindiary[i].date>twoweeksago) {
+                painLastWeek.push(parseInt(paindiary[i].painscore));
+            }
+            // add pain scores from this month and last to the lists
+            if (paindiary[i].date>monthago) {
+                painThisMonth.push(parseInt(paindiary[i].painscore));
+            } else if (paindiary[i].date>twomonthsago) {
+                painLastMonth.push(parseInt(paindiary[i].painscore));
+            }            
+
             $("#insightsloadingtemp").empty().append(paindiary[i].date + '<div id="insightsloadingtemp1"></div>');
 
             // for each factor check if this day has it listed or not
@@ -75,16 +93,40 @@ function printInsights(elementToPrintTo) {
         $(elementToPrintTo).empty();
         $(elementToPrintTo).append('<div id="importantInsights"></div><div id="lessImportantInsights"></div>');
         // work out the mean and standard devation of the pain scores
-        painMean = (painMean / allPainScores.length);
-        $("#importantInsights").append('<div class="insight">Average pain score: ' + painMean.toFixed(1) + '</div>');
+        painMean = average(allPainScores);
+        
+        $("#importantInsights").append('<div class="insight">average pain score: ' + painMean.toFixed(1) + '</div>');
+        
+        // if at least 2 days entered in the last week show average
+        if (painThisWeek.length>2) {
+            var thisWeekMean = average(painThisWeek);
+            $("#importantInsights").append('<div class="insight">last 7 days: ' + thisWeekMean.toFixed(1) + '</div>');
+            // if at least 2 days entered the week prior, give that too
+            if (painLastWeek.length>2) {
+                var lastWeekMean = average(painLastWeek);
+                $("#importantInsights div").last().append(' (prior 7 days: ' + lastWeekMean.toFixed(1) + ')');
+            }
+        }
+
+        // if at least 2 days entered in the last month show average
+        if (painThisMonth.length>2) {
+            var thisMonthMean = average(painThisMonth);
+            $("#importantInsights").append('<div class="insight">last 30 days: ' + thisMonthMean.toFixed(1) + '</div>');
+            // if at least 2 days entered the month prior, give that too
+            if (painLastMonth.length>2) {
+                var lastMonthMean = average(painLastMonth);
+                $('#importantInsights div').last().append(' (prior 30 days: ' + lastMonthMean.toFixed(1) + ')');
+            }
+        }
+
         painSD = 0;
         for (i=0;i<allPainScores.length;i++) {
             painSD+=Math.pow((allPainScores[i] - painMean),2);
         } // painSD now is the sum of the squared differences
         painSD = Math.sqrt(painSD / allPainScores.length); 
         
-        $("#importantInsights").append('<div class="question">Key Insights <button class="helpbutton" id="helpbutton_insights">?</button></div>');
-        $("#lessImportantInsights").append('<div class="question">Inights to Consider</div>');
+        $("#importantInsights").append('<div class="question">key insights <button class="helpbutton" id="helpbutton_insights">?</button></div>');
+        $("#lessImportantInsights").append('<div class="question">insights to consider</div>');
         $("#helpbutton_insights").click(function(){
             popupmessage("'Key Insights' are statistically significant insights, and therefore " +
             "there is a 95% chance these are not due to chance (technical info: significant at p<0.05 with bonferroni correction.)" +
@@ -130,25 +172,25 @@ function printInsights(elementToPrintTo) {
             if (yesMean>noMean) {
                 // pain is higher when the factor is yes
                 if ((yesMean-confidenceStat*yesSE) > (noMean+confidenceStat*noSE)) {
-                    $("#importantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was significantly higher.</div>');
-                    $("#importantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
+                    $("#importantInsights").append('<div class="insight">pain was significantly higher with <b>' + otherinfooptions[i] + '</b>.</div>');
+                    $("#importantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
                 } else {
-                    $("#lessImportantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was a little higher.</div>');
-                    $("#lessImportantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
+                    $("#lessImportantInsights").append('<div class="insight">pain was a bit higher with <b>' + otherinfooptions[i] + '</b>.</div>');
+                    $("#lessImportantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
                 }
             } else if (noMean>yesMean) {
                 // pain is higher when the factor is no
                 if ((noMean-confidenceStat*noSE) > (yesMean+confidenceStat*yesSE)) {
-                    $("#importantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was significantly lower.</div>');
-                    $("#importantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
+                    $("#importantInsights").append('<div class="insight">pain was significantly lower with <b>' + otherinfooptions[i] + '</b>.</div>');
+                    $("#importantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
                 } else {
-                    $("#lessImportantInsights").append('<div class="insight">On days marked: <b>' + otherinfooptions[i] + '</b>, pain was a little lower.</div>');
-                    $("#lessImportantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
+                    $("#lessImportantInsights").append('<div class="insight">pain was a bit lower with <b>' + otherinfooptions[i] + '</b>.</div>');
+                    $("#lessImportantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
                 }
             } else {
                 // pain is exactly the same between factors
-                $("#lessImportantInsights").append('<div class="insight">Days were the same whether <b>' + otherinfooptions[i] + '</b> was marked or not.</div>');
-                $("#lessImportantInsights").append('<div class="insight">Yes: ' + yesMean.toFixed(1) + ' | No: ' + noMean.toFixed(1) + '</div>');
+                $("#lessImportantInsights").append('<div class="insight">pain was the same with or without <b>' + otherinfooptions[i] + '</b>.</div>');
+                $("#lessImportantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
             }
         }
     }
@@ -161,55 +203,73 @@ function printInsights(elementToPrintTo) {
  * @param {Int} numDays number of days to subtract (negative values ok)
  */
 function addDays(dateString, numDays) {
-    try {
-        var breakdown = dateString.split(".");
-        var year = parseInt(breakdown[0]);
-        var month = parseInt(breakdown[1]);
-        var day = parseInt(breakdown[2]);
-    } catch {
-        printdebug("Invalid DateString: " + dateString);
-        return "invalid dateString";
-    }
-    day += numDays;
-    if (day<1) {
-        month--;
-        if (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) {
-            day+=31;
-        } else if (month==2) {
-            if (year%4==0) {
-                day+=29;
+    // do 28 days at time (recursive)
+    if (numDays>28) {
+        return addDays(addDays(dateString,28),(numDays-28));
+    } else if (numDays<-28) {
+        return addDays(addDays(dateString,-28),(numDays+28));
+    } else {
+        try {
+            var breakdown = dateString.split(".");
+            var year = parseInt(breakdown[0]);
+            var month = parseInt(breakdown[1]);
+            var day = parseInt(breakdown[2]);
+        } catch {
+            printdebug("Invalid DateString: " + dateString);
+            return "invalid dateString";
+        }
+        day += numDays;
+        if (day<1) {
+            month--;
+            if (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) {
+                day+=31;
+            } else if (month==2) {
+                if (year%4==0) {
+                    day+=29;
+                } else {
+                    day+=28;
+                }
             } else {
-                day+=28;
+                day+=30;
             }
-        } else {
-            day+=30;
+        } else if (day>28) {
+            if ((month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) && day>31) {
+                day -= 31;
+                month++;
+            } else if ((month==2) && (year%4==0) && day>29) {
+                day-= 29;
+                month++;
+            } else if ((month==2) && day>28) {
+                day-=28;
+                month++;
+            } else if (day>30) {
+                day-=30;
+                month++;
+            }
         }
-    } else if (day>28) {
-        if ((month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) && day>31) {
-            day -= 31;
-            month++;
-        } else if ((month==2) && (year%4==0) && day>29) {
-            day-= 29;
-            month++;
-        } else if ((month==2) && day>28) {
-            day-=28;
-            month++;
-        } else if (day>30) {
-            day-=30;
-            month++;
+        if (month<1) {
+            month = 12;
+            year--;
+        } else if (month>12) {
+            month=1;
+            year++;
         }
+        // pad with zeros
+        if (month<10) { month = "0" + month; }
+        if (day<10) { day = "0" + day; }
+        
+        return year + "." + month + "." + day;
     }
-    if (month<1) {
-        month = 12;
-        year--;
-    } else if (month>12) {
-        month=1;
-        year++;
-    }
-    // pad with zeros
-    if (month<10) { month = "0" + month; }
-    if (day<10) { day = "0" + day; }
-    
-    return year + "." + month + "." + day;
+}
 
+/**
+ * Calculate the mean of an array of numbers
+ * @param {array} painScores Array of numbers
+ */
+function average(painScores) {
+    var sum = 0;
+    for (var i=0; i<painScores.length; i++) {
+        sum+=painScores[i];
+    }
+    return sum/painScores.length;
 }

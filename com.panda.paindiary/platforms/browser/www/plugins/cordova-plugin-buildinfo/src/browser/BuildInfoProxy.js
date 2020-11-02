@@ -35,7 +35,7 @@ BuildInfoProxy = {
 
         try {
             /* <EMBED_CODE> */
-            const json = {"debug":true,"buildDate":"2020-10-15T04:53:15.176Z","packageName":"com.ouchbeta.android","basePackageName":"com.ouchbeta.android","name":"PANDA Pain Diary","displayName":"PANDA Pain Diary","version":"0.1.0","versionCode":"0.1.0"};
+            const json = {"debug":true,"buildDate":"2020-11-02T06:49:15.484Z","packageName":"com.ouchbeta.android","basePackageName":"com.ouchbeta.android","name":"PANDA Pain Diary","displayName":"PANDA Pain Diary","version":"0.1.0","versionCode":"0.1.0"};
             /* </EMBED_CODE> */
 
             var ret = {
