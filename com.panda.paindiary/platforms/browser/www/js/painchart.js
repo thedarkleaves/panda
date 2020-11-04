@@ -9,7 +9,8 @@ var marginwidth = 1; // in percent
 // numdays - number of days to show
 // showHours - not used, probably to be removed
 function initPainChart(numDays,showHours) {
-
+    // TODO: Fix the abnormal spacing when the width exceeds 100% (note if the little numbers aren't position: fixed it works)...
+    // Potentially need to try and make the numbers the same as the factor labels, and insert a placeholder instead?
     var pausetime = 500;
     if (numDays>0 && numDays<100) {
         pausetime = numDays * 5;
@@ -143,21 +144,16 @@ function initPainChart(numDays,showHours) {
             $("#painbarchart").hide().append('<div id="painchartbarstitle">pain scores</div>');
             $("#painbarchart").append('<div id="painchartbars"><div>');
             maxpain = Math.max(...painscores.slice(0,graphdays));
-            // create the pain bar axis labels
-            $("#painchartbars").append('<span class="barchartbar barchartelement" id="painscoreaxislabel"></span>');
-            for (i=maxpain;i>0;i--) {
-                $("#painscoreaxislabel").append("<div>"+i+"</div>");
-                $("#painscoreaxislabel div:last").css("top",(200-i*(200/maxpain)));     
-            }
-            //$("#painscoreaxislabel").height(((100)-(marginwidth*2))+"%"); 
-            $("#painscoreaxislabel div").height(100/(maxpain) + "%");
+            // create a placeholder to space out from the left side
+            $("#painchartbars").append('<span class="barchartbar barchartelement placeholder"></span>');
+            
             // create the pain bars
             for (i=0;i<graphdays;i++) {
                 $("#painchartbars").append('<span class="barchartbar barchartelement"></span>');
                 if (painscores[i]==0) {
                     $(".barchartbar:last").height("1px");
                 } else if (painscores[i]>0) {
-                    $(".barchartbar:last").height(((100*painscores[i]/maxpain)-(marginwidth*2))+"%");
+                    $(".barchartbar:last").height(((100*painscores[i]/maxpain))+"%");
                 } else { // no data
                     $(".barchartbar:last").height("100%").addClass('nodata');
                 }
@@ -184,6 +180,18 @@ function initPainChart(numDays,showHours) {
                     }
                 }
             }
+            
+            // create the pain score numbers
+            $("#painchartbars").append('<span id="painscoreaxislabel" class="barchartelement"></span>');
+            for (i=maxpain;i>0;i--) {
+                $("#painscoreaxislabel").append("<div>"+i+"</div>");
+                $("#painscoreaxislabel div:last").css("top",(200-i*(200/maxpain)));     
+            }
+            //$("#painscoreaxislabel").height(((100)-(marginwidth*2))+"%"); 
+            $("#painscoreaxislabel div").height(100/(maxpain) + "%");
+            // $('#painscoreaxislabel').width(barwidth).offset($('#painbarchartbars').offset());
+            
+            // space everything properly
             $(".barchartelement").width(barwidth).css("margin",marginwidth);
 
             // create a brief pause

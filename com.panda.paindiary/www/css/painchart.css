@@ -46,10 +46,11 @@
 
 #painscoreaxislabel {
     font-size: 8px;
-    vertical-align: top;
-    text-align: left;
+    vertical-align: top; 
+    text-align: right;
     background: none;
     position: fixed;
+    left: 5px;
     height: 200px;
 }
 

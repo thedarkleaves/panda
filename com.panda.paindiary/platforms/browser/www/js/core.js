@@ -635,19 +635,46 @@ function changescreen(screenname) {
  */
 function printpaindiary() {
     // reset the inputs
+    var pagelength = 10;
+    var curdiarypage = 0;
+    
     $("#paindiarysummary").empty().append("<button>add missing day</button><hr>");
-    $("#paindiarysummary button").click(function() {
+    $("#paindiarysummary button:last").click(function() {
         changescreen("calendar_screen");
     });
+    $("#paindiarysummary").append("<button>back</button>");
+    $("#paindiarysummary button:last").click(function() {
+        if (curdiarypage<(Math.floor(paindiary.length/pagelength))) {
+            $(".paindiarysummarypage").hide();
+            $("#paindiarysummary_page" + ++curdiarypage).show();
+        }
+    });
+
+    $("#paindiarysummary").append("<button>forward</button>");
+    $("#paindiarysummary button:last").click(function() {
+        if (curdiarypage>0) {
+            $(".paindiarysummarypage").hide();
+            $("#paindiarysummary_page" + --curdiarypage).show();
+        }
+    });    
+    
+    /*
     for (i=paindiary.length-1;i>=0;i--) {
         printOnePainDay(i,"#paindiarysummary");
     }
-    // Jump to the date just edited
-    try {
-        $("html body").scrollTop($("#paindiary_" + cleanString(currenteditdate)).offset().top);
-    } catch(err) {
-        printdebug("could not scroll to " + currenteditdate);
+    */
+    
+    for (var j=0;j<(Math.ceil(paindiary.length/pagelength));j++) {
+        $("#paindiarysummary").append('<div id="paindiarysummary_page'+j+'" class="paindiarysummarypage"></div>');
+        for (var i=1;i<=pagelength;i++) {
+            var nextdiaryindex = (paindiary.length-i-(j*pagelength));
+            if (nextdiaryindex>=0) {
+                printOnePainDay(nextdiaryindex,"#paindiarysummary_page"+j);    
+            }
+        }
     }
+    $(".paindiarysummarypage").hide();
+    $("#paindiarysummary_page0").show();
 
     // Update the calendar
     var today = new Date();
@@ -658,6 +685,7 @@ function printpaindiary() {
 /**
  * Print a single day's data
  * @param {} paindiaryindex The index of the painrdiary array 
+ * @param {} elementToPrintTo The element to print to (string including hash if id)
  */
 function printOnePainDay(paindiaryindex,elementToPrintTo) {
     $(elementToPrintTo).append('<div class="paindiaryday" id="paindiary_' + cleanString(paindiary[paindiaryindex].date) + '"></div>');
