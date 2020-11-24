@@ -1368,13 +1368,16 @@ function makeMedDiary() {
     // med diary 1
     $("#meddiary1").html('<span class="question">which medications did you use?</span><br>');
     for (i=0;i<meds.length;i++) {
-        // create each medication
-        $("#meddiary1").append('<button class="toggle med" id="medbutton_' + cleanString(meds[i][0]) + '">' + meds[i][0] + '</button>');
-        for (j=0;j<meds[i][1].length;j++) {
-            // create each dose button
-            $("#meddiary1").append('<button class="toggle dose" id="medbutton_' + cleanString(meds[i][0]) + '_' + cleanString(meds[i][1][j]) + '">' + meds[i][1][j] + '</button> ');
+        // only include "wanted" medications
+        if (meds[i][2]) {
+            // create each medication
+            $("#meddiary1").append('<button class="toggle med" id="medbutton_' + cleanString(meds[i][0]) + '">' + meds[i][0] + '</button>');
+            for (j=0;j<meds[i][1].length;j++) {
+                // create each dose button
+                $("#meddiary1").append('<button class="toggle dose" id="medbutton_' + cleanString(meds[i][0]) + '_' + cleanString(meds[i][1][j]) + '">' + meds[i][1][j] + '</button> ');
+            }
+            $("#meddiary1").append('<input class="mednum" id="mednumber_' + cleanString(meds[i][0]) + '" placeholder="how many?" type="number"><br class="endmed">');
         }
-        $("#meddiary1").append('<input class="mednum" id="mednumber_' + cleanString(meds[i][0]) + '" placeholder="how many?" type="number"><br class="endmed">');
     }
     $("#meddiary1").append('<br><button class="command" id="changemeds">manage medications</button>');
     $("#changemeds").click(function() {
