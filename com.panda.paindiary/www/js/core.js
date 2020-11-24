@@ -16,10 +16,9 @@ var otherinfooptions = ["period","diarrhoea","constipated","stressed"];
 var medsused = [];
 var notificationsOn = true;
 var currenteditdate;
-var backScreen;
 var storage = window.localStorage;
 var calendar_iterator = 0;
-var lastfewscreens = []
+var lastfewscreens = [];
 var meds = [];
 var defaultmeds = {
     "medication": [
@@ -319,7 +318,7 @@ function updatemeddoses(medindex) {
         });
         meds[medindex][1] = thismeddoses;
         $("#wantedmeds").append('<div class="managesinglemed">' + meds[medindex][0] + 
-            '<button class="managedoses">manage doses</button><button class="killmed" id="'+ meds[medindex][0] + '">remove</button></div>');
+            '<button class="managedoses">doses</button><button class="killmed" id="'+ meds[medindex][0] + '">remove</button></div>');
         $(".managedoses:last").click(function() {
             $(this).unbind('click').click(function() {
                 $(this).parent().children('.dosemanager').toggle();
@@ -622,12 +621,18 @@ function changescreen(screenname) {
     if (screenname=="home") {
         if (todaylogged) {
             $("#logtoday").hide();
+        } else {
+            $("#logtoday").show();
         }
     }
     if (screenname=="paindiary3") {
         $("#painhoursquestion").append("for how many hours was your pain more 'than " + painscore + " out of 10?");
     }
-    lastfewscreens.push(screenname);
+    if (screenname!="controls") {
+        lastfewscreens.push(screenname);
+        printdebug("Last Few Screns: " + lastfewscreens);
+    }
+    
 }
 
 /**
@@ -814,14 +819,16 @@ function popupmessage(message) {
 }
 
 function pressedBack() {
-    if (lastfewscreens.length=0) {
+    if (lastfewscreens.length<=1) {
         popupmessage("nothing to go back to.");
     } else {
-        backScreen = lastfewscreens.pop();
+        // remove the current screen from the list, then get the last screen remaining
+        lastfewscreens.pop();
+        printdebug("Last Few Screens: " + lastfewscreens);
+        var backScreen = lastfewscreens.pop();
+        printdebug("trying to go back to " + backScreen);
         if (backScreen=="journal") {
             popupmessage("can't go back to the journal page."); // TODO: fix this
-        } else if (backScreen=="controls") {
-            pressedBack();
         } else {
             changescreen(backScreen);
         }
