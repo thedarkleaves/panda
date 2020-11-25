@@ -318,7 +318,7 @@ function updatemeddoses(medindex) {
         });
         meds[medindex][1] = thismeddoses;
         $("#wantedmeds").append('<div class="managesinglemed">' + meds[medindex][0] + 
-            '<button class="managedoses">manage doses</button><button class="killmed" id="'+ meds[medindex][0] + '">remove</button></div>');
+            '<button class="managedoses">doses</button><button class="killmed" id="'+ meds[medindex][0] + '">remove</button></div>');
         $(".managedoses:last").click(function() {
             $(this).unbind('click').click(function() {
                 $(this).parent().children('.dosemanager').toggle();

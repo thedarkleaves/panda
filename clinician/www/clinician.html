@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <!-- load jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- load jspdf -->
+        <script src="https://cdn.jsdelivr.net/npm/dompurify@2.0.12/dist/purify.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.1.1/jspdf.umd.min.js"></script>
+        <script>
+            var jsPDF = window.jspdf.jsPDF;
+            function makepdf() {
+                var doc = new jsPDF();
+
+                doc.html("<div>this is text</div>", {
+                    callback: function (doc) {
+                        doc.save();
+                    },
+                    x: 10,
+                    y: 10
+                });
+            }
+        </script>
+    </head>
+    <body>
+
+        <button onclick="makepdf()">make a pdf</button>
+        <div id="adivwithhtml">
+            <b>this is some text</b><br>
+            <hr>
+            <u>some more text</u><br>
+            <table>
+                <tr>
+                    <td>a table</td>
+                    <td>with some</td>
+                </tr>
+                <tr>
+                    <td>words</td>
+                    <td>in it</td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

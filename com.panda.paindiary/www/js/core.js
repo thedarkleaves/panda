@@ -852,13 +852,14 @@ var app = {
         printdebug("initialising firebase");
         // firebase config
         var firebaseConfig = {
-            apiKey: "AIzaSyAnj7PINJSyw5HuwTV-_9RBaNpnAJzGlLQ",
-            authDomain: "ouch-beta-mobile.firebaseapp.com",
-            databaseURL: "https://ouch-beta-mobile.firebaseio.com",
-            projectId: "ouch-beta-mobile",
-            storageBucket: "ouch-beta-mobile.appspot.com",
-            messagingSenderId: "380054382603",
-            appId: "1:380054382603:web:8c178d048c771515"
+            apiKey: "AIzaSyBpswv3urspqLGm0HVJV7dkQwrhUoMuyWM",
+            authDomain: "panda-paindiary.firebaseapp.com",
+            databaseURL: "https://panda-paindiary.firebaseio.com",
+            projectId: "panda-paindiary",
+            storageBucket: "panda-paindiary.appspot.com",
+            messagingSenderId: "508945478811",
+            appId: "1:508945478811:web:9524176af30bcf8d8c823e",
+            measurementId: "G-TKCG6YY89R"
         };
         // initialize firebase
         firebase.initializeApp(firebaseConfig);    
