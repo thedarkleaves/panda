@@ -20,7 +20,7 @@
 
     <!-- universal links -->
     <universal-links>
-        <host name="panda-paindiary.page.link" scheme="https" />
+        <host name="pandapaindiary.page.link" scheme="https" />
         <host name="panda-paindiary.firebaseapp.com" scheme="https">
             <path url="/__/auth/callback"/>
         </host>
