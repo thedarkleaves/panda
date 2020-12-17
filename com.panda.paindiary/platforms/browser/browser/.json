@@ -1,0 +1,22 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "AndroidManifest.xml": {
+        "parents": {
+          "/manifest/application/activity": [
+            {
+              "xml": "<intent-filter android:autoVerify=\"true\"><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /><data android:host=\"panda-paindiary.firebaseapp.com\" android:pathPrefix=\"/__/auth/callback\" android:scheme=\"https\" /></intent-filter>",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "installed_plugins": {},
+  "dependent_plugins": {}
+}

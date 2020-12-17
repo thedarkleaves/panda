@@ -37,7 +37,7 @@ function initPainChart(numDays,showHours) {
         var graphdays = 0;
         var graphpaindays = 1;
 
-        while (graphpaindays<paindiary.length) {
+        while (graphpaindays<paindiary.length || graphdays<numDays) {
             //printdebug("graph day : " + graphdays + "(found " + graphpaindays + " of " + paindiary.length + ")");
             if (month<10) { month = "0" + parseInt(month,10); }
             if (day<10) { day = "0" + parseInt(day,10); }

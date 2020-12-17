@@ -852,13 +852,14 @@ var app = {
         printdebug("initialising firebase");
         // firebase config
         var firebaseConfig = {
-            apiKey: "AIzaSyAnj7PINJSyw5HuwTV-_9RBaNpnAJzGlLQ",
-            authDomain: "ouch-beta-mobile.firebaseapp.com",
-            databaseURL: "https://ouch-beta-mobile.firebaseio.com",
-            projectId: "ouch-beta-mobile",
-            storageBucket: "ouch-beta-mobile.appspot.com",
-            messagingSenderId: "380054382603",
-            appId: "1:380054382603:web:8c178d048c771515"
+            apiKey: "AIzaSyBpswv3urspqLGm0HVJV7dkQwrhUoMuyWM",
+            authDomain: "panda-paindiary.firebaseapp.com",
+            databaseURL: "https://panda-paindiary.firebaseio.com",
+            projectId: "panda-paindiary",
+            storageBucket: "panda-paindiary.appspot.com",
+            messagingSenderId: "508945478811",
+            appId: "1:508945478811:web:9524176af30bcf8d8c823e",
+            measurementId: "G-TKCG6YY89R"
         };
         // initialize firebase
         firebase.initializeApp(firebaseConfig);    
@@ -884,20 +885,32 @@ var app = {
                     // check if user is new or existing
                     var currentuserref = db.collection("users").doc(user.uid);
                     currentuserref.get().then(function(currentuser) {
+                    // var currentuser = currentuserref.get();
+                    printdebug("attempted to get current user from database");
                         if (currentuser.exists) {
                             userid=user.uid;
                             username=encryptor.decrypt(currentuser.data().name);
                             printdebug("logged in as :" + username);
-                            $("#nhi").val(encryptor.decrypt(currentuser.data().NHI));
+                            var NHIencrypted = currentuser.data().NHI;
+                            var NHIdecrypted;
+                            if (NHIencrypted === null) {
+                                NHIdecrypted = "";
+                            } else {
+                                NHIdecrypted = encryptor.decrypt(NHIencrypted);
+                            }
+                            $("#nhi").val(NHIdecrypted);
+                            
+                            printdebug("NHI loaded");
                             updatepaindiary();
                             updateproviders();
                             updatestudies();
                             updatemeds();
                         } else {
                             // add the user to the database
-                            console.log("new user");
+                            printdebug("new user: "+ user.uid);
+                            var encryptedname = encryptor.encrypt(user.displayName);
                             db.collection("users").doc(user.uid).set({
-                                name: encyptor.encrypt(user.displayName),
+                                name: encryptedname,
                                 uid: user.uid,
                                 NHI:null,
                             })
@@ -908,19 +921,24 @@ var app = {
                                 printdebug("Error adding new user: ", error);
                             });
                             userid=user.uid;
+                            
                             // add default meds
                             for (i=0;i<defaultmeds.medication.length;i++) {
                                 db.collection("users").doc(user.uid).collection("meds").doc(defaultmeds.medication[i].name).set({    
                                     name: defaultmeds.medication[i].name,
-                                    dose: defaultmeds.medication[i].dose
-                                })
-                                .then(function(docref) {
-                                    printdebug("Default meds added to database.");
-                                })
-                                .catch(function(error) {
-                                    printdebug("Error adding default meds.");
                                 });
+                                
+                                for (j=0;j<defaultmeds.medication[i].dose.length;j++) {
+                                    printdebug("adding dose for " + defaultmeds.medication[i].name);
+                                    db.collection("users").doc(user.uid).collection("meds").doc(defaultmeds.medication[i].name).collection("dose").doc(defaultmeds.medication[i].dose[j]).set({
+                                        id: defaultmeds.medication[i].dose[j]
+                                    });    
+                                }
                             }
+
+                            // successfully created user, load the pain diary
+                            updatepaindiary();
+                            updatemeds();
                             
                         }
                     }).catch(function(error) {

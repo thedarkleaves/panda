@@ -640,14 +640,14 @@ function changescreen(screenname) {
  */
 function printpaindiary() {
     // reset the inputs
-    var pagelength = 10;
+    var pagelength = 7;
     var curdiarypage = 0;
     
     $("#paindiarysummary").empty().append("<button>add missing day</button><hr>");
     $("#paindiarysummary button:last").click(function() {
         changescreen("calendar_screen");
     });
-    $("#paindiarysummary").append("<button>back</button>");
+    $("#paindiarysummary").append("<button>prev week</button>");
     $("#paindiarysummary button:last").click(function() {
         if (curdiarypage<(Math.floor(paindiary.length/pagelength))) {
             $(".paindiarysummarypage").hide();
@@ -655,7 +655,7 @@ function printpaindiary() {
         }
     });
 
-    $("#paindiarysummary").append("<button>forward</button>");
+    $("#paindiarysummary").append("<button>next week</button><hr>");
     $("#paindiarysummary button:last").click(function() {
         if (curdiarypage>0) {
             $(".paindiarysummarypage").hide();
@@ -885,20 +885,32 @@ var app = {
                     // check if user is new or existing
                     var currentuserref = db.collection("users").doc(user.uid);
                     currentuserref.get().then(function(currentuser) {
+                    // var currentuser = currentuserref.get();
+                    printdebug("attempted to get current user from database");
                         if (currentuser.exists) {
                             userid=user.uid;
                             username=encryptor.decrypt(currentuser.data().name);
                             printdebug("logged in as :" + username);
-                            $("#nhi").val(encryptor.decrypt(currentuser.data().NHI));
+                            var NHIencrypted = currentuser.data().NHI;
+                            var NHIdecrypted;
+                            if (NHIencrypted === null) {
+                                NHIdecrypted = "";
+                            } else {
+                                NHIdecrypted = encryptor.decrypt(NHIencrypted);
+                            }
+                            $("#nhi").val(NHIdecrypted);
+                            
+                            printdebug("NHI loaded");
                             updatepaindiary();
                             updateproviders();
                             updatestudies();
                             updatemeds();
                         } else {
                             // add the user to the database
-                            console.log("new user");
+                            printdebug("new user: "+ user.uid);
+                            var encryptedname = encryptor.encrypt(user.displayName);
                             db.collection("users").doc(user.uid).set({
-                                name: encyptor.encrypt(user.displayName),
+                                name: encryptedname,
                                 uid: user.uid,
                                 NHI:null,
                             })
@@ -909,19 +921,24 @@ var app = {
                                 printdebug("Error adding new user: ", error);
                             });
                             userid=user.uid;
+                            
                             // add default meds
                             for (i=0;i<defaultmeds.medication.length;i++) {
                                 db.collection("users").doc(user.uid).collection("meds").doc(defaultmeds.medication[i].name).set({    
                                     name: defaultmeds.medication[i].name,
-                                    dose: defaultmeds.medication[i].dose
-                                })
-                                .then(function(docref) {
-                                    printdebug("Default meds added to database.");
-                                })
-                                .catch(function(error) {
-                                    printdebug("Error adding default meds.");
                                 });
+                                
+                                for (j=0;j<defaultmeds.medication[i].dose.length;j++) {
+                                    printdebug("adding dose for " + defaultmeds.medication[i].name);
+                                    db.collection("users").doc(user.uid).collection("meds").doc(defaultmeds.medication[i].name).collection("dose").doc(defaultmeds.medication[i].dose[j]).set({
+                                        id: defaultmeds.medication[i].dose[j]
+                                    });    
+                                }
                             }
+
+                            // successfully created user, load the pain diary
+                            updatepaindiary();
+                            updatemeds();
                             
                         }
                     }).catch(function(error) {

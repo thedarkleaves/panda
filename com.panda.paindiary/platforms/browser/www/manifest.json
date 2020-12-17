@@ -3,7 +3,7 @@
   "display": "standalone",
   "name": "PANDA Pain Diary",
   "short_name": "PANDA Pain Diary",
-  "version": "com.ouchbeta.android",
+  "version": "com.pandapaindiary.android",
   "description": "A pain diary.",
   "author": "Thedar Kleaves",
   "icons": [

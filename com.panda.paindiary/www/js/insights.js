@@ -129,7 +129,7 @@ function printInsights(elementToPrintTo, daysToInclude) {
         }
 
         // give option to recalculate with certain number of days
-        $("#importantInsights").append('<hr><div class="insight">only include <input id="wantedInsightNumber"></input> days <button>go</button></div>');
+        $("#importantInsights").append('<hr><div class="insight">insights for last <input id="wantedInsightNumber" size="4"></input> days <button>go</button></div>');
         $('#importantInsights button').last().click(function() {
             var wantedNumber = $("#wantedInsightNumber").val();
             if (wantedNumber!=undefined && !isNaN(wantedNumber)) {
@@ -181,37 +181,40 @@ function printInsights(elementToPrintTo, daysToInclude) {
 
         // process the matrix to figure out if each factor is significant
         for (i=0;i<otherinfooptions.length;i++) {
-            // calculate the standard error for this factor Yes
-            var yesSE = painSD / Math.sqrt(factorsInsightsMatrix[i][yesSum]);
-            var yesMean = factorsInsightsMatrix[i][yesSum] / factorsInsightsMatrix[i][yesCount];
-        
-            // calculate the standard error for this factor No
-            var noSE = painSD / Math.sqrt(factorsInsightsMatrix[i][noSum]);
-            var noMean = factorsInsightsMatrix[i][noSum] / factorsInsightsMatrix[i][noCount];
-        
+            // skip if there were no incidences of the factor in this time period
+            if (factorsInsightsMatrix[i][yesSum]>0) {
+                // calculate the standard error for this factor Yes
+                var yesSE = painSD / Math.sqrt(factorsInsightsMatrix[i][yesSum]);
+                var yesMean = factorsInsightsMatrix[i][yesSum] / factorsInsightsMatrix[i][yesCount];
+            
+                // calculate the standard error for this factor No
+                var noSE = painSD / Math.sqrt(factorsInsightsMatrix[i][noSum]);
+                var noMean = factorsInsightsMatrix[i][noSum] / factorsInsightsMatrix[i][noCount];
+            
 
-            if (yesMean>noMean) {
-                // pain is higher when the factor is yes
-                if ((yesMean-confidenceStat*yesSE) > (noMean+confidenceStat*noSE)) {
-                    $("#importantInsights").append('<div class="insight">pain was significantly higher with <b>' + otherinfooptions[i] + '</b>.</div>');
-                    $("#importantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
+                if (yesMean>noMean) {
+                    // pain is higher when the factor is yes
+                    if ((yesMean-confidenceStat*yesSE) > (noMean+confidenceStat*noSE)) {
+                        $("#importantInsights").append('<div class="insight">pain was significantly higher with <b>' + otherinfooptions[i] + '</b>.</div>');
+                        $("#importantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
+                    } else {
+                        $("#lessImportantInsights").append('<div class="insight">pain was a bit higher with <b>' + otherinfooptions[i] + '</b>.</div>');
+                        $("#lessImportantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
+                    }
+                } else if (noMean>yesMean) {
+                    // pain is higher when the factor is no
+                    if ((noMean-confidenceStat*noSE) > (yesMean+confidenceStat*yesSE)) {
+                        $("#importantInsights").append('<div class="insight">pain was significantly lower with <b>' + otherinfooptions[i] + '</b>.</div>');
+                        $("#importantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
+                    } else {
+                        $("#lessImportantInsights").append('<div class="insight">pain was a bit lower with <b>' + otherinfooptions[i] + '</b>.</div>');
+                        $("#lessImportantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
+                    }
                 } else {
-                    $("#lessImportantInsights").append('<div class="insight">pain was a bit higher with <b>' + otherinfooptions[i] + '</b>.</div>');
+                    // pain is exactly the same between factors
+                    $("#lessImportantInsights").append('<div class="insight">pain was the same with or without <b>' + otherinfooptions[i] + '</b>.</div>');
                     $("#lessImportantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
                 }
-            } else if (noMean>yesMean) {
-                // pain is higher when the factor is no
-                if ((noMean-confidenceStat*noSE) > (yesMean+confidenceStat*yesSE)) {
-                    $("#importantInsights").append('<div class="insight">pain was significantly lower with <b>' + otherinfooptions[i] + '</b>.</div>');
-                    $("#importantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
-                } else {
-                    $("#lessImportantInsights").append('<div class="insight">pain was a bit lower with <b>' + otherinfooptions[i] + '</b>.</div>');
-                    $("#lessImportantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
-                }
-            } else {
-                // pain is exactly the same between factors
-                $("#lessImportantInsights").append('<div class="insight">pain was the same with or without <b>' + otherinfooptions[i] + '</b>.</div>');
-                $("#lessImportantInsights").append('<div class="insight">(with ' + otherinfooptions[i]+ ': ' + yesMean.toFixed(1) + ', without: ' + noMean.toFixed(1) + ')</div>');
             }
         }
     }
