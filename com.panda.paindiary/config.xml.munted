@@ -1,27 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ouchbeta.android" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<widget id="com.panda.paindiary" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     
     <!-- general app data-->
     <name>PANDA Pain Diary</name>
     <description>
         A pain diary.
     </description>
-    <author email="thedar.kleaves@zohomail.com.au" href="http://appreciatethesauce.blogspot.com">
+    <author email="thedar.kleaves@zohomail.com.au" href="http://panda-paindiary.web.app/">
         Thedar Kleaves
     </author>
     <icon src="res/appstore.png" />
 
     <!-- specific preferences -->
     <preference name="AndroidLaunchMode" value="singleTask" />
-    <preference name="android-targetSdkVersion" value="28" />
+    <preference name="android-targetSdkVersion" value="29" />
     <preference name="android-minSdkVersion" value="22" />
     
     <content src="index.html" />
 
     <!-- universal links -->
     <universal-links>
-        <host name="ouchbeta.page.link" scheme="https" />
-        <host name="ouch-beta-mobile.firebaseapp.com" scheme="https">
+        <host name="panda-paindiary.page.link" scheme="https" />
+        <host name="panda-paindiary.firebaseapp.com" scheme="https">
             <path url="/__/auth/callback"/>
         </host>
     </universal-links>
@@ -32,7 +32,17 @@
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:host="ouch-beta-mobile.firebaseapp.com" android:pathPrefix="/__/auth/callback" android:scheme="https" />
+            <data android:host="panda-paindiary.firebaseapp.com" android:pathPrefix="/__/auth/callback" android:scheme="https" />
+        </intent-filter>
+    </config-file>
+
+    <!-- required to make universal links work in android -->
+    <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:host="panda-paindiary.firebaseapp.com" android:pathPrefix="/__/auth/callback" android:scheme="https" />
         </intent-filter>
     </config-file>
 
@@ -65,3 +75,4 @@
     </platform>
     -->
 </widget>
+
