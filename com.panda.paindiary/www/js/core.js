@@ -820,7 +820,7 @@ function popupmessage(message) {
 
 function pressedBack() {
     if (lastfewscreens.length<=1) {
-        popupmessage("nothing to go back to.");
+        // nothing to go back to
     } else {
         // remove the current screen from the list, then get the last screen remaining
         lastfewscreens.pop();
@@ -828,7 +828,7 @@ function pressedBack() {
         var backScreen = lastfewscreens.pop();
         printdebug("trying to go back to " + backScreen);
         if (backScreen=="journal") {
-            popupmessage("can't go back to the journal page."); // TODO: fix this
+            // can't go back to the journal page (cause it's already been submitted to the database)
         } else {
             changescreen(backScreen);
         }
@@ -1099,18 +1099,7 @@ var app = {
             $("#paindiary2 button").removeClass("toggleTrue");
         });
 
-        /* #paindiary3 (removed)
-        for (i=1;i<=24;i++) {
-            $("#paindiary3").append('<button class="1to24" id="painhours'+i+'">'+i+'</button>');
-            $("#painhours"+i).click(function(){
-                painhours=$(this).attr("id").split("painhours")[1];
-            });
-        }
-        $(".1to24").click(function(){
-            changescreen("paindiary4");
-        });
-        */
-
+        
         // #paindiary4 deferred until paindiary loaded, needs to be reloaded every entry
         // #meddiary1 as above 
         
