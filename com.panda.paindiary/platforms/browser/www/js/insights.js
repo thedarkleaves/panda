@@ -129,7 +129,7 @@ function printInsights(elementToPrintTo, daysToInclude) {
         }
 
         // give option to recalculate with certain number of days
-        $("#importantInsights").append('<hr><div class="insight">insights for last <input id="wantedInsightNumber"></input> days <button>go</button></div>');
+        $("#importantInsights").append('<hr><div class="insight">insights for last <input id="wantedInsightNumber" size="4"></input> days <button>go</button></div>');
         $('#importantInsights button').last().click(function() {
             var wantedNumber = $("#wantedInsightNumber").val();
             if (wantedNumber!=undefined && !isNaN(wantedNumber)) {

@@ -640,14 +640,14 @@ function changescreen(screenname) {
  */
 function printpaindiary() {
     // reset the inputs
-    var pagelength = 10;
+    var pagelength = 7;
     var curdiarypage = 0;
     
     $("#paindiarysummary").empty().append("<button>add missing day</button><hr>");
     $("#paindiarysummary button:last").click(function() {
         changescreen("calendar_screen");
     });
-    $("#paindiarysummary").append("<button>back</button>");
+    $("#paindiarysummary").append("<button>prev week</button>");
     $("#paindiarysummary button:last").click(function() {
         if (curdiarypage<(Math.floor(paindiary.length/pagelength))) {
             $(".paindiarysummarypage").hide();
@@ -655,7 +655,7 @@ function printpaindiary() {
         }
     });
 
-    $("#paindiarysummary").append("<button>forward</button>");
+    $("#paindiarysummary").append("<button>next week</button><hr>");
     $("#paindiarysummary button:last").click(function() {
         if (curdiarypage>0) {
             $(".paindiarysummarypage").hide();
