@@ -13,7 +13,7 @@
 
     <!-- specific preferences -->
     <preference name="AndroidLaunchMode" value="singleTask" />
-    <preference name="android-targetSdkVersion" value="28" />
+    <preference name="android-targetSdkVersion" value="29" />
     <preference name="android-minSdkVersion" value="22" />
     
     <content src="index.html" />
@@ -25,6 +25,16 @@
             <path url="/__/auth/callback"/>
         </host>
     </universal-links>
+
+    <!-- required to make universal links work in android -->
+    <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:host="panda-paindiary.firebaseapp.com" android:pathPrefix="/__/auth/callback" android:scheme="https" />
+        </intent-filter>
+    </config-file>
 
     <!-- required to make universal links work in android -->
     <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
